@@ -1,7 +1,8 @@
-package ru.miel
+package ru.miel.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import ru.miel.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
