@@ -20,14 +20,7 @@
     <!-- TODO: Текст для fragment_showcase -->
     <string name="filter">Фильтр</string>
     <string name="dating_in_miel">Обучение в Миэль</string>
-    <string name="realtor_profession">Введение в профессию риелтор</string>
-    <string name="juridical_course">Базовый юридический курс</string>
-    <string name="mortgage">Курс “Ипотека”</string>
-    <string name="taxation">Курс Налогообложение</string>
     <string name="achievements">Достижения</string>
-    <string name="objects">Объекты</string>
-    <string name="clients">Клиенты</string>
-    <string name="invite">Пригласить</string>
 
 
 </resources>

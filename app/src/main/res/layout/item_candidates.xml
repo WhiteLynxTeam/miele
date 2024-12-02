@@ -23,7 +23,6 @@
         android:textSize="12sp"
         android:fontFamily="@font/pt_sans_regular"
         android:textColor="@color/text_date"
-        android:text="22 года"
         app:layout_constraintStart_toEndOf="@id/iv_avatar"
         app:layout_constraintBottom_toBottomOf="@id/iv_avatar"/>
 
@@ -35,7 +34,6 @@
         android:textSize="12sp"
         android:fontFamily="@font/pt_sans_regular"
         android:textColor="@color/text_date"
-        android:text="Москва"
         app:layout_constraintStart_toEndOf="@id/tv_year"
         app:layout_constraintBottom_toBottomOf="@id/iv_avatar"/>
 
@@ -46,7 +44,6 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:fontFamily="@font/pt_sans_regular"
-        android:text="Романова Мария Ивановна"
         app:layout_constraintStart_toStartOf="@id/tv_year"
         app:layout_constraintBottom_toTopOf="@id/tv_year"/>
 
@@ -86,7 +83,6 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:fontFamily="@font/pt_sans_regular"
-        android:text="@string/realtor_profession"
         app:layout_constraintStart_toEndOf="@id/indicator_realtor"
         app:layout_constraintBottom_toBottomOf="@id/indicator_realtor"
         app:layout_constraintTop_toTopOf="@id/indicator_realtor"/>
@@ -107,7 +103,6 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:fontFamily="@font/pt_sans_regular"
-        android:text="@string/juridical_course"
         app:layout_constraintStart_toEndOf="@id/indicator_juridical_course"
         app:layout_constraintBottom_toBottomOf="@id/indicator_juridical_course"
         app:layout_constraintTop_toTopOf="@id/indicator_juridical_course"/>
@@ -128,7 +123,6 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:fontFamily="@font/pt_sans_regular"
-        android:text="@string/mortgage"
         app:layout_constraintStart_toEndOf="@id/indicator_mortgage"
         app:layout_constraintBottom_toBottomOf="@id/indicator_mortgage"
         app:layout_constraintTop_toTopOf="@id/indicator_mortgage"/>
@@ -149,7 +143,6 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/text_date"
         android:fontFamily="@font/pt_sans_regular"
-        android:text="@string/taxation"
         app:layout_constraintStart_toEndOf="@id/indicator_taxation"
         app:layout_constraintBottom_toBottomOf="@id/indicator_taxation"
         app:layout_constraintTop_toTopOf="@id/indicator_taxation"/>
@@ -160,8 +153,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/pt_sans_regular"
-        android:textColor="@color/magenta"
         android:text="@string/achievements"
+        android:textColor="@color/magenta"
         app:layout_constraintStart_toStartOf="@id/iv_avatar"
         app:layout_constraintTop_toBottomOf="@id/indicator_taxation"/>
 
@@ -181,7 +174,6 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:fontFamily="@font/pt_sans_regular"
-        android:text="@string/objects"
         app:layout_constraintStart_toEndOf="@id/indicator_objects"
         app:layout_constraintBottom_toBottomOf="@id/indicator_objects"
         app:layout_constraintTop_toTopOf="@id/indicator_objects"/>
@@ -204,7 +196,6 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:fontFamily="@font/pt_sans_regular"
-        android:text="@string/clients"
         app:layout_constraintStart_toEndOf="@id/indicator_clients"
         app:layout_constraintBottom_toBottomOf="@id/indicator_clients"
         app:layout_constraintTop_toTopOf="@id/indicator_clients"/>
@@ -217,7 +208,6 @@
         android:background="@color/orange"
         android:fontFamily="@font/pt_sans_regular"
         android:textSize="18sp"
-        android:text="@string/invite"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/iv_favorites"

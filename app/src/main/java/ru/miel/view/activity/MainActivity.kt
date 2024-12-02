@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         // Установка даты в header
         binding.tvDate.text = SimpleDateFormat("EEEE, d MMMM yyyy 'года'", Locale("ru")).format(Date()).replaceFirstChar { it.uppercase() }
+
     }
 
     // Метод для управления видимостью элементов в activity_main
