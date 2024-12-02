@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_border_lime">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/img_avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="12sp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textColor="@color/text_date"
+        android:text="22 года"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"/>
+
+    <TextView
+        android:id="@+id/tv_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textSize="12sp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textColor="@color/text_date"
+        android:text="Москва"
+        app:layout_constraintStart_toEndOf="@id/tv_year"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="Романова Мария Ивановна"
+        app:layout_constraintStart_toStartOf="@id/tv_year"
+        app:layout_constraintBottom_toTopOf="@id/tv_year"/>
+
+    <ImageView
+        android:id="@+id/iv_favorites"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/ic_favorites"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_dating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textColor="@color/magenta"
+        android:text="@string/dating_in_miel"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/iv_avatar"/>
+
+    <View
+        android:id="@+id/indicator_realtor"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/turquoise"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_dating"/>
+
+    <TextView
+        android:id="@+id/tv_realtor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/realtor_profession"
+        app:layout_constraintStart_toEndOf="@id/indicator_realtor"
+        app:layout_constraintBottom_toBottomOf="@id/indicator_realtor"
+        app:layout_constraintTop_toTopOf="@id/indicator_realtor"/>
+
+    <View
+        android:id="@+id/indicator_juridical_course"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/yellow"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/indicator_realtor"/>
+
+    <TextView
+        android:id="@+id/tv_juridical_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/juridical_course"
+        app:layout_constraintStart_toEndOf="@id/indicator_juridical_course"
+        app:layout_constraintBottom_toBottomOf="@id/indicator_juridical_course"
+        app:layout_constraintTop_toTopOf="@id/indicator_juridical_course"/>
+
+    <View
+        android:id="@+id/indicator_mortgage"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/violet"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/indicator_juridical_course"/>
+
+    <TextView
+        android:id="@+id/tv_mortgage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/mortgage"
+        app:layout_constraintStart_toEndOf="@id/indicator_mortgage"
+        app:layout_constraintBottom_toBottomOf="@id/indicator_mortgage"
+        app:layout_constraintTop_toTopOf="@id/indicator_mortgage"/>
+
+    <View
+        android:id="@+id/indicator_taxation"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/lime"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/indicator_mortgage"/>
+
+    <TextView
+        android:id="@+id/tv_taxation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/text_date"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/taxation"
+        app:layout_constraintStart_toEndOf="@id/indicator_taxation"
+        app:layout_constraintBottom_toBottomOf="@id/indicator_taxation"
+        app:layout_constraintTop_toTopOf="@id/indicator_taxation"/>
+
+    <TextView
+        android:id="@+id/tv_achievements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textColor="@color/magenta"
+        android:text="@string/achievements"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/indicator_taxation"/>
+
+    <View
+        android:id="@+id/indicator_objects"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/orange"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_achievements"/>
+
+    <TextView
+        android:id="@+id/tv_objects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/objects"
+        app:layout_constraintStart_toEndOf="@id/indicator_objects"
+        app:layout_constraintBottom_toBottomOf="@id/indicator_objects"
+        app:layout_constraintTop_toTopOf="@id/indicator_objects"/>
+
+    <View
+        android:id="@+id/indicator_clients"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/lime"
+        app:layout_constraintStart_toStartOf="@id/iv_avatar"
+        app:layout_constraintTop_toBottomOf="@id/indicator_objects"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_clients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/clients"
+        app:layout_constraintStart_toEndOf="@id/indicator_clients"
+        app:layout_constraintBottom_toBottomOf="@id/indicator_clients"
+        app:layout_constraintTop_toTopOf="@id/indicator_clients"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_invite"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        app:layout_constraintWidth_percent="0.4"
+        android:background="@color/orange"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="18sp"
+        android:text="@string/invite"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/iv_favorites"
+        app:layout_constraintBottom_toBottomOf="@id/indicator_clients"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
