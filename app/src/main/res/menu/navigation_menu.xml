@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_home_selector"
         android:title="@string/home"
         app:showAsAction="withText" />
     <item
         android:id="@+id/showcase"
-        android:icon="@drawable/ic_showcase"
+        android:icon="@drawable/ic_showcase_selector"
         android:title="@string/showcase"
         app:showAsAction="withText" />
     <item
         android:id="@+id/favorites"
-        android:icon="@drawable/ic_favorites"
+        android:icon="@drawable/ic_favorites_selector"
         android:title="@string/favorites"
         app:showAsAction="withText" />
     <item
         android:id="@+id/office"
-        android:icon="@drawable/ic_office"
+        android:icon="@drawable/ic_office_selector"
         android:title="@string/office"
         app:showAsAction="withText" />
 </menu>
