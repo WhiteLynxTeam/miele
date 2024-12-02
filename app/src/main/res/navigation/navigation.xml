@@ -9,5 +9,14 @@
         android:id="@+id/authFragment"
         android:name="ru.miel.view.auth.AuthFragment"
         android:label="fragment_auth"
-        tools:layout="@layout/fragment_auth" />
+        tools:layout="@layout/fragment_auth" >
+        <action
+            android:id="@+id/action_authFragment_to_showcaseFragment"
+            app:destination="@id/showcaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/showcaseFragment"
+        android:name="ru.miel.view.administrator.ShowcaseFragment"
+        android:label="fragment_showcase"
+        tools:layout="@layout/fragment_showcase" />
 </navigation>

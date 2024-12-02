@@ -3,11 +3,31 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- TODO: Текст для fragment_auth -->
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="sign_in">Войти</string>
     <string name="forgot_your_password">Забыли пароль?</string>
     <string name="agreement">Выполняя вход в аккаунт вы соглашаетесь с Условиями и Политикой конфиденциальности</string>
     <string name="welcome">Добро пожаловать!</string>
+
+    <!-- TODO: Текст для navigation_menu -->
+    <string name="home">Главная</string>
+    <string name="showcase">Витрина</string>
+    <string name="favorites">Избранное</string>
+    <string name="office">Офис</string>
+
+    <!-- TODO: Текст для fragment_showcase -->
+    <string name="filter">Фильтр</string>
+    <string name="dating_in_miel">Обучение в Миэль</string>
+    <string name="realtor_profession">Введение в профессию риелтор</string>
+    <string name="juridical_course">Базовый юридический курс</string>
+    <string name="mortgage">Курс “Ипотека”</string>
+    <string name="taxation">Курс Налогообложение</string>
+    <string name="achievements">Достижения</string>
+    <string name="objects">Объекты</string>
+    <string name="clients">Клиенты</string>
+    <string name="invite">Пригласить</string>
+
 
 </resources>
