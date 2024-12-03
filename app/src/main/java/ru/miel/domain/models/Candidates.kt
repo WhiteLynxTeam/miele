@@ -12,5 +12,6 @@ data class Candidates(
     val taxation: String,
     val objects: String,
     val clients: String,
-    val buttonText: String
+    val buttonText: String,
+    val buttonBackground: Int
 )

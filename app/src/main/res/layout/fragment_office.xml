@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.office.OfficeFragment">
+
+    <TextView
+        android:id="@+id/tv_office"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/magenta"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="24sp"
+        android:text="@string/office"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/iv_office_arrow"/>
+
+    <ImageView
+        android:id="@+id/iv_office_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_arrow_office"
+        app:layout_constraintTop_toTopOf="@id/tv_office"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_office"/>
+
+    <TextView
+        android:id="@+id/tv_administrator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/magenta"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="24sp"
+        android:text="@string/administrator"
+        app:layout_constraintStart_toStartOf="@id/tv_office"
+        app:layout_constraintTop_toBottomOf="@id/tv_office"
+        app:layout_constraintEnd_toEndOf="@id/iv_administrator_arrow"/>
+
+    <ImageView
+        android:id="@+id/iv_administrator_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_office"
+        app:layout_constraintTop_toTopOf="@id/tv_administrator"
+        app:layout_constraintEnd_toEndOf="@id/iv_office_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tv_administrator"/>
+
+    <TextView
+        android:id="@+id/tv_statistics"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/magenta"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="24sp"
+        android:text="@string/statistic"
+        app:layout_constraintStart_toStartOf="@id/tv_office"
+        app:layout_constraintTop_toBottomOf="@id/tv_administrator"
+        app:layout_constraintEnd_toEndOf="@id/iv_statistics_arrow"/>
+
+    <ImageView
+        android:id="@+id/iv_statistics_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_office"
+        app:layout_constraintTop_toTopOf="@id/tv_statistics"
+        app:layout_constraintEnd_toEndOf="@id/iv_administrator_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tv_statistics"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
