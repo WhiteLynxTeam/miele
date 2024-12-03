@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <style name="weekday">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="fontFamily">@font/pt_sans_regular</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/text_date</item>
+    </style>
+
+    <style name="day">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="fontFamily">@font/pt_sans_regular</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

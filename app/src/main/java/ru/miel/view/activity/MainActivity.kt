@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import ru.miel.R
 import ru.miel.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.Date

@@ -1,4 +1,4 @@
-package ru.miel.view.administrator
+package ru.miel.view.showcase
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
