@@ -13,19 +13,57 @@
         <action
             android:id="@+id/action_authFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_officeFragment"
+            app:destination="@id/officeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/showcaseFragment"
-        android:name="ru.miel.view.showcase.ShowcaseFragment"
-        android:label="fragment_showcase"
-        tools:layout="@layout/fragment_showcase" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="ru.miel.view.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_showcaseFragment"
-            app:destination="@id/showcaseFragment" />
+            android:id="@+id/action_homeFragment_to_officeFragment"
+            app:destination="@id/officeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/officeFragment"
+        android:name="ru.miel.view.office.OfficeFragment"
+        android:label="fragment_office"
+        tools:layout="@layout/fragment_office" >
+        <action
+            android:id="@+id/action_officeFragment_to_administratorFragment"
+            app:destination="@id/administratorFragment" />
+        <action
+            android:id="@+id/action_officeFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <action
+            android:id="@+id/action_officeFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="ru.miel.view.office.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address" />
+    <fragment
+        android:id="@+id/administratorFragment"
+        android:name="ru.miel.view.office.administrator.AdministratorFragment"
+        android:label="fragment_administrator"
+        tools:layout="@layout/fragment_administrator" />
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="ru.miel.view.office.statistics.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/showcaseFragment"
+        android:name="ru.miel.view.showcase.ShowcaseFragment"
+        android:label="fragment_showcase"
+        tools:layout="@layout/fragment_showcase" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="ru.miel.view.favorites.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
 </navigation>

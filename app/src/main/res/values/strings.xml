@@ -22,5 +22,17 @@
     <string name="dating_in_miel">Обучение в Миэль</string>
     <string name="achievements">Достижения</string>
 
+    <!-- TODO: Текст для fragment_office -->
+    <string name="administrator">Руководитель офиса</string>
+    <string name="statistic">Статистика</string>
+    <string name="juridical_address">Адрес юридический</string>
+    <string name="actual_address">Адрес фактический</string>
+    <string name="email">Email</string>
+    <string name="phone">Телефон</string>
+    <string name="mobile_phone">Телефон мобильный</string>
+    <string name="fio">ФИО</string>
+    <string name="quotas_issued">Количество выданных квот за период</string>
+    <string name="used_quotas">Количество использованных квот за период</string>
+    <string name="invited">Количество приглашенных на собеседование за период</string>
 
 </resources>

@@ -22,6 +22,7 @@ class CandidatesAdapter(private val candidatesList: List<Candidates>) : Recycler
             binding.tvObjects.text = candidates.objects
             binding.tvClients.text = candidates.clients
             binding.btnInvite.text = candidates.buttonText
+            binding.btnInvite.setBackgroundResource(candidates.buttonBackground)
         }
     }
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.office.address.AddressFragment">
+
+    <ImageView
+        android:id="@+id/iv_arrow_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:scaleX="-1"
+        android:src="@drawable/ic_arrow_office"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_office"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/magenta"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="24sp"
+        android:text="@string/office"
+        app:layout_constraintTop_toTopOf="@id/iv_arrow_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/iv_arrow_back"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/office"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="@string/office"
+        android:textColorHint="@color/text_hint"
+        app:endIconTint="@color/icon_hint"
+        app:layout_constraintEnd_toEndOf="@id/tv_office"
+        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintTop_toBottomOf="@id/iv_arrow_back">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_office"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingStart="0dp"
+            android:paddingBottom="10dp"
+            android:textSize="18sp"
+            android:text="Люберцы 1"
+            android:background="@drawable/bg_1dp_height"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/juridical_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/juridical_address"
+        android:textColorHint="@color/text_hint"
+        app:endIconTint="@color/icon_hint"
+        app:layout_constraintEnd_toEndOf="@id/tv_office"
+        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintTop_toBottomOf="@id/office">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_juridical_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingStart="0dp"
+            android:paddingBottom="10dp"
+            android:textSize="18sp"
+            android:text="Комсомольская улица, 15А"
+            android:background="@drawable/bg_1dp_height"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/actual_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/actual_address"
+        android:textColorHint="@color/text_hint"
+        app:endIconTint="@color/icon_hint"
+        app:layout_constraintEnd_toEndOf="@id/tv_office"
+        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintTop_toBottomOf="@id/juridical_address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_actual_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingStart="0dp"
+            android:paddingBottom="10dp"
+            android:textSize="18sp"
+            android:text="Комсомольская улица, 15А"
+            android:background="@drawable/bg_1dp_height"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/email"
+        android:textColorHint="@color/text_hint"
+        app:endIconTint="@color/icon_hint"
+        app:layout_constraintEnd_toEndOf="@id/tv_office"
+        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintTop_toBottomOf="@id/actual_address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingStart="0dp"
+            android:paddingBottom="10dp"
+            android:textSize="18sp"
+            android:text="lyubertsy-1@miel.ru"
+            android:background="@drawable/bg_1dp_height"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:hint="@string/phone"
+        android:textColorHint="@color/text_hint"
+        app:endIconTint="@color/icon_hint"
+        app:layout_constraintEnd_toEndOf="@id/tv_office"
+        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintTop_toBottomOf="@id/email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:paddingStart="0dp"
+            android:paddingBottom="10dp"
+            android:textSize="18sp"
+            android:text="+7 (495) 777-78-75"
+            android:background="@drawable/bg_1dp_height"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

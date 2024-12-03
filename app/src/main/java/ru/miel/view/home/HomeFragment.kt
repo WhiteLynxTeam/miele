@@ -13,6 +13,9 @@ import ru.miel.databinding.FragmentHomeBinding
 import ru.miel.domain.models.Candidates
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -36,7 +39,8 @@ class HomeFragment : Fragment() {
             "Курс “Налогообложение” (не начат)",
             "Объекты 5",
             "Клиенты 5",
-            "Пригласить"
+            "Пригласить",
+            R.color.orange
         )
     )
 
@@ -60,9 +64,12 @@ class HomeFragment : Fragment() {
         candidatesAdapter = CandidatesAdapter(candidates)
         binding.rcHome.adapter = candidatesAdapter
 
-        binding.tvQuotas.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_showcaseFragment)
-        }
+        //Установка даты в календаре
+//        val formattedDate = SimpleDateFormat("E, d MMMM", Locale("ru")).format(Date())
+//        val finalDate = formattedDate.split(" ").joinToString(" ") {
+//            it.replaceFirstChar { char -> char.uppercase() }
+//        }
+//        binding.tvMonth.text = finalDate
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)

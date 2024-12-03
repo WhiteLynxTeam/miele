@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.favorites.FavoritesFragment">
+
+    <ImageView
+        android:id="@+id/iv_sorting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:padding="10dp"
+        android:background="@drawable/bg_et_auth"
+        android:src="@drawable/ic_sorting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/border_filter"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.3"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_et_auth"
+        app:layout_constraintTop_toTopOf="@id/iv_sorting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/iv_sorting"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_filter"
+        app:layout_constraintStart_toStartOf="@id/border_filter"
+        app:layout_constraintTop_toTopOf="@id/border_filter"
+        app:layout_constraintBottom_toBottomOf="@id/border_filter"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/filter"
+        app:layout_constraintTop_toTopOf="@id/border_filter"
+        app:layout_constraintEnd_toEndOf="@id/border_filter"
+        app:layout_constraintBottom_toBottomOf="@id/border_filter"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_favorites"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintStart_toStartOf="@id/iv_sorting"
+        app:layout_constraintTop_toBottomOf="@id/iv_sorting"
+        app:layout_constraintEnd_toEndOf="@id/border_filter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_candidates" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

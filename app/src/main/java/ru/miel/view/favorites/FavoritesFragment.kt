@@ -1,4 +1,4 @@
-package ru.miel.view.showcase
+package ru.miel.view.favorites
 
 import android.content.Context
 import android.os.Bundle
@@ -8,16 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import ru.miel.R
-import ru.miel.databinding.FragmentShowcaseBinding
+import ru.miel.databinding.FragmentFavoritesBinding
 import ru.miel.domain.models.Candidates
 import ru.miel.view.activity.MainActivity
+import ru.miel.view.showcase.CandidatesAdapter
 
-class ShowcaseFragment : Fragment() {
+class FavoritesFragment : Fragment() {
 
-    private var _binding: FragmentShowcaseBinding? = null
+    private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ShowcaseViewModel
+    private lateinit var viewModel: FavoritesViewModel
 
     private lateinit var candidatesAdapter: CandidatesAdapter
 
@@ -27,7 +28,7 @@ class ShowcaseFragment : Fragment() {
             "Романова Мария Ивановна",
             "22 года",
             "Москва",
-            R.drawable.ic_favorites,
+            R.drawable.ic_favorites_candidates_selected,
             "Введение в профессию риелтор (пройден)",
             "Базовый юридический курс (в процессе)",
             "Курс “Ипотека” (в процессе)",
@@ -72,7 +73,7 @@ class ShowcaseFragment : Fragment() {
             "Романова Мария Ивановна",
             "22 года",
             "Москва",
-            R.drawable.ic_favorites,
+            R.drawable.ic_favorites_candidates_selected,
             "Введение в профессию риелтор (пройден)",
             "Базовый юридический курс (в процессе)",
             "Курс “Ипотека” (в процессе)",
@@ -94,7 +95,7 @@ class ShowcaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentShowcaseBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -102,7 +103,7 @@ class ShowcaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         candidatesAdapter = CandidatesAdapter(candidates)
-        binding.rcCandidates.adapter = candidatesAdapter
+        binding.rcFavorites.adapter = candidatesAdapter
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)

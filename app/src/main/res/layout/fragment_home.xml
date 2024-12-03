@@ -22,7 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-
     <TextView
         android:id="@+id/tv_candidates"
         android:layout_width="0dp"
@@ -49,6 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_quotas"
         app:layout_constraintEnd_toEndOf="parent">
+
         <TextView
             android:id="@+id/tv_month"
             android:layout_width="wrap_content"
