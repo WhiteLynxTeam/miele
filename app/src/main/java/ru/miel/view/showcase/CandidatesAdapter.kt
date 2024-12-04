@@ -24,7 +24,7 @@ class CandidatesAdapter(private val candidatesList: List<Candidates>, private va
             binding.btnInvite.text = candidates.buttonText
 
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
-            binding.btnInvite.text = if (candidates.isInvite) "Пришлашен" else "Пришласить"
+            binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
             binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.orange)
 
             binding.ivFavorites.setOnClickListener {

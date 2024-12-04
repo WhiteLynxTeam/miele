@@ -19,6 +19,7 @@
     <string name="office">Офис</string>
 
     <!-- TODO: Текст для fragment_showcase -->
+    <string name="showcase_candidates">Витрина кандидатов</string>
     <string name="filter">Фильтр</string>
     <string name="dating_in_miel">Обучение в Миэль</string>
     <string name="achievements">Достижения</string>

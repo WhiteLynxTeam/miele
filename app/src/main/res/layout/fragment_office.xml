@@ -8,13 +8,9 @@
 
     <TextView
         android:id="@+id/tv_office"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/text_title"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
-        android:textColor="@color/magenta"
-        android:fontFamily="@font/pt_sans_regular"
-        android:textSize="24sp"
         android:text="@string/office"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,12 +28,8 @@
 
     <TextView
         android:id="@+id/tv_administrator"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/text_title"
         android:layout_marginTop="30dp"
-        android:textColor="@color/magenta"
-        android:fontFamily="@font/pt_sans_regular"
-        android:textSize="24sp"
         android:text="@string/administrator"
         app:layout_constraintStart_toStartOf="@id/tv_office"
         app:layout_constraintTop_toBottomOf="@id/tv_office"
@@ -54,12 +46,8 @@
 
     <TextView
         android:id="@+id/tv_statistics"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/text_title"
         android:layout_marginTop="30dp"
-        android:textColor="@color/magenta"
-        android:fontFamily="@font/pt_sans_regular"
-        android:textSize="24sp"
         android:text="@string/statistic"
         app:layout_constraintStart_toStartOf="@id/tv_office"
         app:layout_constraintTop_toBottomOf="@id/tv_administrator"

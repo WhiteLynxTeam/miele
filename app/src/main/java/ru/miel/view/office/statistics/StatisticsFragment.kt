@@ -46,7 +46,7 @@ class StatisticsFragment : Fragment() {
         )
 
         // Применяем адаптер к Spinner
-        binding.tvPeriod.adapter = spinnerAdapter
+        binding.spinnerPeriod.adapter = spinnerAdapter
 
         binding.ivArrowBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed() // Имитирует нажатие "Назад"
