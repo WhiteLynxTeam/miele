@@ -5,6 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.ShowcaseFragment
 import ru.miel.view.auth.AuthFragment
+import ru.miel.view.chat.ChatFragment
 import ru.miel.view.favorites.FavoritesFragment
 import ru.miel.view.home.HomeFragment
 import ru.miel.view.office.OfficeFragment
@@ -40,5 +41,8 @@ interface MainModule {
 
     @ContributesAndroidInjector
     fun bindStatisticsFragment(): StatisticsFragment
+
+    @ContributesAndroidInjector
+    fun bindChatFragment(): ChatFragment
 
 }

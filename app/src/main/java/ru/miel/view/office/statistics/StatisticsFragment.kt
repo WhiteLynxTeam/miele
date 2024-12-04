@@ -20,7 +20,7 @@ class StatisticsFragment : Fragment() {
     private lateinit var viewModel: StatisticsViewModel
 
     private val periods =
-        listOf("Период", "Неделя", "Месяц", "Год")
+        listOf("Неделя", "Месяц", "Год")
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -46,7 +46,7 @@ class StatisticsFragment : Fragment() {
         )
 
         // Применяем адаптер к Spinner
-        binding.tvPeriod.adapter = spinnerAdapter
+        binding.spinnerPeriod.adapter = spinnerAdapter
 
         binding.ivArrowBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed() // Имитирует нажатие "Назад"

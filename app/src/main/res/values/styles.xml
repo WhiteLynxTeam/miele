@@ -17,4 +17,11 @@
         <item name="fontFamily">@font/pt_sans_regular</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="text_title">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/magenta</item>
+        <item name="android:fontFamily">@font/pt_sans_bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

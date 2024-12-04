@@ -12,22 +12,24 @@ import ru.miel.databinding.FragmentShowcaseBinding
 import ru.miel.domain.models.Candidates
 import ru.miel.view.activity.MainActivity
 
-class ShowcaseFragment : Fragment() {
+class ShowcaseFragment : Fragment(), CandidatesAdapter.OnIconClickListener {
 
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var candidat: Candidates
 
     private lateinit var viewModel: ShowcaseViewModel
 
     private lateinit var candidatesAdapter: CandidatesAdapter
 
-    private val candidates = listOf(
+    private val candidates = mutableListOf(
         Candidates(
             R.drawable.img_avatar,
             "Романова Мария Ивановна",
             "22 года",
             "Москва",
-            R.drawable.ic_favorites,
+            false,
             "Введение в профессию риелтор (пройден)",
             "Базовый юридический курс (в процессе)",
             "Курс “Ипотека” (в процессе)",
@@ -35,14 +37,14 @@ class ShowcaseFragment : Fragment() {
             "Объекты 5",
             "Клиенты 5",
             "Пригласить",
-            R.color.orange
+            false
         ),
         Candidates(
             R.drawable.img_avatar,
             "Романова Мария Ивановна",
             "22 года",
             "Москва",
-            R.drawable.ic_favorites_candidates_selected,
+            false,
             "Введение в профессию риелтор (пройден)",
             "Базовый юридический курс (в процессе)",
             "Курс “Ипотека” (в процессе)",
@@ -50,14 +52,14 @@ class ShowcaseFragment : Fragment() {
             "Объекты 5",
             "Клиенты 5",
             "Приглашен",
-            R.color.lime
+            false
         ),
         Candidates(
             R.drawable.img_avatar,
             "Романова Мария Ивановна",
             "22 года",
             "Москва",
-            R.drawable.ic_favorites_candidates_selected,
+            false,
             "Введение в профессию риелтор (пройден)",
             "Базовый юридический курс (в процессе)",
             "Курс “Ипотека” (в процессе)",
@@ -65,14 +67,14 @@ class ShowcaseFragment : Fragment() {
             "Объекты 5",
             "Клиенты 5",
             "Пригласить",
-            R.color.orange
+            false
         ),
         Candidates(
             R.drawable.img_avatar,
             "Романова Мария Ивановна",
             "22 года",
             "Москва",
-            R.drawable.ic_favorites,
+            false,
             "Введение в профессию риелтор (пройден)",
             "Базовый юридический курс (в процессе)",
             "Курс “Ипотека” (в процессе)",
@@ -80,7 +82,7 @@ class ShowcaseFragment : Fragment() {
             "Объекты 5",
             "Клиенты 5",
             "Пригласить",
-            R.color.orange
+            false
         ),
     )
 
@@ -101,10 +103,24 @@ class ShowcaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        candidatesAdapter = CandidatesAdapter(candidates)
+        candidatesAdapter = CandidatesAdapter(candidates, this)
         binding.rcCandidates.adapter = candidatesAdapter
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+    }
+
+    override fun onIconClick(position: Int) {
+        // Меняем данные элемента
+        val item = candidates[position]
+        candidates[position] = item.copy(isFavorite = !item.isFavorite)
+
+        // Уведомляем адаптер об изменении
+        candidatesAdapter.notifyItemChanged(position)
+    }
+    override fun onButtonClick(position: Int) {
+        val item = candidates[position]
+        candidates[position] = item.copy(isInvite = !item.isInvite)
+        candidatesAdapter.notifyItemChanged(position)
     }
 }

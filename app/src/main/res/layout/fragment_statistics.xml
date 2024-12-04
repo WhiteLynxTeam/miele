@@ -19,25 +19,35 @@
 
     <TextView
         android:id="@+id/tv_statistics"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/text_title"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/magenta"
-        android:fontFamily="@font/pt_sans_regular"
-        android:textSize="24sp"
         android:text="@string/statistic"
         app:layout_constraintTop_toTopOf="@id/iv_arrow_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/iv_arrow_back"/>
 
     <Spinner
-        android:id="@+id/tv_period"
+        android:id="@+id/spinner_period"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textColor="@color/black"
         android:spinnerMode="dialog"
+        android:prompt="@string/period"
+        android:tooltipText="@string/variants"
         app:layout_constraintTop_toBottomOf="@+id/tv_statistics"
-        app:layout_constraintEnd_toEndOf="@id/tv_statistics"/>
+        app:layout_constraintEnd_toEndOf="@id/tv_statistics" />
+
+    <View
+        android:id="@+id/spinner_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_et_auth"
+        app:layout_constraintStart_toStartOf="@id/spinner_period"
+        app:layout_constraintTop_toTopOf="@id/spinner_period"
+        app:layout_constraintEnd_toEndOf="@id/spinner_period"
+        app:layout_constraintBottom_toBottomOf="@id/spinner_period"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/quotas_issued"
@@ -49,7 +59,7 @@
         app:endIconTint="@color/icon_hint"
         app:layout_constraintEnd_toEndOf="@id/tv_statistics"
         app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
-        app:layout_constraintTop_toBottomOf="@id/tv_period">
+        app:layout_constraintTop_toBottomOf="@id/spinner_period">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_quotas_issued"

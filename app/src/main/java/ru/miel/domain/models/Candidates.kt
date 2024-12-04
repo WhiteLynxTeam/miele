@@ -5,7 +5,7 @@ data class Candidates(
     val name: String,
     val year: String,
     val city: String,
-    val icon: Int,
+    val isFavorite: Boolean,
     val realtor: String,
     val juridicalCourse: String,
     val mortgage: String,
@@ -13,5 +13,5 @@ data class Candidates(
     val objects: String,
     val clients: String,
     val buttonText: String,
-    val buttonBackground: Int
+    val isInvite: Boolean
 )

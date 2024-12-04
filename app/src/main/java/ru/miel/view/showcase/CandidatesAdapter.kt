@@ -3,18 +3,18 @@ package ru.miel.view.showcase
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import ru.miel.R
 import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.Candidates
 
-class CandidatesAdapter(private val candidatesList: List<Candidates>) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
+class CandidatesAdapter(private val candidatesList: List<Candidates>, private val listener: OnIconClickListener) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
-    class CandidatesViewHolder(private val binding: ItemCandidatesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(candidates: Candidates) {
+    inner class CandidatesViewHolder(private val binding: ItemCandidatesBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(candidates: Candidates, position: Int) {
             binding.ivAvatar.setImageResource(candidates.img)
             binding.tvName.text = candidates.name
             binding.tvYear.text = candidates.year
             binding.tvCity.text = candidates.city
-            binding.ivFavorites.setImageResource(candidates.icon)
             binding.tvRealtor.text = candidates.realtor
             binding.tvJuridicalCourse.text = candidates.juridicalCourse
             binding.tvMortgage.text = candidates.mortgage
@@ -22,7 +22,17 @@ class CandidatesAdapter(private val candidatesList: List<Candidates>) : Recycler
             binding.tvObjects.text = candidates.objects
             binding.tvClients.text = candidates.clients
             binding.btnInvite.text = candidates.buttonText
-            binding.btnInvite.setBackgroundResource(candidates.buttonBackground)
+
+            binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
+            binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
+            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.orange)
+
+            binding.ivFavorites.setOnClickListener {
+                listener.onIconClick(position)
+            }
+            binding.btnInvite.setOnClickListener {
+                listener.onButtonClick(position)
+            }
         }
     }
 
@@ -32,8 +42,13 @@ class CandidatesAdapter(private val candidatesList: List<Candidates>) : Recycler
     }
 
     override fun onBindViewHolder(holder: CandidatesViewHolder, position: Int) {
-        holder.bind(candidatesList[position])
+        holder.bind(candidatesList[position], position)
     }
 
     override fun getItemCount() = candidatesList.size
+
+    interface OnIconClickListener {
+        fun onIconClick(position: Int)
+        fun onButtonClick(position: Int)
+    }
 }
