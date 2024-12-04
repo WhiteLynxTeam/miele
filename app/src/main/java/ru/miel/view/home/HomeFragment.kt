@@ -6,18 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
 import ru.miel.R
 import ru.miel.databinding.FragmentHomeBinding
 import ru.miel.domain.models.Candidates
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CandidatesAdapter.OnIconClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -26,13 +22,13 @@ class HomeFragment : Fragment() {
 
     private lateinit var candidatesAdapter: CandidatesAdapter
 
-    private val candidates = listOf(
+    private val candidates = mutableListOf(
         Candidates(
             R.drawable.img_avatar,
             "Романова Мария Ивановна",
             "22 года",
             "Москва",
-            R.drawable.ic_favorites,
+            false,
             "Введение в профессию риелтор (пройден)",
             "Базовый юридический курс (в процессе)",
             "Курс “Ипотека” (в процессе)",
@@ -40,7 +36,7 @@ class HomeFragment : Fragment() {
             "Объекты 5",
             "Клиенты 5",
             "Пригласить",
-            R.color.orange
+            false
         )
     )
 
@@ -61,7 +57,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        candidatesAdapter = CandidatesAdapter(candidates)
+        candidatesAdapter = CandidatesAdapter(candidates, this)
         binding.rcHome.adapter = candidatesAdapter
 
         //Установка даты в календаре
@@ -73,5 +69,19 @@ class HomeFragment : Fragment() {
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+    }
+
+    override fun onIconClick(position: Int) {
+        // Меняем данные элемента
+        val item = candidates[position]
+        candidates[position] = item.copy(isFavorite = !item.isFavorite)
+
+        // Уведомляем адаптер об изменении
+        candidatesAdapter.notifyItemChanged(position)
+    }
+    override fun onButtonClick(position: Int) {
+        val item = candidates[position]
+        candidates[position] = item.copy(isInvite = !item.isInvite)
+        candidatesAdapter.notifyItemChanged(position)
     }
 }
