@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.showcaseFragment)
                     true
                 }
+                R.id.message -> {
+                    navController.navigate(R.id.chatFragment)
+                    true
+                }
                 R.id.office -> {
                     navController.navigate(R.id.officeFragment)
                     true

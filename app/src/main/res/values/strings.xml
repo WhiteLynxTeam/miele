@@ -14,6 +14,7 @@
     <!-- TODO: Текст для navigation_menu -->
     <string name="home">Главная</string>
     <string name="showcase">Витрина</string>
+    <string name="message">Сообщения</string>
     <string name="favorites">Избранное</string>
     <string name="office">Офис</string>
 
@@ -34,5 +35,10 @@
     <string name="quotas_issued">Количество выданных квот за период</string>
     <string name="used_quotas">Количество использованных квот за период</string>
     <string name="invited">Количество приглашенных на собеседование за период</string>
+    <string name="period">Период</string>
+    <string name="variants">Выберите вариант из списка</string>
+
+    <!-- TODO: Текст для fragment_chat -->
+    <string name="chats">Чаты</string>
 
 </resources>
