@@ -205,7 +205,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintWidth_percent="0.4"
-        android:background="@color/orange"
+        android:background="@color/magenta"
         android:fontFamily="@font/pt_sans_regular"
         android:textSize="18sp"
         android:textAllCaps="false"

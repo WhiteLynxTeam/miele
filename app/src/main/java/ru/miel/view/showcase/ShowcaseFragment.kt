@@ -6,22 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.AndroidSupportInjection
 import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
 import ru.miel.domain.models.Candidates
 import ru.miel.view.activity.MainActivity
 
-class ShowcaseFragment : Fragment(), CandidatesAdapter.OnIconClickListener {
+class ShowcaseFragment : Fragment() {
 
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var candidat: Candidates
+    private val candidatesViewModel: CandidatesViewModel by activityViewModels()
+    private lateinit var candidatesAdapter: CandidatesAdapter
 
     private lateinit var viewModel: ShowcaseViewModel
-
-    private lateinit var candidatesAdapter: CandidatesAdapter
 
     private val candidates = mutableListOf(
         Candidates(
@@ -103,24 +105,29 @@ class ShowcaseFragment : Fragment(), CandidatesAdapter.OnIconClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        candidatesAdapter = CandidatesAdapter(candidates, this)
+//        candidatesAdapter = CandidatesAdapter(candidates, this)
+//        binding.rcCandidates.adapter = candidatesAdapter
+
+        candidatesAdapter = CandidatesAdapter(object : CandidatesAdapter.OnIconClickListener {
+            override fun onIconClick(position: Int) {
+                candidatesViewModel.toggleFavorite(position)
+            }
+
+            override fun onButtonClick(position: Int) {
+                candidatesViewModel.toggleInvite(position)
+            }
+        })
+
         binding.rcCandidates.adapter = candidatesAdapter
+        binding.rcCandidates.layoutManager = LinearLayoutManager(requireContext())
+
+        // Наблюдение за данными
+        candidatesViewModel.candidates.observe(viewLifecycleOwner, Observer { candidates ->
+            candidatesAdapter.submitList(candidates)
+        })
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
     }
 
-    override fun onIconClick(position: Int) {
-        // Меняем данные элемента
-        val item = candidates[position]
-        candidates[position] = item.copy(isFavorite = !item.isFavorite)
-
-        // Уведомляем адаптер об изменении
-        candidatesAdapter.notifyItemChanged(position)
-    }
-    override fun onButtonClick(position: Int) {
-        val item = candidates[position]
-        candidates[position] = item.copy(isInvite = !item.isInvite)
-        candidatesAdapter.notifyItemChanged(position)
-    }
 }

@@ -20,10 +20,10 @@
     <TextView
         android:id="@+id/tv_administrator"
         style="@style/text_title"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
         android:text="@string/administrator"
+        app:layout_constraintStart_toEndOf="@id/iv_arrow_back"
         app:layout_constraintTop_toTopOf="@id/iv_arrow_back"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/iv_arrow_back"/>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -31,10 +31,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:hint="@string/fio"
         android:textColorHint="@color/text_hint"
         app:endIconTint="@color/icon_hint"
-        app:layout_constraintEnd_toEndOf="@id/tv_administrator"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
         app:layout_constraintTop_toBottomOf="@id/iv_arrow_back">
 
@@ -60,7 +61,7 @@
         android:hint="@string/email"
         android:textColorHint="@color/text_hint"
         app:endIconTint="@color/icon_hint"
-        app:layout_constraintEnd_toEndOf="@id/tv_administrator"
+        app:layout_constraintEnd_toEndOf="@id/fio"
         app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
         app:layout_constraintTop_toBottomOf="@id/fio">
 
@@ -86,7 +87,7 @@
         android:hint="@string/mobile_phone"
         android:textColorHint="@color/text_hint"
         app:endIconTint="@color/icon_hint"
-        app:layout_constraintEnd_toEndOf="@id/tv_administrator"
+        app:layout_constraintEnd_toEndOf="@id/fio"
         app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
         app:layout_constraintTop_toBottomOf="@id/email">
 
