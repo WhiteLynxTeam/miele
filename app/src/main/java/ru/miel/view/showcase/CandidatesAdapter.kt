@@ -7,7 +7,16 @@ import ru.miel.R
 import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.Candidates
 
-class CandidatesAdapter(private val candidatesList: List<Candidates>, private val listener: OnIconClickListener) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
+class CandidatesAdapter(private val listener: OnIconClickListener) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
+
+    private val candidatesList: MutableList<Candidates> = mutableListOf()
+
+    // Обновление списка кандидатов
+    fun submitList(newCandidates: List<Candidates>) {
+        candidatesList.clear()
+        candidatesList.addAll(newCandidates)
+        notifyDataSetChanged()
+    }
 
     inner class CandidatesViewHolder(private val binding: ItemCandidatesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(candidates: Candidates, position: Int) {
@@ -25,7 +34,7 @@ class CandidatesAdapter(private val candidatesList: List<Candidates>, private va
 
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
             binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
-            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.orange)
+            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.magenta)
 
             binding.ivFavorites.setOnClickListener {
                 listener.onIconClick(position)
