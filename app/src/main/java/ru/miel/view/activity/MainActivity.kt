@@ -36,22 +36,22 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.homeFragment)
                     true
                 }
+
                 R.id.showcase -> {
                     navController.navigate(R.id.showcaseFragment)
                     true
                 }
-                R.id.message -> {
-                    navController.navigate(R.id.chatFragment)
-                    true
-                }
+
                 R.id.office -> {
                     navController.navigate(R.id.officeFragment)
                     true
                 }
+
                 R.id.favorites -> {
                     navController.navigate(R.id.favoritesFragment)
                     true
                 }
+
                 else -> false
             }
         }
@@ -61,22 +61,11 @@ class MainActivity : AppCompatActivity() {
         binding.tvUsersGreeting.text = "Привет, $userName"
 
         // Установка даты в header
-        binding.tvDate.text = SimpleDateFormat("EEEE, d MMMM yyyy 'года'", Locale("ru")).format(Date()).replaceFirstChar { it.uppercase() }
+        binding.tvDate.text =
+            SimpleDateFormat("EEEE, d MMMM yyyy 'года'", Locale("ru")).format(Date())
+                .replaceFirstChar { it.uppercase() }
 
     }
-
-//    //1. Проверка на существование фрагмента. Если фрагмент есть, то мы его не пересоздаем, а используем вновь:
-//    private fun checkFragmentExistence(tag: String): Fragment? =
-//        supportFragmentManager.findFragmentByTag(tag)
-//
-//    //2. Сам запуск фрагмента:
-//    private fun changeFragment(fragment: Fragment, tag: String) {
-//        supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.fragment_placeholder, fragment, tag)
-//            .addToBackStack(null)
-//            .commit()
-//    }
 
     // Метод для управления видимостью элементов в activity_main
     fun setUIVisibility(showHeader: Boolean, showBottomNav: Boolean) {

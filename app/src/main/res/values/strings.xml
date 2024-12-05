@@ -39,7 +39,4 @@
     <string name="period">Период</string>
     <string name="variants">Выберите вариант из списка</string>
 
-    <!-- TODO: Текст для fragment_chat -->
-    <string name="chats">Чаты</string>
-
 </resources>

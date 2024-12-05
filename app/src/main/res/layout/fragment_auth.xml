@@ -86,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:padding="15dp"
-        android:background="@color/orange"
+        android:background="@color/magenta"
         android:fontFamily="@font/pt_sans_regular"
         android:textSize="18sp"
         android:text="@string/sign_in"
