@@ -9,7 +9,7 @@ import ru.miel.domain.models.Candidates
 
 class CandidatesAdapter(private val listener: OnIconClickListener) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
-    private val candidatesList: MutableList<Candidates> = mutableListOf()
+    private val candidatesList: MutableList<Candidates> = mutableListOf()0
 
     // Обновление списка кандидатов
     fun submitList(newCandidates: List<Candidates>) {
@@ -30,7 +30,6 @@ class CandidatesAdapter(private val listener: OnIconClickListener) : RecyclerVie
             binding.tvTaxation.text = candidates.taxation
             binding.tvObjects.text = candidates.objects
             binding.tvClients.text = candidates.clients
-            binding.btnInvite.text = candidates.buttonText
 
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
             binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
