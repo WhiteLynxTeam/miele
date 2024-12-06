@@ -22,18 +22,19 @@ class ShowcaseFragment : Fragment() {
     //private val candidatesViewModel: CandidatesViewModel by activityViewModels()
 //    private lateinit var candidatesAdapter: CandidatesAdapter
 
-    private val candidatesAdapter by lazy {
-        CandidatesAdapter() { pos ->
-            println("LessonsFragment id_lesson = $id")
-        }, { pos ->
-        println("LessonsFragment id_lesson = $id")
-    }
-    }
-
     private lateinit var viewModel: ShowcaseViewModel
 
     @Inject
     lateinit var vmFactory: ShowcaseViewModel.Factory
+
+    private val candidatesAdapter by lazy {
+        CandidatesAdapter({ pos ->
+            println("ShowcaseFragment onIconClick = $pos")
+        },
+            { pos ->
+                println("ShowcaseFragment onButtonClick = $pos")
+            })
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -55,6 +56,8 @@ class ShowcaseFragment : Fragment() {
         viewModel =
             ViewModelProvider(this, vmFactory)[ShowcaseViewModel::class.java]
 
+        binding.rcCandidates.adapter = candidatesAdapter
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isEntry.collect {
                 if (it) viewModel.getCandidates()
@@ -68,17 +71,16 @@ class ShowcaseFragment : Fragment() {
         }
 
 
-        candidatesAdapter = CandidatesAdapter(object : CandidatesAdapter.OnIconClickListener {
-            override fun onIconClick(position: Int) {
-                viewModel.toggleFavorite(position)
-            }
+//        candidatesAdapter = CandidatesAdapter(object : CandidatesAdapter.OnIconClickListener {
+//            override fun onIconClick(position: Int) {
+//                viewModel.toggleFavorite(position)
+//            }
+//
+//            override fun onButtonClick(position: Int) {
+//                viewModel.toggleInvite(position)
+//            }
+//        })
 
-            override fun onButtonClick(position: Int) {
-                viewModel.toggleInvite(position)
-            }
-        })
-
-        binding.rcCandidates.adapter = candidatesAdapter
 //
 //        // Наблюдение за данными
 //        candidatesViewModel.candidates.observe(viewLifecycleOwner, Observer { candidates ->

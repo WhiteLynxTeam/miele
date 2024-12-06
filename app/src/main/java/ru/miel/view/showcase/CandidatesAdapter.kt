@@ -7,9 +7,12 @@ import ru.miel.R
 import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.Candidates
 
-class CandidatesAdapter(private val listener: OnIconClickListener) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
+class CandidatesAdapter(
+    private val onIconClick:(pos:Int) -> Unit,
+    private val onButtonClick:(pos:Int) -> Unit
+) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
-    private val candidatesList: MutableList<Candidates> = mutableListOf()0
+    private val candidatesList: MutableList<Candidates> = mutableListOf()
 
     // Обновление списка кандидатов
     fun submitList(newCandidates: List<Candidates>) {
@@ -36,10 +39,10 @@ class CandidatesAdapter(private val listener: OnIconClickListener) : RecyclerVie
             binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.magenta)
 
             binding.ivFavorites.setOnClickListener {
-                listener.onIconClick(position)
+               onIconClick(position)
             }
             binding.btnInvite.setOnClickListener {
-                listener.onButtonClick(position)
+                onButtonClick(position)
             }
         }
     }
@@ -55,8 +58,8 @@ class CandidatesAdapter(private val listener: OnIconClickListener) : RecyclerVie
 
     override fun getItemCount() = candidatesList.size
 
-    interface OnIconClickListener {
-        fun onIconClick(position: Int)
-        fun onButtonClick(position: Int)
-    }
+//    interface OnIconClickListener {
+//        fun onIconClick(position: Int)
+//        fun onButtonClick(position: Int)
+//    }
 }

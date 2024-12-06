@@ -10,9 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.AndroidSupportInjection
-import ru.miel.R
 import ru.miel.databinding.FragmentHomeBinding
-import ru.miel.domain.models.Candidates
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
 import ru.miel.view.showcase.CandidatesViewModel
@@ -25,7 +23,16 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
 
     private val candidatesViewModel: CandidatesViewModel by activityViewModels()
-    private lateinit var candidatesAdapter: CandidatesAdapter
+
+    //    private lateinit var candidatesAdapter: CandidatesAdapter
+    private val candidatesAdapter by lazy {
+        CandidatesAdapter({ pos ->
+            println("ShowcaseFragment onIconClick = $pos")
+        },
+            { pos ->
+                println("ShowcaseFragment onButtonClick = $pos")
+            })
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -47,15 +54,15 @@ class HomeFragment : Fragment() {
 //        candidatesAdapter = CandidatesAdapter(candidates, this)
 //        binding.rcHome.adapter = candidatesAdapter
 
-        candidatesAdapter = CandidatesAdapter(object : CandidatesAdapter.OnIconClickListener {
-            override fun onIconClick(position: Int) {
-                candidatesViewModel.toggleFavorite(position)
-            }
-
-            override fun onButtonClick(position: Int) {
-                candidatesViewModel.toggleInvite(position)
-            }
-        })
+//        candidatesAdapter = CandidatesAdapter(object : CandidatesAdapter.OnIconClickListener {
+//            override fun onIconClick(position: Int) {
+//                candidatesViewModel.toggleFavorite(position)
+//            }
+//
+//            override fun onButtonClick(position: Int) {
+//                candidatesViewModel.toggleInvite(position)
+//            }
+//        })
 
         binding.rcHome.adapter = candidatesAdapter
         binding.rcHome.layoutManager = LinearLayoutManager(requireContext())
