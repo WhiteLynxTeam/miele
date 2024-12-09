@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.miel.data.api.UserApi
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -37,9 +38,12 @@ class RemoteModule {
         .client(okHttpClient)
         .build()
 
+    @Provides
+    @Singleton
+    fun provideAuthApi(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
 
     companion object {
         private const val HALF_MINUTE_FOR_SLOW_INTERNET = 30L
-        const val BASE_URL = "https://w2w-backend.onrender.com"
+        const val BASE_URL = "http://80.85.246.168:8080"
     }
 }
