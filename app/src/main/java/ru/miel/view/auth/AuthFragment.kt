@@ -6,11 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentAuthBinding
+import ru.miel.domain.models.User
 import ru.miel.view.activity.MainActivity
+import ru.miel.view.showcase.ShowcaseViewModel
+import ru.w_2_wmatch.utils.uiextensions.showSnackbarLong
+import javax.inject.Inject
 
 class AuthFragment : Fragment() {
 
@@ -18,6 +25,9 @@ class AuthFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: AuthViewModel
+
+    @Inject
+    lateinit var vmFactory: AuthViewModel.Factory
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -36,11 +46,33 @@ class AuthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel =
+            ViewModelProvider(this, vmFactory)[AuthViewModel::class.java]
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isEntry.collect {
+                if (it) findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+                else {
+                    showSnackbarLong("Ошибка авторизации.")
+                }
+            }
+        }
+
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = false, showBottomNav = false)
 
-        binding.btnSignIn.setOnClickListener{
-            findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+        binding.btnSignIn.setOnClickListener {
+            if (binding.etLogin.text.toString().isEmpty() || binding.etPassword.text.toString().isEmpty()) {
+                showSnackbarLong("Заполните поля.")
+                return@setOnClickListener
+            }
+
+            viewModel.auth(
+                User(
+                    username = binding.etLogin.text.toString(),
+                    password = binding.etPassword.text.toString(),
+                )
+            )
         }
     }
 
