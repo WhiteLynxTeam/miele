@@ -19,9 +19,6 @@ class ShowcaseFragment : Fragment() {
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
 
-    //private val candidatesViewModel: CandidatesViewModel by activityViewModels()
-//    private lateinit var candidatesAdapter: CandidatesAdapter
-
     private lateinit var viewModel: ShowcaseViewModel
 
     @Inject
@@ -29,10 +26,12 @@ class ShowcaseFragment : Fragment() {
 
     private val candidatesAdapter by lazy {
         CandidatesAdapter({ pos ->
-            println("ShowcaseFragment onIconClick = $pos")
+            viewModel.toggleFavorite(pos)
+            //println("ShowcaseFragment onIconClick = $pos")
         },
             { pos ->
-                println("ShowcaseFragment onButtonClick = $pos")
+                viewModel.toggleInvite(pos)
+                //println("ShowcaseFragment onButtonClick = $pos")
             })
     }
 

@@ -8,12 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.AndroidSupportInjection
 import ru.miel.databinding.FragmentHomeBinding
+import ru.miel.domain.models.Calendar
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
 import ru.miel.view.showcase.CandidatesViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -24,7 +27,6 @@ class HomeFragment : Fragment() {
 
     private val candidatesViewModel: CandidatesViewModel by activityViewModels()
 
-    //    private lateinit var candidatesAdapter: CandidatesAdapter
     private val candidatesAdapter by lazy {
         CandidatesAdapter({ pos ->
             println("ShowcaseFragment onIconClick = $pos")
@@ -51,35 +53,72 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        candidatesAdapter = CandidatesAdapter(candidates, this)
-//        binding.rcHome.adapter = candidatesAdapter
+        // Начальная дата (текущая неделя)
+        val calendar = java.util.Calendar.getInstance()
+        val weeks = generateWeeks(calendar)
 
-//        candidatesAdapter = CandidatesAdapter(object : CandidatesAdapter.OnIconClickListener {
-//            override fun onIconClick(position: Int) {
-//                candidatesViewModel.toggleFavorite(position)
-//            }
-//
-//            override fun onButtonClick(position: Int) {
-//                candidatesViewModel.toggleInvite(position)
-//            }
-//        })
+        val adapter = CalendarAdapter(weeks,
+            onNextClick = { _ ->
+                calendar.add(java.util.Calendar.WEEK_OF_YEAR, 1)
+                updateWeeks(weeks, calendar)
+            },
+            onBackClick = { _ ->
+                calendar.add(java.util.Calendar.WEEK_OF_YEAR, -1)
+                updateWeeks(weeks, calendar)
+            })
+
+        binding.rcCalendar.adapter = adapter
 
         binding.rcHome.adapter = candidatesAdapter
-        binding.rcHome.layoutManager = LinearLayoutManager(requireContext())
 
         // Наблюдение за данными
         candidatesViewModel.candidates.observe(viewLifecycleOwner, Observer { candidates ->
             candidatesAdapter.submitList(candidates)
         })
 
-        //Установка даты в календаре
-//        val formattedDate = SimpleDateFormat("E, d MMMM", Locale("ru")).format(Date())
-//        val finalDate = formattedDate.split(" ").joinToString(" ") {
-//            it.replaceFirstChar { char -> char.uppercase() }
-//        }
-//        binding.tvMonth.text = finalDate
+        settingTheDate()
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+    }
+
+    //Установка даты в календаре
+    private fun settingTheDate() {
+        val formattedDate = SimpleDateFormat("E, d MMMM", Locale("ru")).format(Date())
+        val finalDate = formattedDate.split(" ").joinToString(" ") {
+            it.replaceFirstChar { char -> char.uppercase() }
+        }
+        binding.tvMonth.text = finalDate
+    }
+
+    private fun generateWeeks(calendar: java.util.Calendar): MutableList<Calendar> {
+        val weeks = mutableListOf<Calendar>()
+        for (i in 0 until 1) { // Начальный список (одна неделя)
+            weeks.add(createWeek(calendar))
+        }
+        return weeks
+    }
+
+    private fun createWeek(calendar: java.util.Calendar): Calendar {
+        val sdf = SimpleDateFormat("dd", Locale.getDefault())
+        val weekFormat = SimpleDateFormat("MMMM yyyy", Locale("ru"))
+
+        val monday = calendar.apply { set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.MONDAY) }
+        return Calendar(
+            monday = sdf.format(monday.time),
+            tuesday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
+            wednesday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
+            thursday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
+            friday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
+            saturday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
+            sunday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
+            monthAndYear = weekFormat.format(monday.time)
+        )
+    }
+
+    private fun updateWeeks(weeks: MutableList<Calendar>, calendar: java.util.Calendar) {
+        weeks.clear()
+        weeks.add(createWeek(calendar))
+        binding.rcCalendar.adapter?.notifyDataSetChanged()
     }
 }
