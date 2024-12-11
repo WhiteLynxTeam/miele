@@ -62,18 +62,18 @@ class AuthFragment : Fragment() {
         (activity as MainActivity).setUIVisibility(showHeader = false, showBottomNav = false)
 
         binding.btnSignIn.setOnClickListener {
-            findNavController().navigate(R.id.action_authFragment_to_homeFragment)
-//            if (binding.etLogin.text.toString().isEmpty() || binding.etPassword.text.toString().isEmpty()) {
-//                showSnackbarLong("Заполните поля.")
-//                return@setOnClickListener
-//            }
-//
-//            viewModel.auth(
-//                User(
-//                    username = binding.etLogin.text.toString(),
-//                    password = binding.etPassword.text.toString(),
-//                )
-//            )
+//            findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+            if (binding.etLogin.text.toString().isEmpty() || binding.etPassword.text.toString().isEmpty()) {
+                showSnackbarLong("Заполните поля.")
+                return@setOnClickListener
+            }
+
+            viewModel.auth(
+                User(
+                    username = binding.etLogin.text.toString(),
+                    password = binding.etPassword.text.toString(),
+                )
+            )
         }
     }
 
