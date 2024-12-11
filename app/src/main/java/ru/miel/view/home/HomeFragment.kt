@@ -56,20 +56,47 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Начальная дата (текущая неделя)
-        val calendar = Calendar.getInstance()
-        val weeks = generateWeeks(calendar)
+        val today = Calendar.getInstance()
+        val weeks = generateWeeks(today)
 
-        val adapter = CalendarAdapter(weeks,
+        val calendarAdapter = CalendarAdapter(
+            weeks,
             onNextClick = { _ ->
-                calendar.add(java.util.Calendar.WEEK_OF_YEAR, 1)
-                updateWeeks(weeks, calendar)
+                // Анимация сдвига вправо
+                binding.rcCalendar.animate()
+                    .translationX(-1000f) // Сдвиг вправо за пределы экрана
+                    .setDuration(100)
+                    .withEndAction {
+                        today.add(Calendar.WEEK_OF_YEAR, 1)
+                        updateWeeks(weeks, today)
+                        binding.rcCalendar.translationX = 1000f // Перемещение влево за пределы экрана
+                        binding.rcCalendar.animate()
+                            .translationX(0f) // Возвращение в центр экрана
+                            .setDuration(100)
+                            .start()
+                    }
+                    .start()
             },
             onBackClick = { _ ->
-                calendar.add(java.util.Calendar.WEEK_OF_YEAR, -1)
-                updateWeeks(weeks, calendar)
-            })
+                // Анимация сдвига влево
+                binding.rcCalendar.animate()
+                    .translationX(1000f) // Сдвиг влево за пределы экрана
+                    .setDuration(100)
+                    .withEndAction {
+                        today.add(Calendar.WEEK_OF_YEAR, -1)
+                        updateWeeks(weeks, today)
+                        binding.rcCalendar.translationX = -1000f // Перемещение вправо за пределы экрана
+                        binding.rcCalendar.animate()
+                            .translationX(0f) // Возвращение в центр экрана
+                            .setDuration(100)
+                            .start()
+                    }
+                    .start()
+            }
+        )
 
-        binding.rcCalendar.adapter = adapter
+
+        binding.rcCalendar.adapter = calendarAdapter
 
         binding.rcHome.adapter = candidatesAdapter
 
