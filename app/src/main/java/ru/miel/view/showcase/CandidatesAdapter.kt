@@ -36,7 +36,7 @@ class CandidatesAdapter(
 
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
             binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
-            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.magenta)
+            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.bordo)
 
             binding.ivFavorites.setOnClickListener {
                onIconClick(position)
@@ -58,8 +58,4 @@ class CandidatesAdapter(
 
     override fun getItemCount() = candidatesList.size
 
-//    interface OnIconClickListener {
-//        fun onIconClick(position: Int)
-//        fun onButtonClick(position: Int)
-//    }
 }

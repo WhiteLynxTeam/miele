@@ -9,6 +9,7 @@
 
     <!-- Secondary -->
     <color name="lime">#9cc700</color>
+    <color name="selected_day_calendar">#B5D540</color>
     <color name="turquoise">#01bec2</color>
     <color name="violet">#991fa9</color>
     <color name="orange">#ff5e01</color>

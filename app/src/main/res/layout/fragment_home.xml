@@ -13,6 +13,7 @@
         app:layout_constraintWidth_percent="0.4"
         android:gravity="center"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:padding="20dp"
         android:fontFamily="@font/pt_sans_regular"
         android:textSize="14sp"
@@ -35,197 +36,73 @@
         android:textColor="@color/black"
         android:background="@drawable/bg_border_lime"
         android:text="Кандидаты 2"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_quotas"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/calendar"
+    <TextView
+        android:id="@+id/tv_month"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="Ср, Ноябрь 27"
+        app:layout_constraintStart_toStartOf="@id/tv_quotas"
+        app:layout_constraintTop_toBottomOf="@id/tv_quotas"/>
+
+    <View
+        android:id="@+id/border"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintWidth_percent="0.95"
+        android:layout_marginTop="10dp"
+        android:background="@color/magenta"
+        app:layout_constraintTop_toBottomOf="@id/tv_month"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_calendar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.95"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_calendar_border"
+        android:layout_marginTop="10dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/border"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_calendar"/>
+
+    <View
+        android:id="@+id/calendar_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_calendar_border"
+        app:layout_constraintBottom_toTopOf="@id/rc_home"
+        app:layout_constraintEnd_toEndOf="@id/border"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/border"
         app:layout_constraintTop_toBottomOf="@id/tv_quotas"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/tv_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/pt_sans_regular"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:text="Ср, Ноябрь 27"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <View
-            android:id="@+id/border"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/magenta"
-            app:layout_constraintTop_toBottomOf="@id/tv_month"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <TextView
-            android:id="@+id/tv_month_and_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/pt_sans_regular"
-            android:textColor="@color/black"
-            android:text="Ноябрь 2024"
-            app:layout_constraintStart_toStartOf="@id/tv_month"
-            app:layout_constraintTop_toBottomOf="@id/border"/>
-
-        <ImageView
-            android:id="@+id/iv_arrow_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:scaleX="-1"
-            android:src="@drawable/ic_arrow"
-            app:layout_constraintTop_toTopOf="@id/tv_month_and_year"
-            app:layout_constraintEnd_toEndOf="@id/border"
-            app:layout_constraintBottom_toBottomOf="@id/tv_month_and_year"/>
-
-        <ImageView
-            android:id="@+id/iv_arrow_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_arrow"
-            app:layout_constraintTop_toTopOf="@id/tv_month_and_year"
-            app:layout_constraintEnd_toStartOf="@id/iv_arrow_right"
-            app:layout_constraintBottom_toBottomOf="@id/tv_month_and_year"/>
-
-        <androidx.constraintlayout.helper.widget.Flow
-            android:id="@+id/flow_weekday"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:constraint_referenced_ids="monday,tuesday,wednesday,thursday,friday,saturday,sunday"
-            app:flow_wrapMode="chain"
-            app:flow_horizontalStyle="spread_inside"
-            app:layout_constraintEnd_toEndOf="@id/iv_arrow_right"
-            app:layout_constraintStart_toStartOf="@+id/tv_month"
-            app:layout_constraintTop_toBottomOf="@id/tv_month_and_year"/>
-
-        <TextView
-            android:id="@+id/monday"
-            style="@style/weekday"
-            android:text="Пн"/>
-
-        <TextView
-            android:id="@+id/tuesday"
-            style="@style/weekday"
-            android:text="Вт"/>
-
-        <TextView
-            android:id="@+id/wednesday"
-            style="@style/weekday"
-            android:text="Ср"/>
-
-        <TextView
-            android:id="@+id/thursday"
-            style="@style/weekday"
-            android:text="Чт"/>
-
-        <TextView
-            android:id="@+id/friday"
-            style="@style/weekday"
-            android:text="Пт"/>
-
-        <TextView
-            android:id="@+id/saturday"
-            style="@style/weekday"
-            android:textColor="@color/orange"
-            android:text="Сб"/>
-
-        <TextView
-            android:id="@+id/sunday"
-            style="@style/weekday"
-            android:textColor="@color/orange"
-            android:text="Вс"/>
-
-        <TextView
-            android:id="@+id/day_1"
-            style="@style/day"
-            android:text="25"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintStart_toStartOf="@id/monday"
-            app:layout_constraintTop_toBottomOf="@id/monday"
-            app:layout_constraintEnd_toEndOf="@id/monday"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <TextView
-            android:id="@+id/day_2"
-            style="@style/day"
-            android:text="26"
-            app:layout_constraintStart_toStartOf="@id/tuesday"
-            app:layout_constraintTop_toBottomOf="@id/tuesday"
-            app:layout_constraintEnd_toEndOf="@id/tuesday"/>
-
-        <TextView
-            android:id="@+id/day_3"
-            style="@style/day"
-            android:text="27"
-            android:background="@color/lime"
-            app:layout_constraintStart_toStartOf="@id/wednesday"
-            app:layout_constraintTop_toBottomOf="@id/wednesday"
-            app:layout_constraintEnd_toEndOf="@id/wednesday" />
-
-        <TextView
-            android:id="@+id/day_4"
-            style="@style/day"
-            android:text="28"
-            app:layout_constraintStart_toStartOf="@id/thursday"
-            app:layout_constraintTop_toBottomOf="@id/thursday"
-            app:layout_constraintEnd_toEndOf="@id/thursday"/>
-
-        <TextView
-            android:id="@+id/day_5"
-            style="@style/day"
-            android:text="29"
-            app:layout_constraintStart_toStartOf="@id/friday"
-            app:layout_constraintTop_toBottomOf="@id/friday"
-            app:layout_constraintEnd_toEndOf="@id/friday"/>
-
-        <TextView
-            android:id="@+id/day_6"
-            style="@style/day"
-            android:textColor="@color/orange"
-            android:text="30"
-            app:layout_constraintStart_toStartOf="@id/saturday"
-            app:layout_constraintTop_toBottomOf="@id/saturday"
-            app:layout_constraintEnd_toEndOf="@id/saturday"/>
-
-        <TextView
-            android:id="@+id/day_7"
-            style="@style/day"
-            android:textColor="@color/orange"
-            android:text="1"
-            app:layout_constraintStart_toStartOf="@id/sunday"
-            app:layout_constraintTop_toBottomOf="@id/sunday"
-            app:layout_constraintEnd_toEndOf="@id/sunday"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/tv_candidates"
         app:layout_constraintStart_toStartOf="@id/tv_quotas"
-        app:layout_constraintTop_toBottomOf="@id/calendar"
+        app:layout_constraintTop_toBottomOf="@id/rc_calendar"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_candidates" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
