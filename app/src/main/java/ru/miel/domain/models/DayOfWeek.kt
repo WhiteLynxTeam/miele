@@ -1,6 +1,6 @@
 package ru.miel.domain.models
 
-data class Calendar(
+data class DayOfWeek(
     val monday: String,
     val tuesday: String,
     val wednesday: String,
@@ -8,7 +8,5 @@ data class Calendar(
     val friday: String,
     val saturday: String,
     val sunday: String,
-    val monthAndYear: String,
-    val isSelected: Boolean = false,
-    val isToday: Boolean = false
+    val monthAndYear: String
 )

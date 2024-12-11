@@ -1,5 +1,6 @@
 package ru.miel.view.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import dagger.android.support.AndroidSupportInjection
 import ru.miel.databinding.FragmentHomeBinding
-import ru.miel.domain.models.Calendar
+import ru.miel.domain.models.DayOfWeek
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
 import ru.miel.view.showcase.CandidatesViewModel
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -54,7 +56,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Начальная дата (текущая неделя)
-        val calendar = java.util.Calendar.getInstance()
+        val calendar = Calendar.getInstance()
         val weeks = generateWeeks(calendar)
 
         val adapter = CalendarAdapter(weeks,
@@ -91,20 +93,20 @@ class HomeFragment : Fragment() {
         binding.tvMonth.text = finalDate
     }
 
-    private fun generateWeeks(calendar: java.util.Calendar): MutableList<Calendar> {
-        val weeks = mutableListOf<Calendar>()
+    private fun generateWeeks(calendar: java.util.Calendar): MutableList<DayOfWeek> {
+        val weeks = mutableListOf<DayOfWeek>()
         for (i in 0 until 1) { // Начальный список (одна неделя)
             weeks.add(createWeek(calendar))
         }
         return weeks
     }
 
-    private fun createWeek(calendar: java.util.Calendar): Calendar {
+    private fun createWeek(calendar: java.util.Calendar): DayOfWeek {
         val sdf = SimpleDateFormat("dd", Locale.getDefault())
         val weekFormat = SimpleDateFormat("MMMM yyyy", Locale("ru"))
 
         val monday = calendar.apply { set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.MONDAY) }
-        return Calendar(
+        return DayOfWeek(
             monday = sdf.format(monday.time),
             tuesday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
             wednesday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
@@ -116,7 +118,8 @@ class HomeFragment : Fragment() {
         )
     }
 
-    private fun updateWeeks(weeks: MutableList<Calendar>, calendar: java.util.Calendar) {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun updateWeeks(weeks: MutableList<DayOfWeek>, calendar: java.util.Calendar) {
         weeks.clear()
         weeks.add(createWeek(calendar))
         binding.rcCalendar.adapter?.notifyDataSetChanged()
