@@ -61,43 +61,11 @@ class HomeFragment : Fragment() {
 
         val calendarAdapter = CalendarAdapter(
             weeks,
-            onNextClick = { _ ->
-                // Анимация сдвига вправо
-                binding.rcCalendar.animate()
-                    .translationX(-1000f) // Сдвиг вправо за пределы экрана
-                    .setDuration(100)
-                    .withEndAction {
-                        today.add(Calendar.WEEK_OF_YEAR, 1)
-                        updateWeeks(weeks, today)
-                        binding.rcCalendar.translationX = 1000f // Перемещение влево за пределы экрана
-                        binding.rcCalendar.animate()
-                            .translationX(0f) // Возвращение в центр экрана
-                            .setDuration(100)
-                            .start()
-                    }
-                    .start()
-            },
-            onBackClick = { _ ->
-                // Анимация сдвига влево
-                binding.rcCalendar.animate()
-                    .translationX(1000f) // Сдвиг влево за пределы экрана
-                    .setDuration(100)
-                    .withEndAction {
-                        today.add(Calendar.WEEK_OF_YEAR, -1)
-                        updateWeeks(weeks, today)
-                        binding.rcCalendar.translationX = -1000f // Перемещение вправо за пределы экрана
-                        binding.rcCalendar.animate()
-                            .translationX(0f) // Возвращение в центр экрана
-                            .setDuration(100)
-                            .start()
-                    }
-                    .start()
-            }
+            onNextClick = { shiftCalendar(today, weeks, 1) },
+            onBackClick = { shiftCalendar(today, weeks, -1) }
         )
 
-
         binding.rcCalendar.adapter = calendarAdapter
-
         binding.rcHome.adapter = candidatesAdapter
 
         // Наблюдение за данными
@@ -120,7 +88,7 @@ class HomeFragment : Fragment() {
         binding.tvMonth.text = finalDate
     }
 
-    private fun generateWeeks(calendar: java.util.Calendar): MutableList<DayOfWeek> {
+    private fun generateWeeks(calendar: Calendar): MutableList<DayOfWeek> {
         val weeks = mutableListOf<DayOfWeek>()
         for (i in 0 until 1) { // Начальный список (одна неделя)
             weeks.add(createWeek(calendar))
@@ -128,21 +96,37 @@ class HomeFragment : Fragment() {
         return weeks
     }
 
-    private fun createWeek(calendar: java.util.Calendar): DayOfWeek {
+    private fun createWeek(calendar: Calendar): DayOfWeek {
         val sdf = SimpleDateFormat("dd", Locale.getDefault())
         val weekFormat = SimpleDateFormat("MMMM yyyy", Locale("ru"))
 
-        val monday = calendar.apply { set(java.util.Calendar.DAY_OF_WEEK, java.util.Calendar.MONDAY) }
+        val monday = calendar.apply { set(Calendar.DAY_OF_WEEK, Calendar.MONDAY) }
         return DayOfWeek(
             monday = sdf.format(monday.time),
-            tuesday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
-            wednesday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
-            thursday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
-            friday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
-            saturday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
-            sunday = sdf.format(monday.apply { add(java.util.Calendar.DAY_OF_MONTH, 1) }.time),
+            tuesday = sdf.format(monday.apply { add(Calendar.DAY_OF_MONTH, 1) }.time),
+            wednesday = sdf.format(monday.apply { add(Calendar.DAY_OF_MONTH, 1) }.time),
+            thursday = sdf.format(monday.apply { add(Calendar.DAY_OF_MONTH, 1) }.time),
+            friday = sdf.format(monday.apply { add(Calendar.DAY_OF_MONTH, 1) }.time),
+            saturday = sdf.format(monday.apply { add(Calendar.DAY_OF_MONTH, 1) }.time),
+            sunday = sdf.format(monday.apply { add(Calendar.DAY_OF_MONTH, 1) }.time),
             monthAndYear = weekFormat.format(monday.time)
         )
+    }
+
+    private fun shiftCalendar(today: Calendar, weeks: MutableList<DayOfWeek>, direction: Int) {
+        binding.rcCalendar.animate()
+            .translationX((1000f * direction).toFloat())
+            .setDuration(100)
+            .withEndAction {
+                today.add(Calendar.WEEK_OF_YEAR, direction)
+                updateWeeks(weeks, today)
+                binding.rcCalendar.translationX = (1000f * -direction).toFloat()
+                binding.rcCalendar.animate()
+                    .translationX(0f)
+                    .setDuration(100)
+                    .start()
+            }
+            .start()
     }
 
     @SuppressLint("NotifyDataSetChanged")
