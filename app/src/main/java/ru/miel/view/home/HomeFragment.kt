@@ -61,8 +61,8 @@ class HomeFragment : Fragment() {
 
         val calendarAdapter = CalendarAdapter(
             weeks,
-            onNextClick = { shiftCalendar(today, weeks, 1) },
-            onBackClick = { shiftCalendar(today, weeks, -1) }
+            onNextClick = { shiftCalendar(today, weeks, -1000f, 1000f, 1) },
+            onBackClick = { shiftCalendar(today, weeks, 1000f, -1000f, -1) }
         )
 
         binding.rcCalendar.adapter = calendarAdapter
@@ -113,14 +113,14 @@ class HomeFragment : Fragment() {
         )
     }
 
-    private fun shiftCalendar(today: Calendar, weeks: MutableList<DayOfWeek>, direction: Int) {
+    private fun shiftCalendar(today: Calendar, weeks: MutableList<DayOfWeek>, startValue: Float, endValue: Float, direction: Int) {
         binding.rcCalendar.animate()
-            .translationX((1000f * direction).toFloat())
+            .translationX(startValue)
             .setDuration(100)
             .withEndAction {
                 today.add(Calendar.WEEK_OF_YEAR, direction)
                 updateWeeks(weeks, today)
-                binding.rcCalendar.translationX = (1000f * -direction).toFloat()
+                binding.rcCalendar.translationX = endValue
                 binding.rcCalendar.animate()
                     .translationX(0f)
                     .setDuration(100)
