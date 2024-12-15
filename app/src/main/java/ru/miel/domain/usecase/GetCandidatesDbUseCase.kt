@@ -7,7 +7,7 @@ class GetCandidatesDbUseCase(
     private val repository: ICandidatesRepository,
 ) {
     suspend operator fun invoke(): List<Candidates>  {
-        val result = repository.getCandidates()
+        val result = repository.getCandidatesDao()
         return result
     }
 }

@@ -1,11 +1,12 @@
 package ru.miel.data.api
 
-import retrofit2.http.Body
 import retrofit2.http.GET
-import ru.miel.data.dto.user.request.AuthUserRequest
-import ru.miel.data.dto.user.response.AuthUserResponse
+import retrofit2.http.Header
+import ru.miel.data.dto.candidates.response.CandidatesResponse
 
 interface CandidatesApi {
-    @GET("/api/v1/candidates/")
-    suspend fun getCandidates(): Result<AuthUserResponse>
+    @GET("/api/supervisor/candidates/")
+    suspend fun getCandidates(
+        @Header("Authorization") token: String
+        ): Result<List<CandidatesResponse>>
 }
