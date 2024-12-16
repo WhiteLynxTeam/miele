@@ -7,6 +7,7 @@ import ru.miel.view.showcase.ShowcaseFragment
 import ru.miel.view.auth.AuthFragment
 import ru.miel.view.favorites.FavoritesFragment
 import ru.miel.view.home.HomeFragment
+import ru.miel.view.invitations.InvitationsFragment
 import ru.miel.view.office.OfficeFragment
 import ru.miel.view.office.address.AddressFragment
 import ru.miel.view.office.administrator.AdministratorFragment
@@ -40,5 +41,8 @@ interface MainModule {
 
     @ContributesAndroidInjector
     fun bindStatisticsFragment(): StatisticsFragment
+
+    @ContributesAndroidInjector
+    fun bindInvitationsFragment(): InvitationsFragment
 
 }
