@@ -5,9 +5,12 @@ import kotlinx.coroutines.withContext
 import ru.miel.data.api.CandidatesApi
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.dbo.entity.CandidatesEntity
+import ru.miel.data.dto.candidates.request.SetFlagByIdRequest
+import ru.miel.data.dto.candidates.response.CandidatesByFlagResponse
 import ru.miel.data.dto.candidates.response.CandidatesResponse
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.CandidatesFlagFromApi
 import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.models.Token
 import ru.miel.utils.randomUuid
@@ -36,6 +39,26 @@ class CandidatesRepository(
     override suspend fun getCandidatesApi(token: Token): Result<List<CandidatesFromApi>> {
         val result = candidatesApi.getCandidates("Token ${token.token}")
         return result.map { mapperCandidatesDtoToCandidates(it) }
+    }
+
+    override suspend fun getFavoritesApi(token: Token): Result<List<CandidatesFlagFromApi>> {
+        val result = candidatesApi.getFavorites("Token ${token.token}")
+        return result.map { mapperCandidatesFlagDtoToCandidatesFlag(it) }
+    }
+
+    override suspend fun getInvitationsApi(token: Token): Result<List<CandidatesFlagFromApi>> {
+        val result = candidatesApi.getInvitations("Token ${token.token}")
+        return result.map { mapperCandidatesFlagDtoToCandidatesFlag(it) }
+    }
+
+    override suspend fun setFavoriteApi(token: Token, id: Int): Boolean {
+        val result = candidatesApi.setFavorite("Token ${token.token}", SetFlagByIdRequest(id))
+        return result.isSuccess
+    }
+
+    override suspend fun setInvitationApi(token: Token, id: Int): Boolean {
+        val result = candidatesApi.setInvitation("Token ${token.token}", SetFlagByIdRequest(id))
+        return result.isSuccess
     }
 
     private fun mapperCandidatesToCandidatesEntity(
@@ -107,6 +130,17 @@ class CandidatesRepository(
                 created_at = it.created_at,
                 updated_at = it.updated_at,
                 office = it.office,
+            )
+        }
+    }
+
+    private fun mapperCandidatesFlagDtoToCandidatesFlag(
+        candidates: List<CandidatesByFlagResponse>
+    ): List<CandidatesFlagFromApi> {
+        return candidates.map {
+            CandidatesFlagFromApi(
+                id = it.candidate,
+                createdAt = it.created_at
             )
         }
     }

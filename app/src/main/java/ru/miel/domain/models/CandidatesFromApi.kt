@@ -23,6 +23,6 @@ data class CandidatesFromApi(
     val created_at: String,
     val updated_at: String,
     val office: String?,
-    val isFavorite: Boolean = false,
-    val isInvite: Boolean = false,
+    var isFavorite: Boolean = false,
+    var isInvite: Boolean = false,
 )
