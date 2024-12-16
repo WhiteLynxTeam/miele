@@ -1,16 +1,20 @@
 package ru.miel.data.repository
 
-import androidx.room.ColumnInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import ru.miel.data.api.CandidatesApi
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.dbo.entity.CandidatesEntity
+import ru.miel.data.dto.candidates.response.CandidatesResponse
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.models.Token
 import ru.miel.utils.randomUuid
 
 class CandidatesRepository(
     private val candidatesDao: CandidatesDao,
+    private val candidatesApi: CandidatesApi,
 ) : ICandidatesRepository {
     override suspend fun createCandidates(candidates: List<Candidates>): Boolean {
         val candidatesDb = mapperCandidatesToCandidatesEntity(candidates)
@@ -22,11 +26,16 @@ class CandidatesRepository(
         return true
     }
 
-    override suspend fun getCandidates() : List<Candidates> {
+    override suspend fun getCandidatesDao(): List<Candidates> {
         val candidates = withContext(Dispatchers.IO) {
             candidatesDao.getCandidates()
         }
         return mapperCandidatesEntityToCandidates(candidates)
+    }
+
+    override suspend fun getCandidatesApi(token: Token): Result<List<CandidatesFromApi>> {
+        val result = candidatesApi.getCandidates("Token ${token.token}")
+        return result.map { mapperCandidatesDtoToCandidates(it) }
     }
 
     private fun mapperCandidatesToCandidatesEntity(
@@ -67,6 +76,37 @@ class CandidatesRepository(
                 clients = it.clients,
                 isInvite = it.isInvite,
                 isFavorite = it.isFavorite,
+            )
+        }
+    }
+
+    private fun mapperCandidatesDtoToCandidates(
+        candidates: List<CandidatesResponse>
+    ): List<CandidatesFromApi> {
+        return candidates.map {
+            CandidatesFromApi(
+                id = it.id,
+                is_active = it.is_active,
+                name = it.name,
+                surname = it.surname,
+                patronymic = it.patronymic,
+                birth = it.birth,
+                education = it.education,
+                photo = it.photo,
+                country = it.country,
+                city = it.city,
+                email = it.email,
+                resume = it.resume,
+                is_free = it.is_free,
+                course_rieltor_join = it.course_rieltor_join,
+                basic_legal_course = it.basic_legal_course,
+                course_mortgage = it.course_mortgage,
+                course_taxation = it.course_taxation,
+                completed_objects = it.completed_objects,
+                clients = it.clients,
+                created_at = it.created_at,
+                updated_at = it.updated_at,
+                office = it.office,
             )
         }
     }

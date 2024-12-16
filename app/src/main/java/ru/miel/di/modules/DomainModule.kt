@@ -7,7 +7,9 @@ import ru.miel.domain.irepository.IUserRepository
 import ru.miel.domain.istorage.ITokenStorage
 import ru.miel.domain.usecase.AuthApiUseCase
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
+import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.GetTokenPrefUseCase
 import ru.miel.domain.usecase.SaveTokenPrefUseCase
 import javax.inject.Singleton
 
@@ -35,6 +37,18 @@ class DomainModule {
 
     @Singleton
     @Provides
+    fun provideGetCandidatesApiUseCase(
+        repository: ICandidatesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): GetCandidatesApiUseCase {
+        return GetCandidatesApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
     fun provideAuthApiUseCase(
         repository: IUserRepository,
         saveTokenPrefUseCase: SaveTokenPrefUseCase,
@@ -51,5 +65,13 @@ class DomainModule {
         storage: ITokenStorage,
     ): SaveTokenPrefUseCase {
         return SaveTokenPrefUseCase(storage = storage)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetTokenPrefUseCase(
+        storage: ITokenStorage,
+    ): GetTokenPrefUseCase {
+        return GetTokenPrefUseCase(storage = storage)
     }
 }

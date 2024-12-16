@@ -65,7 +65,8 @@ class ShowcaseFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.candidates.collect {
-                candidatesAdapter.submitList(it)
+                candidatesAdapter.setData(it)
+//                candidatesAdapter.submitList(it)
             }
         }
 
@@ -88,6 +89,8 @@ class ShowcaseFragment : Fragment() {
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+
+        viewModel.getCandidates()
     }
 
 }

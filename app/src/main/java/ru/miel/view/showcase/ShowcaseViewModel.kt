@@ -9,25 +9,29 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
+import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
 
 class ShowcaseViewModel(
     private val filDbWithSampleDataUseCase: FilDbWithSampleDataUseCase,
-    private val getCandidatesDbUseCase: GetCandidatesDbUseCase) :
+    private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
+    private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
+    ) :
     ViewModel() {
 
-    private var _candidates = MutableSharedFlow<List<Candidates>>()
-    val candidates: SharedFlow<List<Candidates>>
+    private var _candidates = MutableSharedFlow<List<CandidatesFromApi>>()
+    val candidates: SharedFlow<List<CandidatesFromApi>>
         get() = _candidates.asSharedFlow()
 
     private var _isEntry = MutableSharedFlow<Boolean>()
     val isEntry: SharedFlow<Boolean>
         get() = _isEntry.asSharedFlow()
 
-    init {
-        fillDb()
-    }
+//    init {
+//        fillDb()
+//    }
 
     fun fillDb() {
         viewModelScope.launch {
@@ -97,7 +101,7 @@ class ShowcaseViewModel(
 
     fun getCandidates() {
         viewModelScope.launch {
-            val result = getCandidatesDbUseCase()
+            val result = getCandidatesApiUseCase()
             _candidates.emit(result)
         }
     }
@@ -118,14 +122,16 @@ class ShowcaseViewModel(
 
     class Factory(
         private val filDbWithSampleDataUseCase: FilDbWithSampleDataUseCase,
-        private val getCandidatesDbUseCase: GetCandidatesDbUseCase
+        private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
+        private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ShowcaseViewModel::class.java)) {
                 return ShowcaseViewModel(
                     filDbWithSampleDataUseCase = filDbWithSampleDataUseCase,
-                    getCandidatesDbUseCase = getCandidatesDbUseCase
+                    getCandidatesDbUseCase = getCandidatesDbUseCase,
+                    getCandidatesApiUseCase = getCandidatesApiUseCase,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
