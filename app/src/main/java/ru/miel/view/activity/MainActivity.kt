@@ -32,23 +32,28 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.home -> {
+                /*R.id.home -> {
                     navController.navigate(R.id.homeFragment)
                     true
-                }
+                }*/
 
                 R.id.showcase -> {
                     navController.navigate(R.id.showcaseFragment)
                     true
                 }
 
-                R.id.office -> {
+                R.id.quotas -> {
                     navController.navigate(R.id.officeFragment)
                     true
                 }
 
                 R.id.favorites -> {
                     navController.navigate(R.id.favoritesFragment)
+                    true
+                }
+
+                R.id.invitations -> {
+                    navController.navigate(R.id.invitationsFragment)
                     true
                 }
 
