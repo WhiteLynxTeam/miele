@@ -89,6 +89,8 @@ class ShowcaseFragment : Fragment() {
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+
+        viewModel.getCandidates()
     }
 
 }

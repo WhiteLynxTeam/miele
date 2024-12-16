@@ -3,6 +3,7 @@ package ru.miel.di.modules
 import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
+import ru.miel.data.api.CandidatesApi
 import ru.miel.data.api.UserApi
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.repository.CandidatesRepository
@@ -18,10 +19,12 @@ class DataModule {
     @Provides
     @Singleton
     fun provideCandidatesRepository(
-        candidatesDao: CandidatesDao
+        candidatesDao: CandidatesDao,
+        candidatesApi: CandidatesApi,
     ) : ICandidatesRepository {
         return CandidatesRepository(
-            candidatesDao = candidatesDao
+            candidatesDao = candidatesDao,
+            candidatesApi = candidatesApi,
         )
     }
 
