@@ -51,7 +51,7 @@ class AuthFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isEntry.collect {
-                if (it) findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+                if (it) findNavController().navigate(R.id.action_authFragment_to_showcaseFragment)
                 else {
                     showSnackbarLong("Ошибка авторизации.")
                 }
