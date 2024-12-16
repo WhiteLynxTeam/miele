@@ -17,12 +17,15 @@
     <string name="message">Сообщения</string>
     <string name="favorites">Избранное</string>
     <string name="office">Офис</string>
+    <string name="invitations">Приглашения</string>
+    <string name="quotas">Квоты</string>
 
     <!-- TODO: Текст для fragment_showcase -->
     <string name="showcase_candidates">Витрина кандидатов</string>
     <string name="filter">Фильтр</string>
     <string name="dating_in_miel">Обучение в Миэль</string>
     <string name="achievements">Достижения</string>
+    <string name="invitation_history">История приглашений</string>
 
     <!-- TODO: Текст для fragment_office -->
     <string name="administrator">Руководитель офиса</string>

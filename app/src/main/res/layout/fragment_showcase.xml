@@ -7,13 +7,46 @@
     tools:context=".view.showcase.ShowcaseFragment">
 
     <TextView
+        android:id="@+id/tv_quotas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.4"
+        android:gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:padding="20dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:background="@drawable/bg_border_lime"
+        android:text="Квоты 2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_candidates"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.4"
+        android:gravity="center"
+        android:layout_marginEnd="20dp"
+        android:padding="20dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:background="@drawable/bg_border_lime"
+        android:text="Кандидаты 5"
+        app:layout_constraintTop_toTopOf="@id/tv_quotas"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
         android:id="@+id/tv_showcase"
         style="@style/text_title"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:layout_marginStart="20dp"
         android:text="@string/showcase_candidates"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_quotas"/>
 
     <ImageView
         android:id="@+id/iv_sorting"
