@@ -65,7 +65,8 @@ class ShowcaseFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.candidates.collect {
-                candidatesAdapter.submitList(it)
+                candidatesAdapter.setData(it)
+//                candidatesAdapter.submitList(it)
             }
         }
 

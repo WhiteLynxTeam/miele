@@ -1,28 +1,31 @@
 package ru.miel.view.showcase
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.miel.R
 import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.CandidatesFromApi
 
 class CandidatesAdapter(
     private val onIconClick:(pos:Int) -> Unit,
     private val onButtonClick:(pos:Int) -> Unit
 ) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
-    private val candidatesList: MutableList<Candidates> = mutableListOf()
+    private var candidatesList: MutableList<CandidatesFromApi> = mutableListOf()
 
     // Обновление списка кандидатов
-    fun submitList(newCandidates: List<Candidates>) {
-        candidatesList.clear()
-        candidatesList.addAll(newCandidates)
-        notifyDataSetChanged()
-    }
+//    fun submitList(newCandidates: List<Candidates>) {
+//        candidatesList.clear()
+//        candidatesList.addAll(newCandidates)
+//        notifyDataSetChanged()
+//    }
 
     inner class CandidatesViewHolder(private val binding: ItemCandidatesBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(candidates: Candidates, position: Int) {
+
+        fun bind(candidates: CandidatesFromApi, position: Int) {
             binding.ivAvatar.setImageResource(candidates.img)
             binding.tvName.text = candidates.name
             binding.tvYear.text = candidates.year
@@ -58,4 +61,9 @@ class CandidatesAdapter(
 
     override fun getItemCount() = candidatesList.size
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(candidates: List<CandidatesFromApi>) {
+        this.candidatesList = candidates.toMutableList()
+        notifyDataSetChanged()
+    }
 }

@@ -14,7 +14,6 @@ import ru.miel.databinding.FragmentHomeBinding
 import ru.miel.domain.models.DayOfWeek
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
-import ru.miel.view.showcase.CandidatesViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -27,7 +26,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
 
-    private val candidatesViewModel: CandidatesViewModel by activityViewModels()
+//    private val candidatesViewModel: CandidatesViewModel by activityViewModels()
 
     private val candidatesAdapter by lazy {
         CandidatesAdapter({ pos ->
@@ -69,9 +68,9 @@ class HomeFragment : Fragment() {
         binding.rcHome.adapter = candidatesAdapter
 
         // Наблюдение за данными
-        candidatesViewModel.candidates.observe(viewLifecycleOwner, Observer { candidates ->
-            candidatesAdapter.submitList(candidates)
-        })
+//        candidatesViewModel.candidates.observe(viewLifecycleOwner, Observer { candidates ->
+//            candidatesAdapter.submitList(candidates)
+//        })
 
         settingTheDate()
 
