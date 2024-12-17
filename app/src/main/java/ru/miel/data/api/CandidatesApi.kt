@@ -1,9 +1,11 @@
 package ru.miel.data.api
 
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 import ru.miel.data.dto.candidates.request.SetFlagByIdRequest
 import ru.miel.data.dto.candidates.response.CandidatesByFlagResponse
 import ru.miel.data.dto.candidates.response.CandidatesResponse
@@ -23,6 +25,12 @@ interface CandidatesApi {
     suspend fun setFavorite(
         @Header("Authorization") token: String,
         @Body setFlagByIdRequest: SetFlagByIdRequest,
+    ): Result<CandidatesByFlagResponse>
+
+    @DELETE("/api/supervisor/favorites/{id}/")
+    suspend fun delFavorite(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
     ): Result<CandidatesByFlagResponse>
 
     @GET("/api/supervisor/invitations/")

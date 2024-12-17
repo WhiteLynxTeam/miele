@@ -10,7 +10,7 @@ import ru.miel.data.dto.candidates.response.CandidatesByFlagResponse
 import ru.miel.data.dto.candidates.response.CandidatesResponse
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
-import ru.miel.domain.models.CandidatesFlagFromApi
+import ru.miel.domain.models.IdCandidateFromApi
 import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.models.Token
 import ru.miel.utils.randomUuid
@@ -41,17 +41,22 @@ class CandidatesRepository(
         return result.map { mapperCandidatesDtoToCandidates(it) }
     }
 
-    override suspend fun getFavoritesApi(token: Token): Result<List<CandidatesFlagFromApi>> {
+    override suspend fun getFavoritesApi(token: Token): Result<List<IdCandidateFromApi>> {
         val result = candidatesApi.getFavorites("Token ${token.token}")
-        return result.map { mapperCandidatesFlagDtoToCandidatesFlag(it) }
+        return result.map { mapperIdCandidatesDtoToIdCandidates(it) }
     }
 
-    override suspend fun getInvitationsApi(token: Token): Result<List<CandidatesFlagFromApi>> {
+    override suspend fun getInvitationsApi(token: Token): Result<List<IdCandidateFromApi>> {
         val result = candidatesApi.getInvitations("Token ${token.token}")
-        return result.map { mapperCandidatesFlagDtoToCandidatesFlag(it) }
+        return result.map { mapperIdCandidatesDtoToIdCandidates(it) }
     }
 
     override suspend fun setFavoriteApi(token: Token, id: Int): Boolean {
+        val result = candidatesApi.setFavorite("Token ${token.token}", SetFlagByIdRequest(id))
+        return result.isSuccess
+    }
+
+    override suspend fun delFavoriteApi(token: Token, id: Int): Boolean {
         val result = candidatesApi.setFavorite("Token ${token.token}", SetFlagByIdRequest(id))
         return result.isSuccess
     }
@@ -134,13 +139,12 @@ class CandidatesRepository(
         }
     }
 
-    private fun mapperCandidatesFlagDtoToCandidatesFlag(
+    private fun mapperIdCandidatesDtoToIdCandidates(
         candidates: List<CandidatesByFlagResponse>
-    ): List<CandidatesFlagFromApi> {
+    ): List<IdCandidateFromApi> {
         return candidates.map {
-            CandidatesFlagFromApi(
-                id = it.candidate,
-                createdAt = it.created_at
+            IdCandidateFromApi(
+                id = it.candidate.id,
             )
         }
     }
