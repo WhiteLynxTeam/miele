@@ -48,10 +48,6 @@ class StatisticsFragment : Fragment() {
         // Применяем адаптер к Spinner
         binding.spinnerPeriod.adapter = spinnerAdapter
 
-        binding.ivArrowBack.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed() // Имитирует нажатие "Назад"
-        }
-
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
     }
