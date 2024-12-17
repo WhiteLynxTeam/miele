@@ -28,14 +28,14 @@ class HomeFragment : Fragment() {
 
 //    private val candidatesViewModel: CandidatesViewModel by activityViewModels()
 
-    private val candidatesAdapter by lazy {
-        CandidatesAdapter({ pos ->
-            println("ShowcaseFragment onIconClick = $pos")
-        },
-            { pos ->
-                println("ShowcaseFragment onButtonClick = $pos")
-            })
-    }
+//    private val candidatesAdapter by lazy {
+//        CandidatesAdapter({ pos ->
+//            println("ShowcaseFragment onIconClick = $pos")
+//        },
+//            { pos ->
+//                println("ShowcaseFragment onButtonClick = $pos")
+//            })
+//    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
         )
 
         binding.rcCalendar.adapter = calendarAdapter
-        binding.rcHome.adapter = candidatesAdapter
+//        binding.rcHome.adapter = candidatesAdapter
 
         // Наблюдение за данными
 //        candidatesViewModel.candidates.observe(viewLifecycleOwner, Observer { candidates ->

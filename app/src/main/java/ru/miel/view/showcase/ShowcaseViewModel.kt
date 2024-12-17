@@ -18,7 +18,7 @@ class ShowcaseViewModel(
     private val filDbWithSampleDataUseCase: FilDbWithSampleDataUseCase,
     private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
     private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
-    ) :
+) :
     ViewModel() {
 
     private var _candidates = MutableSharedFlow<List<CandidatesFromApi>>()
@@ -33,71 +33,71 @@ class ShowcaseViewModel(
 //        fillDb()
 //    }
 
-    fun fillDb() {
-        viewModelScope.launch {
-            val result = filDbWithSampleDataUseCase(
-                listOf(
-                    Candidates(
-                        R.drawable.img_avatar,
-                        "Романова Мария Ивановна",
-                        "22 года",
-                        "Москва",
-                        false,
-                        "Введение в профессию риелтор (пройден)",
-                        "Базовый юридический курс (в процессе)",
-                        "Курс “Ипотека” (в процессе)",
-                        "Курс “Налогообложение” (не начат)",
-                        "Объекты 5",
-                        "Клиенты 5",
-                        false
-                    ),
-                    Candidates(
-                        R.drawable.img_avatar,
-                        "Романова Мария Ивановна",
-                        "22 года",
-                        "Москва",
-                        false,
-                        "Введение в профессию риелтор (пройден)",
-                        "Базовый юридический курс (в процессе)",
-                        "Курс “Ипотека” (в процессе)",
-                        "Курс “Налогообложение” (не начат)",
-                        "Объекты 5",
-                        "Клиенты 5",
-                        false
-                    ),
-                    Candidates(
-                        R.drawable.img_avatar,
-                        "Романова Мария Ивановна",
-                        "22 года",
-                        "Москва",
-                        false,
-                        "Введение в профессию риелтор (пройден)",
-                        "Базовый юридический курс (в процессе)",
-                        "Курс “Ипотека” (в процессе)",
-                        "Курс “Налогообложение” (не начат)",
-                        "Объекты 5",
-                        "Клиенты 5",
-                        false
-                    ),
-                    Candidates(
-                        R.drawable.img_avatar,
-                        "Романова Мария Ивановна",
-                        "22 года",
-                        "Москва",
-                        false,
-                        "Введение в профессию риелтор (пройден)",
-                        "Базовый юридический курс (в процессе)",
-                        "Курс “Ипотека” (в процессе)",
-                        "Курс “Налогообложение” (не начат)",
-                        "Объекты 5",
-                        "Клиенты 5",
-                        false
-                    ),
-                )
-            )
-            _isEntry.emit(result)
-        }
-    }
+//    fun fillDb() {
+//        viewModelScope.launch {
+//            val result = filDbWithSampleDataUseCase(
+//                listOf(
+//                    Candidates(
+//                        R.drawable.img_avatar,
+//                        "Романова Мария Ивановна",
+//                        "22 года",
+//                        "Москва",
+//                        false,
+//                        "Введение в профессию риелтор (пройден)",
+//                        "Базовый юридический курс (в процессе)",
+//                        "Курс “Ипотека” (в процессе)",
+//                        "Курс “Налогообложение” (не начат)",
+//                        "Объекты 5",
+//                        "Клиенты 5",
+//                        false
+//                    ),
+//                    Candidates(
+//                        R.drawable.img_avatar,
+//                        "Романова Мария Ивановна",
+//                        "22 года",
+//                        "Москва",
+//                        false,
+//                        "Введение в профессию риелтор (пройден)",
+//                        "Базовый юридический курс (в процессе)",
+//                        "Курс “Ипотека” (в процессе)",
+//                        "Курс “Налогообложение” (не начат)",
+//                        "Объекты 5",
+//                        "Клиенты 5",
+//                        false
+//                    ),
+//                    Candidates(
+//                        R.drawable.img_avatar,
+//                        "Романова Мария Ивановна",
+//                        "22 года",
+//                        "Москва",
+//                        false,
+//                        "Введение в профессию риелтор (пройден)",
+//                        "Базовый юридический курс (в процессе)",
+//                        "Курс “Ипотека” (в процессе)",
+//                        "Курс “Налогообложение” (не начат)",
+//                        "Объекты 5",
+//                        "Клиенты 5",
+//                        false
+//                    ),
+//                    Candidates(
+//                        R.drawable.img_avatar,
+//                        "Романова Мария Ивановна",
+//                        "22 года",
+//                        "Москва",
+//                        false,
+//                        "Введение в профессию риелтор (пройден)",
+//                        "Базовый юридический курс (в процессе)",
+//                        "Курс “Ипотека” (в процессе)",
+//                        "Курс “Налогообложение” (не начат)",
+//                        "Объекты 5",
+//                        "Клиенты 5",
+//                        false
+//                    ),
+//                )
+//            )
+//            _isEntry.emit(result)
+//        }
+//    }
 
     fun getCandidates() {
         viewModelScope.launch {
@@ -107,14 +107,20 @@ class ShowcaseViewModel(
     }
 
     // Обновление состояния избранного
-    fun toggleFavorite(position: Int) {
+    fun toggleFavorite(id: Int, flag: Boolean) {
+        if (flag) {
+
+        } else {
+
+        }
+
 //        _candidates.value = _candidates.value?.mapIndexed { index, candidate ->
 //            if (index == position) candidate.copy(isFavorite = !candidate.isFavorite) else candidate
 //        }
     }
 
     // Обновление статуса приглашения
-    fun toggleInvite(position: Int) {
+    fun toggleInvite(id: Int, flag: Boolean) {
 //        _candidates.value = _candidates.value?.mapIndexed { index, candidate ->
 //            if (index == position) candidate.copy(isInvite = !candidate.isInvite) else candidate
 //        }

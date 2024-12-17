@@ -11,8 +11,8 @@ import ru.miel.domain.models.Candidates
 import ru.miel.domain.models.CandidatesFromApi
 
 class CandidatesAdapter(
-    private val onIconClick:(pos:Int) -> Unit,
-    private val onButtonClick:(pos:Int) -> Unit
+    private val onIconClick:(id:Int, flag: Boolean) -> Unit,
+    private val onButtonClick:(id:Int, flag: Boolean) -> Unit
 ) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
     private var candidatesList: MutableList<CandidatesFromApi> = mutableListOf()
@@ -63,10 +63,10 @@ class CandidatesAdapter(
 //            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.bordo)
 
             binding.ivFavorites.setOnClickListener {
-               onIconClick(position)
+               onIconClick(candidates.id, candidates.isFavorite)
             }
             binding.btnInvite.setOnClickListener {
-                onButtonClick(position)
+                onButtonClick(candidates.id, candidates.isInvite)
             }
         }
     }

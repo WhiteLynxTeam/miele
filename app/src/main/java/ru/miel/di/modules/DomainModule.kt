@@ -9,6 +9,7 @@ import ru.miel.domain.usecase.AuthApiUseCase
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.GetFavoritesApiUseCase
 import ru.miel.domain.usecase.GetTokenPrefUseCase
 import ru.miel.domain.usecase.SaveTokenPrefUseCase
 import javax.inject.Singleton
@@ -40,8 +41,22 @@ class DomainModule {
     fun provideGetCandidatesApiUseCase(
         repository: ICandidatesRepository,
         getTokenPrefUseCase: GetTokenPrefUseCase,
+        getFavoritesApiUseCase: GetFavoritesApiUseCase,
     ): GetCandidatesApiUseCase {
         return GetCandidatesApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
+            getFavoritesApiUseCase = getFavoritesApiUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetFavoritesApiUseCase(
+        repository: ICandidatesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): GetFavoritesApiUseCase {
+        return GetFavoritesApiUseCase(
             repository = repository,
             getTokenPrefUseCase = getTokenPrefUseCase,
         )
