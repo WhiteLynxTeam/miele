@@ -13,110 +13,46 @@ import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.SetFavoriteDbUseCase
 
 class ShowcaseViewModel(
-    private val filDbWithSampleDataUseCase: FilDbWithSampleDataUseCase,
     private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
     private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
+    private val setFavoriteDbUseCase: SetFavoriteDbUseCase,
 ) :
     ViewModel() {
+/***Кандидаты с сервера*/
+//    private var _candidates = MutableSharedFlow<List<CandidatesFromApi>>()
+//    val candidates: SharedFlow<List<CandidatesFromApi>>
+//        get() = _candidates.asSharedFlow()
+    /****/
 
-    private var _candidates = MutableSharedFlow<List<CandidatesFromApi>>()
-    val candidates: SharedFlow<List<CandidatesFromApi>>
+    private var _candidates = MutableSharedFlow<List<Candidates>>()
+    val candidates: SharedFlow<List<Candidates>>
         get() = _candidates.asSharedFlow()
 
-    private var _isEntry = MutableSharedFlow<Boolean>()
-    val isEntry: SharedFlow<Boolean>
-        get() = _isEntry.asSharedFlow()
-
-//    init {
-//        fillDb()
-//    }
-
-//    fun fillDb() {
-//        viewModelScope.launch {
-//            val result = filDbWithSampleDataUseCase(
-//                listOf(
-//                    Candidates(
-//                        R.drawable.img_avatar,
-//                        "Романова Мария Ивановна",
-//                        "22 года",
-//                        "Москва",
-//                        false,
-//                        "Введение в профессию риелтор (пройден)",
-//                        "Базовый юридический курс (в процессе)",
-//                        "Курс “Ипотека” (в процессе)",
-//                        "Курс “Налогообложение” (не начат)",
-//                        "Объекты 5",
-//                        "Клиенты 5",
-//                        false
-//                    ),
-//                    Candidates(
-//                        R.drawable.img_avatar,
-//                        "Романова Мария Ивановна",
-//                        "22 года",
-//                        "Москва",
-//                        false,
-//                        "Введение в профессию риелтор (пройден)",
-//                        "Базовый юридический курс (в процессе)",
-//                        "Курс “Ипотека” (в процессе)",
-//                        "Курс “Налогообложение” (не начат)",
-//                        "Объекты 5",
-//                        "Клиенты 5",
-//                        false
-//                    ),
-//                    Candidates(
-//                        R.drawable.img_avatar,
-//                        "Романова Мария Ивановна",
-//                        "22 года",
-//                        "Москва",
-//                        false,
-//                        "Введение в профессию риелтор (пройден)",
-//                        "Базовый юридический курс (в процессе)",
-//                        "Курс “Ипотека” (в процессе)",
-//                        "Курс “Налогообложение” (не начат)",
-//                        "Объекты 5",
-//                        "Клиенты 5",
-//                        false
-//                    ),
-//                    Candidates(
-//                        R.drawable.img_avatar,
-//                        "Романова Мария Ивановна",
-//                        "22 года",
-//                        "Москва",
-//                        false,
-//                        "Введение в профессию риелтор (пройден)",
-//                        "Базовый юридический курс (в процессе)",
-//                        "Курс “Ипотека” (в процессе)",
-//                        "Курс “Налогообложение” (не начат)",
-//                        "Объекты 5",
-//                        "Клиенты 5",
-//                        false
-//                    ),
-//                )
-//            )
-//            _isEntry.emit(result)
-//        }
-//    }
+    private var _isFavorite = MutableSharedFlow<Triple<Boolean, Int, Boolean>>()
+    val isFavorite: SharedFlow<Triple<Boolean, Int, Boolean>>
+        get() = _isFavorite.asSharedFlow()
 
     fun getCandidates() {
         viewModelScope.launch {
-            val result = getCandidatesApiUseCase()
+//            val result = getCandidatesApiUseCase()
+            val result = getCandidatesDbUseCase()
             _candidates.emit(result)
         }
     }
 
     // Обновление состояния избранного
     fun toggleFavorite(id: Int, flag: Boolean) {
-        if (flag) {
-
-        } else {
-
-        }
-
-//        _candidates.value = _candidates.value?.mapIndexed { index, candidate ->
-//            if (index == position) candidate.copy(isFavorite = !candidate.isFavorite) else candidate
+//        if (flag) {
+//
+//        } else {
+//
 //        }
+        viewModelScope.launch {
+            _isFavorite.emit(Triple(setFavoriteDbUseCase(id, flag), id, flag))
+        }
     }
 
     // Обновление статуса приглашения
@@ -127,21 +63,20 @@ class ShowcaseViewModel(
     }
 
     class Factory(
-        private val filDbWithSampleDataUseCase: FilDbWithSampleDataUseCase,
         private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
         private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
+        private val setFavoriteDbUseCase: SetFavoriteDbUseCase,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ShowcaseViewModel::class.java)) {
                 return ShowcaseViewModel(
-                    filDbWithSampleDataUseCase = filDbWithSampleDataUseCase,
                     getCandidatesDbUseCase = getCandidatesDbUseCase,
                     getCandidatesApiUseCase = getCandidatesApiUseCase,
+                    setFavoriteDbUseCase = setFavoriteDbUseCase,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
-
 }
