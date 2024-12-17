@@ -15,6 +15,7 @@ import ru.miel.R
 import ru.miel.databinding.FragmentAuthBinding
 import ru.miel.domain.models.User
 import ru.miel.view.activity.MainActivity
+import ru.miel.view.greetings.GreetingFragment
 import ru.miel.view.showcase.ShowcaseViewModel
 import ru.w_2_wmatch.utils.uiextensions.showSnackbarLong
 import javax.inject.Inject
@@ -51,7 +52,8 @@ class AuthFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isEntry.collect {
-                if (it) findNavController().navigate(R.id.action_authFragment_to_showcaseFragment)
+//                if (it) findNavController().navigate(R.id.action_authFragment_to_showcaseFragment)
+                if (it)showGreetingFragment()//Отображаем временный фрагмент с приветствием
                 else {
                     showSnackbarLong("Ошибка авторизации.")
                 }
@@ -75,6 +77,12 @@ class AuthFragment : Fragment() {
                 )
             )
         }
+    }
+
+    private fun showGreetingFragment() {
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_placeholder, GreetingFragment())
+        transaction.commit()
     }
 
 }

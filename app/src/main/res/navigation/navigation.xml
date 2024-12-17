@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_authFragment_to_showcaseFragment"
             app:destination="@id/showcaseFragment" />
+        <action
+            android:id="@+id/action_authFragment_to_greetingFragment"
+            app:destination="@id/greetingFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -74,4 +77,9 @@
         android:name="ru.miel.view.invitations.InvitationsFragment"
         android:label="fragment_invitations"
         tools:layout="@layout/fragment_invitations" />
+    <fragment
+        android:id="@+id/greetingFragment"
+        android:name="ru.miel.view.greetings.GreetingFragment"
+        android:label="fragment_greeting"
+        tools:layout="@layout/fragment_greeting" />
 </navigation>
