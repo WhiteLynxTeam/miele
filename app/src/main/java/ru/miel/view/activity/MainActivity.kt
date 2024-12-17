@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.quotas -> {
-                    navController.navigate(R.id.officeFragment)
+                    navController.navigate(R.id.statisticsFragment)
                     true
                 }
 

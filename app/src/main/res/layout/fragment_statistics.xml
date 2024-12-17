@@ -6,25 +6,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.office.statistics.StatisticsFragment">
 
-    <ImageView
-        android:id="@+id/iv_arrow_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:scaleX="-1"
-        android:src="@drawable/ic_arrow_office"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
     <TextView
         android:id="@+id/tv_statistics"
         style="@style/text_title"
-        android:layout_marginStart="15dp"
-        android:text="@string/statistic"
-        app:layout_constraintStart_toEndOf="@id/iv_arrow_back"
-        app:layout_constraintTop_toTopOf="@id/iv_arrow_back"
-        app:layout_constraintBottom_toBottomOf="@id/iv_arrow_back"/>
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/statistic_quotas"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Spinner
         android:id="@+id/spinner_period"
@@ -58,7 +47,7 @@
         android:textColorHint="@color/text_hint"
         app:endIconTint="@color/icon_hint"
         app:layout_constraintEnd_toEndOf="@id/spinner_period"
-        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintStart_toStartOf="@id/tv_statistics"
         app:layout_constraintTop_toBottomOf="@id/spinner_period">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +74,7 @@
         android:textColorHint="@color/text_hint"
         app:endIconTint="@color/icon_hint"
         app:layout_constraintEnd_toEndOf="@id/spinner_period"
-        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintStart_toStartOf="@id/tv_statistics"
         app:layout_constraintTop_toBottomOf="@id/quotas_issued">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -112,7 +101,7 @@
         android:textColorHint="@color/text_hint"
         app:endIconTint="@color/icon_hint"
         app:layout_constraintEnd_toEndOf="@id/spinner_period"
-        app:layout_constraintStart_toStartOf="@id/iv_arrow_back"
+        app:layout_constraintStart_toStartOf="@id/tv_statistics"
         app:layout_constraintTop_toBottomOf="@id/used_quotas">
 
         <com.google.android.material.textfield.TextInputEditText

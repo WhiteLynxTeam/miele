@@ -30,6 +30,7 @@
     <!-- TODO: Текст для fragment_office -->
     <string name="administrator">Руководитель офиса</string>
     <string name="statistic">Статистика</string>
+    <string name="statistic_quotas">Статистика квот</string>
     <string name="juridical_address">Адрес юридический</string>
     <string name="actual_address">Адрес фактический</string>
     <string name="email">Email</string>
