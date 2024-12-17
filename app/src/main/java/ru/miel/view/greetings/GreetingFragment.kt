@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import ru.miel.R
 import ru.miel.databinding.FragmentGreetingBinding
 import ru.miel.view.showcase.ShowcaseFragment
@@ -29,7 +30,7 @@ class GreetingFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         Handler(Looper.getMainLooper()).postDelayed({
-            openShowcassFragment()
+            findNavController().navigate(R.id.action_greetingFragment_to_showcaseFragment)
         }, 1000L)
     }
 
@@ -49,10 +50,4 @@ class GreetingFragment : Fragment() {
         binding.tvUsersGreeting.text = "Добро пожаловать, $userName!"
     }
 
-
-    private fun openShowcassFragment() {
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_placeholder, ShowcaseFragment())
-        transaction.commit()
-    }
 }

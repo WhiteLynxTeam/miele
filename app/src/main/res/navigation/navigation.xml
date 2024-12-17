@@ -81,5 +81,9 @@
         android:id="@+id/greetingFragment"
         android:name="ru.miel.view.greetings.GreetingFragment"
         android:label="fragment_greeting"
-        tools:layout="@layout/fragment_greeting" />
+        tools:layout="@layout/fragment_greeting" >
+        <action
+            android:id="@+id/action_greetingFragment_to_showcaseFragment"
+            app:destination="@id/showcaseFragment" />
+    </fragment>
 </navigation>
