@@ -10,6 +10,7 @@ import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
 import ru.miel.domain.usecase.GetFavoritesApiUseCase
+import ru.miel.domain.usecase.GetFavoritesDbUseCase
 import ru.miel.domain.usecase.GetTokenPrefUseCase
 import ru.miel.domain.usecase.SaveTokenPrefUseCase
 import ru.miel.domain.usecase.SetFavoriteDbUseCase
@@ -33,6 +34,16 @@ class DomainModule {
         repository: ICandidatesRepository,
     ): GetCandidatesDbUseCase {
         return GetCandidatesDbUseCase(
+            repository = repository,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetFavoritesDbUseCase(
+        repository: ICandidatesRepository,
+    ): GetFavoritesDbUseCase {
+        return GetFavoritesDbUseCase(
             repository = repository,
         )
     }

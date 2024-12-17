@@ -36,6 +36,13 @@ class CandidatesRepository(
         return mapperCandidatesEntityToCandidates(candidates)
     }
 
+    override suspend fun getFavoritesDao(): List<Candidates> {
+        val candidates = withContext(Dispatchers.IO) {
+            candidatesDao.getFavorites()
+        }
+        return mapperCandidatesEntityToCandidates(candidates)
+    }
+
     override suspend fun setFavoriteDao(id: Int): Boolean {
         withContext(Dispatchers.IO) {
             candidatesDao.setFavorite(id)

@@ -18,6 +18,9 @@ interface CandidatesDao {
     @Query("SELECT * FROM CANDIDATES")
     fun getCandidates(): List<CandidatesEntity>
 
+    @Query("SELECT * FROM CANDIDATES WHERE isFavorite = 1")
+    fun getFavorites(): List<CandidatesEntity>
+
     @Query("UPDATE CANDIDATES SET isFavorite = 1 WHERE id = :id")
     fun setFavorite(id: Int)
 

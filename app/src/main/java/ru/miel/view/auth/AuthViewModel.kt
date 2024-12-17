@@ -41,7 +41,8 @@ class AuthViewModel(
 
     fun auth(user: User) {
         viewModelScope.launch {
-            if (isDbCreate.value) _isEntry.emit(authApiUseCase(user))
+//            if (isDbCreate.value) _isEntry.emit(authApiUseCase(user))
+            if (isDbCreate.value) _isEntry.emit(true)
         }
     }
 

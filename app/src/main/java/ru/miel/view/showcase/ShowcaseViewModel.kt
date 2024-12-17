@@ -79,5 +79,4 @@ class ShowcaseViewModel(
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
-
 }

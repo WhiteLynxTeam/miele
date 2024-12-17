@@ -7,11 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.collection.mutableIntSetOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.coroutines.launch
 import ru.miel.databinding.FragmentFavoritesBinding
-import ru.miel.domain.models.Candidates
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
+import ru.miel.view.showcase.ShowcaseViewModel
+import javax.inject.Inject
 
 class FavoritesFragment : Fragment() {
 
@@ -20,9 +24,19 @@ class FavoritesFragment : Fragment() {
 
     private lateinit var viewModel: FavoritesViewModel
 
-    private lateinit var candidatesAdapter: CandidatesAdapter
+    @Inject
+    lateinit var vmFactory: FavoritesViewModel.Factory
 
-    private val candidates = mutableIntSetOf()
+    private val candidatesAdapter by lazy {
+        CandidatesAdapter({ id, flag ->
+//            viewModel.toggleFavorite(id, flag)
+            println("FavoritesFragment onIconClick = $id")
+        },
+            { id, flag ->
+//                viewModel.toggleInvite(id, flag)
+                println("FavoritesFragment onButtonClick = $id")
+            })
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -41,10 +55,20 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        candidatesAdapter = CandidatesAdapter(candidates)
-//        binding.rcFavorites.adapter = candidatesAdapter
+        viewModel =
+            ViewModelProvider(this, vmFactory)[FavoritesViewModel::class.java]
+
+        binding.rcFavorites.adapter = candidatesAdapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.candidates.collect {
+                candidatesAdapter.setData(it)
+            }
+        }
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+
+        viewModel.getFavorites()
     }
 }

@@ -9,6 +9,7 @@ interface ICandidatesRepository {
     suspend fun createCandidates(candidates: List<Candidates>): Boolean
 
     suspend fun getCandidatesDao() : List<Candidates>
+    suspend fun getFavoritesDao(): List<Candidates>
     suspend fun setFavoriteDao(id: Int): Boolean
     suspend fun delFavoriteDao(id: Int): Boolean
 
