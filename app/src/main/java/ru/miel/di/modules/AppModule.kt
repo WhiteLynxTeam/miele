@@ -6,6 +6,7 @@ import ru.miel.domain.usecase.AuthApiUseCase
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.SetFavoriteDbUseCase
 import ru.miel.view.auth.AuthViewModel
 import ru.miel.view.showcase.ShowcaseViewModel
 
@@ -14,19 +15,21 @@ class AppModule() {
 
     @Provides
     fun provideShowcaseViewModelFactory(
-        filDbWithSampleDataUseCase: FilDbWithSampleDataUseCase,
         getCandidatesDbUseCase: GetCandidatesDbUseCase,
         getCandidatesApiUseCase: GetCandidatesApiUseCase,
+        setFavoriteDbUseCase: SetFavoriteDbUseCase,
     ) = ShowcaseViewModel.Factory(
-        filDbWithSampleDataUseCase = filDbWithSampleDataUseCase,
         getCandidatesDbUseCase = getCandidatesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
+        setFavoriteDbUseCase = setFavoriteDbUseCase,
         )
 
     @Provides
     fun provideAuthViewModelFactory(
         authApiUseCase: AuthApiUseCase,
+        filDbWithSampleDataUseCase: FilDbWithSampleDataUseCase,
     ) = AuthViewModel.Factory(
         authApiUseCase = authApiUseCase,
+        filDbWithSampleDataUseCase = filDbWithSampleDataUseCase,
     )
 }

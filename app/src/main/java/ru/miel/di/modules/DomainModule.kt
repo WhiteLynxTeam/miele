@@ -12,6 +12,7 @@ import ru.miel.domain.usecase.GetCandidatesDbUseCase
 import ru.miel.domain.usecase.GetFavoritesApiUseCase
 import ru.miel.domain.usecase.GetTokenPrefUseCase
 import ru.miel.domain.usecase.SaveTokenPrefUseCase
+import ru.miel.domain.usecase.SetFavoriteDbUseCase
 import javax.inject.Singleton
 
 @Module
@@ -32,6 +33,16 @@ class DomainModule {
         repository: ICandidatesRepository,
     ): GetCandidatesDbUseCase {
         return GetCandidatesDbUseCase(
+            repository = repository,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetFavoriteDbUseCase(
+        repository: ICandidatesRepository,
+    ): SetFavoriteDbUseCase {
+        return SetFavoriteDbUseCase(
             repository = repository,
         )
     }

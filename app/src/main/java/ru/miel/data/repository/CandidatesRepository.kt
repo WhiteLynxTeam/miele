@@ -36,6 +36,20 @@ class CandidatesRepository(
         return mapperCandidatesEntityToCandidates(candidates)
     }
 
+    override suspend fun setFavoriteDao(id: Int): Boolean {
+        withContext(Dispatchers.IO) {
+            candidatesDao.setFavorite(id)
+        }
+        return true
+    }
+
+    override suspend fun delFavoriteDao(id: Int): Boolean {
+        withContext(Dispatchers.IO) {
+            candidatesDao.delFavorite(id)
+        }
+        return true
+    }
+
     override suspend fun getCandidatesApi(token: Token): Result<List<CandidatesFromApi>> {
         val result = candidatesApi.getCandidates("Token ${token.token}")
         return result.map { mapperCandidatesDtoToCandidates(it) }
@@ -92,6 +106,8 @@ class CandidatesRepository(
     ): List<Candidates> {
         return candidates.map {
             Candidates(
+                id = it.id,
+                uuid = it.uuid,
                 img = it.img,
                 name = it.name,
                 year = it.year,

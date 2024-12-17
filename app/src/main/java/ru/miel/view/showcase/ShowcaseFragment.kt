@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
+import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
 import ru.miel.view.activity.MainActivity
 import javax.inject.Inject
@@ -58,15 +59,17 @@ class ShowcaseFragment : Fragment() {
         binding.rcCandidates.adapter = candidatesAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.isEntry.collect {
-                if (it) viewModel.getCandidates()
+            viewModel.isFavorite.collect {
+                if (it.first) {
+                    candidatesAdapter.updateData(it.second, it.third)
+                }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.candidates.collect {
+//                candidatesAdapter.setData(it)
                 candidatesAdapter.setData(it)
-//                candidatesAdapter.submitList(it)
             }
         }
 

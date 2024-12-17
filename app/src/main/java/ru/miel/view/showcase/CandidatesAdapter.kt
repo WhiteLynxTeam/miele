@@ -15,7 +15,8 @@ class CandidatesAdapter(
     private val onButtonClick:(id:Int, flag: Boolean) -> Unit
 ) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
-    private var candidatesList: MutableList<CandidatesFromApi> = mutableListOf()
+//    private var candidatesList: MutableList<CandidatesFromApi> = mutableListOf()
+    private var candidatesList: MutableList<Candidates> = mutableListOf()
 
     // Обновление списка кандидатов
 //    fun submitList(newCandidates: List<Candidates>) {
@@ -25,11 +26,11 @@ class CandidatesAdapter(
 //    }
 
     inner class CandidatesViewHolder(private val binding: ItemCandidatesBinding) : RecyclerView.ViewHolder(binding.root) {
-
         @SuppressLint("SetTextI18n")
-        fun bind(candidates: CandidatesFromApi, position: Int) {
+//        fun bind(candidates: CandidatesFromApi, position: Int) {
+        fun bind(candidates: Candidates, position: Int) {
 
-            Glide.with(binding.root)
+/*            Glide.with(binding.root)
                 .load(candidates.photo)
                 .error(R.drawable.img_avatar)
                 .centerCrop()
@@ -45,28 +46,28 @@ class CandidatesAdapter(
             binding.tvClients.text = candidates.clients.toString()
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
             binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
+            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.bordo)*/
+
+            binding.ivAvatar.setImageResource(candidates.img)
+            binding.tvName.text = candidates.name
+            binding.tvYear.text = candidates.year
+            binding.tvCity.text = candidates.city
+            binding.tvRealtor.text = candidates.realtor
+            binding.tvJuridicalCourse.text = candidates.juridicalCourse
+            binding.tvMortgage.text = candidates.mortgage
+            binding.tvTaxation.text = candidates.taxation
+            binding.tvObjects.text = candidates.objects
+            binding.tvClients.text = candidates.clients
+
+            binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
+            binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
             binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.bordo)
 
-//            binding.ivAvatar.setImageResource(candidates.img)
-//            binding.tvName.text = candidates.name
-//            binding.tvYear.text = candidates.year
-//            binding.tvCity.text = candidates.city
-//            binding.tvRealtor.text = candidates.realtor
-//            binding.tvJuridicalCourse.text = candidates.juridicalCourse
-//            binding.tvMortgage.text = candidates.mortgage
-//            binding.tvTaxation.text = candidates.taxation
-//            binding.tvObjects.text = candidates.objects
-//            binding.tvClients.text = candidates.clients
-//
-//            binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
-//            binding.btnInvite.text = if (candidates.isInvite) "Приглашен" else "Пригласить"
-//            binding.btnInvite.setBackgroundResource(if (candidates.isInvite) R.color.lime else R.color.bordo)
-
             binding.ivFavorites.setOnClickListener {
-               onIconClick(candidates.id, candidates.isFavorite)
+                candidates.id?.let { id -> onIconClick(id, candidates.isFavorite) }
             }
             binding.btnInvite.setOnClickListener {
-                onButtonClick(candidates.id, candidates.isInvite)
+                candidates.id?.let { id -> onButtonClick(id, candidates.isInvite) }
             }
         }
     }
@@ -83,8 +84,20 @@ class CandidatesAdapter(
     override fun getItemCount() = candidatesList.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setData(candidates: List<CandidatesFromApi>) {
+//    fun setData(candidates: List<CandidatesFromApi>) {
+//        this.candidatesList = candidates.toMutableList()
+//        notifyDataSetChanged()
+//    }
+
+    fun setData(candidates: List<Candidates>) {
         this.candidatesList = candidates.toMutableList()
         notifyDataSetChanged()
     }
+
+    fun updateData(id: Int, flag: Boolean) {
+        val itemToUpdate = candidatesList.find { it.id == id }
+        itemToUpdate?.let { it.isFavorite = !flag }
+        notifyDataSetChanged()
+    }
+
 }
