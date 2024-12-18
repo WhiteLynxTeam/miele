@@ -26,4 +26,10 @@ interface CandidatesDao {
 
     @Query("UPDATE CANDIDATES SET isFavorite = 0 WHERE id = :id")
     fun delFavorite(id: Int)
+
+    @Query("UPDATE CANDIDATES SET isInvite = 1 WHERE id = :id")
+    fun setInvitation(id: Int)
+
+    @Query("UPDATE CANDIDATES SET isInvite = 0 WHERE id = :id")
+    fun delInvitation(id: Int)
 }

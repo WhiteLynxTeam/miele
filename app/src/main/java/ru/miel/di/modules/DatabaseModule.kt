@@ -20,5 +20,9 @@ class DatabaseModule {
     @Provides
     fun provideCandidatesDao(context: Context) = provideDb(context).candidatesDao()
 
+    @Singleton
+    @Provides
+    fun provideQuotesDao(context: Context) = provideDb(context).quotesDao()
+
 }
 

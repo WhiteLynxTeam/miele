@@ -57,6 +57,20 @@ class CandidatesRepository(
         return true
     }
 
+    override suspend fun setInvitationDao(id: Int): Boolean {
+        withContext(Dispatchers.IO) {
+            candidatesDao.setInvitation(id)
+        }
+        return true
+    }
+
+    override suspend fun delInvitationDao(id: Int): Boolean {
+        withContext(Dispatchers.IO) {
+            candidatesDao.delInvitation(id)
+        }
+        return true
+    }
+
     override suspend fun getCandidatesApi(token: Token): Result<List<CandidatesFromApi>> {
         val result = candidatesApi.getCandidates("Token ${token.token}")
         return result.map { mapperCandidatesDtoToCandidates(it) }

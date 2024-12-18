@@ -1,5 +1,6 @@
 package ru.miel.view.showcase
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
-import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
+import ru.miel.utils.replaceAfterLastSpace
 import ru.miel.view.activity.MainActivity
 import javax.inject.Inject
 
@@ -28,11 +29,9 @@ class ShowcaseFragment : Fragment() {
     private val candidatesAdapter by lazy {
         CandidatesAdapter({ id, flag ->
             viewModel.toggleFavorite(id, flag)
-            //println("ShowcaseFragment onIconClick = $pos")
         },
             { id, flag ->
                 viewModel.toggleInvite(id, flag)
-                //println("ShowcaseFragment onButtonClick = $pos")
             })
     }
 
@@ -50,6 +49,7 @@ class ShowcaseFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -59,36 +59,35 @@ class ShowcaseFragment : Fragment() {
         binding.rcCandidates.adapter = candidatesAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isInvite.collect {
+                if (it.first) {
+                    candidatesAdapter.updateInvite(it.second, it.third)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isFavorite.collect {
                 if (it.first) {
-                    candidatesAdapter.updateData(it.second, it.third)
+                    candidatesAdapter.updateFavorite(it.second, it.third)
                 }
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.candidates.collect {
-//                candidatesAdapter.setData(it)
+                binding.tvCandidates.text =
+                    binding.tvCandidates.text.toString().trim().replaceAfterLastSpace(it.size)
                 candidatesAdapter.setData(it)
             }
         }
 
-
-//        candidatesAdapter = CandidatesAdapter(object : CandidatesAdapter.OnIconClickListener {
-//            override fun onIconClick(position: Int) {
-//                viewModel.toggleFavorite(position)
-//            }
-//
-//            override fun onButtonClick(position: Int) {
-//                viewModel.toggleInvite(position)
-//            }
-//        })
-
-//
-//        // Наблюдение за данными
-//        candidatesViewModel.candidates.observe(viewLifecycleOwner, Observer { candidates ->
-//            candidatesAdapter.submitList(candidates)
-//        })
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.quotes.collect {
+                binding.tvQuotas.text =
+                    binding.tvQuotas.text.toString().trim().replaceAfterLastSpace(it)
+            }
+        }
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)

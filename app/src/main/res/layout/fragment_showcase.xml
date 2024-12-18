@@ -19,7 +19,7 @@
         android:textSize="14sp"
         android:textColor="@color/black"
         android:background="@drawable/bg_border_lime"
-        android:text="Квоты 2"
+        android:text="Квоты"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -35,7 +35,7 @@
         android:textSize="14sp"
         android:textColor="@color/black"
         android:background="@drawable/bg_border_lime"
-        android:text="Кандидаты 5"
+        android:text="Кандидаты"
         app:layout_constraintTop_toTopOf="@id/tv_quotas"
         app:layout_constraintEnd_toEndOf="parent"/>
 

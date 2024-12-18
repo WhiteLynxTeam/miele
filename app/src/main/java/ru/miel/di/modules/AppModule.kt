@@ -7,7 +7,10 @@ import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
 import ru.miel.domain.usecase.GetFavoritesDbUseCase
+import ru.miel.domain.usecase.GetQuotesByNowDbUseCase
+import ru.miel.domain.usecase.MinusQuoteDbUseCase
 import ru.miel.domain.usecase.SetFavoriteDbUseCase
+import ru.miel.domain.usecase.SetInvitationDbUseCase
 import ru.miel.view.auth.AuthViewModel
 import ru.miel.view.favorites.FavoritesViewModel
 import ru.miel.view.showcase.ShowcaseViewModel
@@ -20,10 +23,16 @@ class AppModule() {
         getCandidatesDbUseCase: GetCandidatesDbUseCase,
         getCandidatesApiUseCase: GetCandidatesApiUseCase,
         setFavoriteDbUseCase: SetFavoriteDbUseCase,
+        setInvitationDbUseCase: SetInvitationDbUseCase,
+        getQuotesByNowDbUseCase: GetQuotesByNowDbUseCase,
+        minusQuoteDbUseCase: MinusQuoteDbUseCase,
     ) = ShowcaseViewModel.Factory(
         getCandidatesDbUseCase = getCandidatesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
         setFavoriteDbUseCase = setFavoriteDbUseCase,
+        setInvitationDbUseCase = setInvitationDbUseCase,
+        getQuotesByNowDbUseCase = getQuotesByNowDbUseCase,
+        minusQuoteDbUseCase = minusQuoteDbUseCase,
         )
 
     @Provides
