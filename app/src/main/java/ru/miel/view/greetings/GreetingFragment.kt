@@ -1,12 +1,17 @@
 package ru.miel.view.greetings
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import ru.miel.R
 import ru.miel.databinding.FragmentGreetingBinding
+import ru.miel.view.showcase.ShowcaseFragment
 
 class GreetingFragment : Fragment() {
 
@@ -14,11 +19,20 @@ class GreetingFragment : Fragment() {
     private val binding get() = _binding!!
 
     companion object {
-        fun newInstance() = GreetingFragment()
+        fun newInstance(): GreetingFragment {
+            return GreetingFragment()
+        }
     }
 
     private val viewModel: GreetingViewModel by viewModels()
 
+    //При переходе на временный фрагмент запускает его на 1.5 секунд
+    override fun onStart() {
+        super.onStart()
+        Handler(Looper.getMainLooper()).postDelayed({
+            findNavController().navigate(R.id.action_greetingFragment_to_showcaseFragment)
+        }, 1000L)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +47,7 @@ class GreetingFragment : Fragment() {
 
         //пока для проверки, потом подтянем с БД
         val userName = "Мария"
-        binding.tvUsersGreeting.text = "Привет, $userName"
+        binding.tvUsersGreeting.text = "Добро пожаловать, $userName!"
     }
+
 }
