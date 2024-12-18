@@ -34,6 +34,6 @@ class SplashScreen : AppCompatActivity() {
 
         // Начать воспроизведение
         binding.video.start()
-        
+
     }
 }
