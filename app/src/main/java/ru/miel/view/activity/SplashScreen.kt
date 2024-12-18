@@ -2,13 +2,11 @@ package ru.miel.view.activity
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import ru.miel.R
 import ru.miel.databinding.ActivitySplashBinding
 
 class SplashScreen : AppCompatActivity() {
@@ -22,10 +20,20 @@ class SplashScreen : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        lifecycleScope.launch(Dispatchers.Main) {
-            delay(2000)
+        // Установка пути к видеофайлу
+        val videoPath = "android.resource://$packageName/${R.raw.splash}"
+        val uri = Uri.parse(videoPath)
+
+        binding.video.setVideoURI(uri)
+
+        // Установка слушателя завершения видео
+        binding.video.setOnCompletionListener {
+            // Переход на другую активность
             startActivity(Intent(this@SplashScreen, MainActivity::class.java))
-            finish()
         }
+
+        // Начать воспроизведение
+        binding.video.start()
+
     }
 }
