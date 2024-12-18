@@ -2,6 +2,8 @@ package ru.miel.domain
 
 import ru.miel.R
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.Quotes
+import ru.miel.utils.convertStringToLocalDate
 
 /**
  * APP CONFIG
@@ -38,7 +40,23 @@ const val DATE_PATTERN_WITHOUT_YEAR = "dd MMMM, EEEE"
 /**
  * SAMPLE DATE FOR DATABASE
  */
-val sampleListOfClubs = listOf(
+
+val sampleListOfQuotes = listOf(
+    Quotes(
+        startDate = "16.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
+        endDate = "22.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
+        quotes = 3,
+        quotesRemaining = 3,
+    ),
+    Quotes(
+        startDate = "23.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
+        endDate = "29.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
+        quotes = 3,
+        quotesRemaining = 3,
+    ),
+)
+
+val sampleListOfCandidates = listOf(
     Candidates(
         img = R.drawable.img_avatar,
         name = "Романова1 Мария Ивановна",

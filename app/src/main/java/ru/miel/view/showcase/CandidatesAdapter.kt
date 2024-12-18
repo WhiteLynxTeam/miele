@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import ru.miel.R
 import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.Candidates
-import ru.miel.domain.models.CandidatesFromApi
 
 class CandidatesAdapter(
     private val onIconClick:(id:Int, flag: Boolean) -> Unit,
@@ -94,9 +92,15 @@ class CandidatesAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateData(id: Int, flag: Boolean) {
+    fun updateFavorite(id: Int, flag: Boolean) {
         val itemToUpdate = candidatesList.find { it.id == id }
         itemToUpdate?.let { it.isFavorite = !flag }
+        notifyDataSetChanged()
+    }
+
+    fun updateInvite(id: Int, flag: Boolean) {
+        val itemToUpdate = candidatesList.find { it.id == id }
+        itemToUpdate?.let { it.isInvite = !flag }
         notifyDataSetChanged()
     }
 

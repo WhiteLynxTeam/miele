@@ -3,6 +3,7 @@ package ru.miel.di.modules
 import dagger.Module
 import dagger.Provides
 import ru.miel.domain.irepository.ICandidatesRepository
+import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.irepository.IUserRepository
 import ru.miel.domain.istorage.ITokenStorage
 import ru.miel.domain.usecase.AuthApiUseCase
@@ -11,9 +12,12 @@ import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
 import ru.miel.domain.usecase.GetFavoritesApiUseCase
 import ru.miel.domain.usecase.GetFavoritesDbUseCase
+import ru.miel.domain.usecase.GetQuotesByNowDbUseCase
 import ru.miel.domain.usecase.GetTokenPrefUseCase
+import ru.miel.domain.usecase.MinusQuoteDbUseCase
 import ru.miel.domain.usecase.SaveTokenPrefUseCase
 import ru.miel.domain.usecase.SetFavoriteDbUseCase
+import ru.miel.domain.usecase.SetInvitationDbUseCase
 import javax.inject.Singleton
 
 @Module
@@ -21,10 +25,12 @@ class DomainModule {
     @Singleton
     @Provides
     fun provideFilDbWithSampleDataUseCase(
-        repository: ICandidatesRepository,
+        candidatesRepository: ICandidatesRepository,
+        quotesRepository: IQuotesRepository,
     ): FilDbWithSampleDataUseCase {
         return FilDbWithSampleDataUseCase(
-            repository = repository,
+            candidatesRepository = candidatesRepository,
+            quotesRepository = quotesRepository,
         )
     }
 
@@ -44,6 +50,16 @@ class DomainModule {
         repository: ICandidatesRepository,
     ): GetFavoritesDbUseCase {
         return GetFavoritesDbUseCase(
+            repository = repository,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetInvitationDbUseCase(
+        repository: ICandidatesRepository,
+    ): SetInvitationDbUseCase {
+        return SetInvitationDbUseCase(
             repository = repository,
         )
     }
@@ -110,5 +126,21 @@ class DomainModule {
         storage: ITokenStorage,
     ): GetTokenPrefUseCase {
         return GetTokenPrefUseCase(storage = storage)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetQuotesByNowDbUseCase(
+        repository: IQuotesRepository,
+    ): GetQuotesByNowDbUseCase {
+        return GetQuotesByNowDbUseCase(repository = repository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMinusQuoteDbUseCase(
+        repository: IQuotesRepository,
+    ): MinusQuoteDbUseCase {
+        return MinusQuoteDbUseCase(repository = repository)
     }
 }

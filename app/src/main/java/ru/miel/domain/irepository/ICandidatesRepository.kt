@@ -1,5 +1,7 @@
 package ru.miel.domain.irepository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import ru.miel.domain.models.Candidates
 import ru.miel.domain.models.IdCandidateFromApi
 import ru.miel.domain.models.CandidatesFromApi
@@ -12,6 +14,8 @@ interface ICandidatesRepository {
     suspend fun getFavoritesDao(): List<Candidates>
     suspend fun setFavoriteDao(id: Int): Boolean
     suspend fun delFavoriteDao(id: Int): Boolean
+    suspend fun setInvitationDao(id: Int): Boolean
+    suspend fun delInvitationDao(id: Int): Boolean
 
     suspend fun getCandidatesApi(token: Token) : Result<List<CandidatesFromApi>>
     suspend fun getFavoritesApi(token: Token) : Result<List<IdCandidateFromApi>>

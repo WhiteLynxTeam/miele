@@ -6,10 +6,13 @@ import dagger.Provides
 import ru.miel.data.api.CandidatesApi
 import ru.miel.data.api.UserApi
 import ru.miel.data.dbo.dao.CandidatesDao
+import ru.miel.data.dbo.dao.QuotesDao
 import ru.miel.data.repository.CandidatesRepository
+import ru.miel.data.repository.QuotesRepository
 import ru.miel.data.repository.UserRepository
 import ru.miel.data.storage.TokenStorage
 import ru.miel.domain.irepository.ICandidatesRepository
+import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.irepository.IUserRepository
 import ru.miel.domain.istorage.ITokenStorage
 import javax.inject.Singleton
@@ -25,6 +28,16 @@ class DataModule {
         return CandidatesRepository(
             candidatesDao = candidatesDao,
             candidatesApi = candidatesApi,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideQuotesRepository(
+        quotesDao: QuotesDao,
+    ) : IQuotesRepository {
+        return QuotesRepository(
+            quotesDao = quotesDao,
         )
     }
 

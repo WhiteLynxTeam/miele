@@ -1,13 +1,17 @@
 package ru.miel.domain.usecase
 
 import ru.miel.domain.irepository.ICandidatesRepository
-import ru.miel.domain.models.Candidates
+import ru.miel.domain.irepository.IQuotesRepository
+import ru.miel.domain.sampleListOfCandidates
+import ru.miel.domain.sampleListOfQuotes
 
 class FilDbWithSampleDataUseCase(
-    private val repository: ICandidatesRepository,
+    private val candidatesRepository: ICandidatesRepository,
+    private val quotesRepository: IQuotesRepository,
 ) {
-    suspend operator fun invoke(candidates: List<Candidates>): Boolean  {
-        val result = repository.createCandidates(candidates)
-        return result
+    suspend operator fun invoke(): Boolean {
+        candidatesRepository.createCandidates(sampleListOfCandidates)
+        quotesRepository.createQuotes(sampleListOfQuotes)
+        return true
     }
 }
