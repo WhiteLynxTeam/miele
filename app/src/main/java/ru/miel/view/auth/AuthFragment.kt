@@ -15,7 +15,7 @@ import ru.miel.R
 import ru.miel.databinding.FragmentAuthBinding
 import ru.miel.domain.models.User
 import ru.miel.view.activity.MainActivity
-import ru.w_2_wmatch.utils.uiextensions.showSnackbarLong
+import ru.miel.utils.uiextensions.showSnackbarLong
 import javax.inject.Inject
 
 class AuthFragment : Fragment() {

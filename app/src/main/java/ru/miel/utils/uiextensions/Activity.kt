@@ -1,4 +1,4 @@
-package ru.w_2_wmatch.utils.uiextensions
+package ru.miel.utils.uiextensions
 
 import android.app.Activity
 import android.widget.Toast

@@ -1,8 +1,10 @@
-package ru.w_2_wmatch.utils.uiextensions
+package ru.miel.utils.uiextensions
 
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import ru.miel.utils.uiextensions.showToastLong
+import ru.miel.utils.uiextensions.showToastShort
 
 fun Fragment.showToastShort(text: String) {
     requireActivity().showToastShort(text)
