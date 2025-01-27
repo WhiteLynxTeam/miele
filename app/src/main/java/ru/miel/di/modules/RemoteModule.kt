@@ -50,6 +50,6 @@ class RemoteModule {
 
     companion object {
         private const val HALF_MINUTE_FOR_SLOW_INTERNET = 30L
-//        const val BASE_URL = "http://80.85.246.168:8080"
+//        const val BASE_URL = "http://80.85.246.168"
     }
 }

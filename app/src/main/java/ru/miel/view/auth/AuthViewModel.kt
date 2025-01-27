@@ -41,8 +41,9 @@ class AuthViewModel(
 
     fun auth(user: User) {
         viewModelScope.launch {
-//            if (isDbCreate.value) _isEntry.emit(authApiUseCase(user))
-            if (isDbCreate.value) _isEntry.emit(true)
+            if (isDbCreate.value) _isEntry.emit(authApiUseCase(user))
+            /*** строка для входа в приложение без сервера и проверки логина, пароля*/
+//            if (isDbCreate.value) _isEntry.emit(true)
         }
     }
 
