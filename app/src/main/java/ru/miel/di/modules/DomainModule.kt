@@ -7,6 +7,7 @@ import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.irepository.IUserRepository
 import ru.miel.domain.istorage.ITokenStorage
 import ru.miel.domain.usecase.AuthApiUseCase
+import ru.miel.domain.usecase.CheckRoleApiUseCase
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.GetCandidatesDbUseCase
@@ -105,10 +106,24 @@ class DomainModule {
     fun provideAuthApiUseCase(
         repository: IUserRepository,
         saveTokenPrefUseCase: SaveTokenPrefUseCase,
-    ): AuthApiUseCase {
+        checkRoleApiUseCase: CheckRoleApiUseCase,
+
+        ): AuthApiUseCase {
         return AuthApiUseCase(
             repository = repository,
-            saveTokenPrefUseCase = saveTokenPrefUseCase
+            saveTokenPrefUseCase = saveTokenPrefUseCase,
+            checkRoleApiUseCase = checkRoleApiUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideCheckRoleApiUseCase(
+        repository: IUserRepository,
+
+        ): CheckRoleApiUseCase {
+        return CheckRoleApiUseCase(
+            repository = repository,
         )
     }
 
