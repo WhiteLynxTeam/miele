@@ -6,8 +6,9 @@ import ru.miel.domain.models.User
 class AuthApiUseCase(
     private val repository: IUserRepository,
     private val saveTokenPrefUseCase: SaveTokenPrefUseCase,
-    ) {
-    suspend operator fun invoke(user : User): Boolean {
+    private val checkRoleApiUseCase: CheckRoleApiUseCase,
+) {
+    suspend operator fun invoke(user: User): Boolean {
 
         val result = repository.auth(user)
 
@@ -15,7 +16,9 @@ class AuthApiUseCase(
             val token = result.getOrNull()
             if (token != null) {
                 saveTokenPrefUseCase(token.token)
-                return true
+
+                val checkFlag = checkRoleApiUseCase(token)
+                return checkFlag
             }
         }
         return false
