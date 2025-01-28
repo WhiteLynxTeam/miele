@@ -1,4 +1,4 @@
-package ru.miel.domain.usecase
+package ru.miel.domain.usecase.user
 
 import ru.miel.domain.istorage.ITokenStorage
 

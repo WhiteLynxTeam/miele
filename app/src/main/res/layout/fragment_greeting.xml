@@ -24,7 +24,6 @@
         android:fontFamily="@font/pt_sans_regular"
         android:gravity="center_horizontal"
         android:textColor="@color/black"
-        android:text="Добро пожаловать, Мария!"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

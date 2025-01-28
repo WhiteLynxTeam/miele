@@ -8,12 +8,12 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import ru.miel.domain.models.Candidates
-import ru.miel.domain.usecase.GetCandidatesApiUseCase
-import ru.miel.domain.usecase.GetCandidatesDbUseCase
-import ru.miel.domain.usecase.GetQuotesByNowDbUseCase
-import ru.miel.domain.usecase.MinusQuoteDbUseCase
-import ru.miel.domain.usecase.SetFavoriteDbUseCase
-import ru.miel.domain.usecase.SetInvitationDbUseCase
+import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
+import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.candidates.GetQuotesByNowDbUseCase
+import ru.miel.domain.usecase.candidates.MinusQuoteDbUseCase
+import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
+import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
 
 class ShowcaseViewModel(
     private val getCandidatesDbUseCase: GetCandidatesDbUseCase,

@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.databinding.FragmentShowcaseBinding
 import ru.miel.utils.replaceAfterLastSpace
+import ru.miel.view.activity.ActivityMainViewModel
 import ru.miel.view.activity.MainActivity
 import javax.inject.Inject
 
@@ -21,6 +23,7 @@ class ShowcaseFragment : Fragment() {
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
 
+    private val activityViewModel: ActivityMainViewModel by activityViewModels()
     private lateinit var viewModel: ShowcaseViewModel
 
     @Inject
@@ -92,6 +95,8 @@ class ShowcaseFragment : Fragment() {
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
 
+        activityViewModel.getFullNameUser()
+        activityViewModel.getPhotoUser()
         viewModel.getCandidates()
     }
 

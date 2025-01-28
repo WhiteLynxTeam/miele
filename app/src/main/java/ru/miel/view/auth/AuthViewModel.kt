@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.miel.domain.models.User
-import ru.miel.domain.sampleListOfCandidates
-import ru.miel.domain.usecase.AuthApiUseCase
+import ru.miel.domain.usecase.user.AuthApiUseCase
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 
 class AuthViewModel(

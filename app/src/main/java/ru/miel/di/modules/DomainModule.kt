@@ -6,19 +6,23 @@ import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.irepository.IUserRepository
 import ru.miel.domain.istorage.ITokenStorage
-import ru.miel.domain.usecase.AuthApiUseCase
-import ru.miel.domain.usecase.CheckRoleApiUseCase
+import ru.miel.domain.istorage.IUserStorage
+import ru.miel.domain.usecase.user.AuthApiUseCase
+import ru.miel.domain.usecase.user.CheckRoleApiUseCase
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
-import ru.miel.domain.usecase.GetCandidatesApiUseCase
-import ru.miel.domain.usecase.GetCandidatesDbUseCase
-import ru.miel.domain.usecase.GetFavoritesApiUseCase
-import ru.miel.domain.usecase.GetFavoritesDbUseCase
-import ru.miel.domain.usecase.GetQuotesByNowDbUseCase
-import ru.miel.domain.usecase.GetTokenPrefUseCase
-import ru.miel.domain.usecase.MinusQuoteDbUseCase
-import ru.miel.domain.usecase.SaveTokenPrefUseCase
-import ru.miel.domain.usecase.SetFavoriteDbUseCase
-import ru.miel.domain.usecase.SetInvitationDbUseCase
+import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
+import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.candidates.GetFavoritesApiUseCase
+import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
+import ru.miel.domain.usecase.candidates.GetQuotesByNowDbUseCase
+import ru.miel.domain.usecase.user.GetTokenPrefUseCase
+import ru.miel.domain.usecase.candidates.MinusQuoteDbUseCase
+import ru.miel.domain.usecase.user.SaveTokenPrefUseCase
+import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
+import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
+import ru.miel.domain.usecase.user.GetFullNamePrefUseCase
+import ru.miel.domain.usecase.user.GetPhotoUserPrefUseCase
+import ru.miel.domain.usecase.user.SaveUserInfoPrefUseCase
 import javax.inject.Singleton
 
 @Module
@@ -120,10 +124,41 @@ class DomainModule {
     @Provides
     fun provideCheckRoleApiUseCase(
         repository: IUserRepository,
-
+        saveUserInfoPrefUseCase: SaveUserInfoPrefUseCase,
         ): CheckRoleApiUseCase {
         return CheckRoleApiUseCase(
             repository = repository,
+            saveUserInfoPrefUseCase = saveUserInfoPrefUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideSaveUserInfoPrefUseCase(
+        storage: IUserStorage,
+        ): SaveUserInfoPrefUseCase {
+        return SaveUserInfoPrefUseCase(
+            storage = storage,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetFullNamePrefUseCase(
+        storage: IUserStorage,
+        ): GetFullNamePrefUseCase {
+        return GetFullNamePrefUseCase(
+            storage = storage,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetPhotoUserPrefUseCase(
+        storage: IUserStorage,
+        ): GetPhotoUserPrefUseCase {
+        return GetPhotoUserPrefUseCase(
+            storage = storage,
         )
     }
 
