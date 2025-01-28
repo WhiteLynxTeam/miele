@@ -6,6 +6,7 @@ import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.ShowcaseFragment
 import ru.miel.view.auth.AuthFragment
 import ru.miel.view.favorites.FavoritesFragment
+import ru.miel.view.greetings.GreetingFragment
 import ru.miel.view.home.HomeFragment
 import ru.miel.view.invitations.InvitationsFragment
 import ru.miel.view.office.OfficeFragment
@@ -44,5 +45,8 @@ interface MainModule {
 
     @ContributesAndroidInjector
     fun bindInvitationsFragment(): InvitationsFragment
+
+    @ContributesAndroidInjector
+    fun bindGreetingFragment(): GreetingFragment
 
 }

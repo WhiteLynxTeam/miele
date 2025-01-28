@@ -1,4 +1,4 @@
-package ru.miel.domain.usecase
+package ru.miel.domain.usecase.candidates
 
 import ru.miel.domain.irepository.ICandidatesRepository
 

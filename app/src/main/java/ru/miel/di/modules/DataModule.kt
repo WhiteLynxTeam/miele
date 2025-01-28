@@ -11,10 +11,12 @@ import ru.miel.data.repository.CandidatesRepository
 import ru.miel.data.repository.QuotesRepository
 import ru.miel.data.repository.UserRepository
 import ru.miel.data.storage.TokenStorage
+import ru.miel.data.storage.UserStorage
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.irepository.IUserRepository
 import ru.miel.domain.istorage.ITokenStorage
+import ru.miel.domain.istorage.IUserStorage
 import javax.inject.Singleton
 
 @Module
@@ -57,6 +59,16 @@ class DataModule {
         sharedPreferences: SharedPreferences,
     ): ITokenStorage {
         return TokenStorage(
+            sharedPreferences = sharedPreferences,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserStorage(
+        sharedPreferences: SharedPreferences,
+    ): IUserStorage {
+        return UserStorage(
             sharedPreferences = sharedPreferences,
         )
     }

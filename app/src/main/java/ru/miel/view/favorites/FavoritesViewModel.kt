@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import ru.miel.domain.models.Candidates
-import ru.miel.domain.usecase.GetFavoritesDbUseCase
+import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
 
 class FavoritesViewModel(
     private val getFavoritesDbUseCase: GetFavoritesDbUseCase,

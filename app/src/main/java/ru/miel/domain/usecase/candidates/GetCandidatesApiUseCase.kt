@@ -1,7 +1,8 @@
-package ru.miel.domain.usecase
+package ru.miel.domain.usecase.candidates
 
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.usecase.user.GetTokenPrefUseCase
 
 class GetCandidatesApiUseCase(
     private val repository: ICandidatesRepository,
