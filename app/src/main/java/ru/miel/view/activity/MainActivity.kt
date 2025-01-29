@@ -95,15 +95,8 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             viewModel.photo.collect {
-
-                if (it.isNullOrEmpty()) {
-                    // Если нет фото, ставим инициалы
-                    binding.tvAvatar.visibility = View.VISIBLE
-                    Glide.with(this@MainActivity)
-                        .load(R.drawable.bg_for_img_avatar)
-                        .circleCrop()
-                        .into(binding.ivAvatar)
-                } else {
+                if (it.isNullOrEmpty()) binding.tvAvatar.visibility = View.VISIBLE
+                else {
                     // Загружаем фото с сервера
                     Glide.with(this@MainActivity)
                         .load(it)
