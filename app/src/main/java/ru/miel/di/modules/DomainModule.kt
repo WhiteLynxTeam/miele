@@ -17,6 +17,7 @@ import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
 import ru.miel.domain.usecase.candidates.GetQuotesByNowDbUseCase
 import ru.miel.domain.usecase.user.GetTokenPrefUseCase
 import ru.miel.domain.usecase.candidates.MinusQuoteDbUseCase
+import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.user.SaveTokenPrefUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
@@ -100,6 +101,18 @@ class DomainModule {
         getTokenPrefUseCase: GetTokenPrefUseCase,
     ): GetFavoritesApiUseCase {
         return GetFavoritesApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetFavoriteApiUseCase(
+        repository: ICandidatesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): SetFavoriteApiUseCase {
+        return SetFavoriteApiUseCase(
             repository = repository,
             getTokenPrefUseCase = getTokenPrefUseCase,
         )

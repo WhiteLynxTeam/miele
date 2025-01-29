@@ -9,6 +9,7 @@ import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
 import ru.miel.domain.usecase.candidates.GetQuotesByNowDbUseCase
 import ru.miel.domain.usecase.candidates.MinusQuoteDbUseCase
+import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
 import ru.miel.domain.usecase.user.GetFullNamePrefUseCase
@@ -35,6 +36,7 @@ class AppModule() {
     fun provideShowcaseViewModelFactory(
         getCandidatesDbUseCase: GetCandidatesDbUseCase,
         getCandidatesApiUseCase: GetCandidatesApiUseCase,
+        setFavoriteApiUseCase: SetFavoriteApiUseCase,
         setFavoriteDbUseCase: SetFavoriteDbUseCase,
         setInvitationDbUseCase: SetInvitationDbUseCase,
         getQuotesByNowDbUseCase: GetQuotesByNowDbUseCase,
@@ -42,6 +44,7 @@ class AppModule() {
     ) = ShowcaseViewModel.Factory(
         getCandidatesDbUseCase = getCandidatesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
+        setFavoriteApiUseCase = setFavoriteApiUseCase,
         setFavoriteDbUseCase = setFavoriteDbUseCase,
         setInvitationDbUseCase = setInvitationDbUseCase,
         getQuotesByNowDbUseCase = getQuotesByNowDbUseCase,

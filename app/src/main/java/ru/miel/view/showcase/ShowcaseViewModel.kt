@@ -13,12 +13,14 @@ import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
 import ru.miel.domain.usecase.candidates.GetQuotesByNowDbUseCase
 import ru.miel.domain.usecase.candidates.MinusQuoteDbUseCase
+import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
 
 class ShowcaseViewModel(
     private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
     private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
+    private val setFavoriteApiUseCase: SetFavoriteApiUseCase,
     private val setFavoriteDbUseCase: SetFavoriteDbUseCase,
     private val setInvitationDbUseCase: SetInvitationDbUseCase,
     private val getQuotesByNowDbUseCase: GetQuotesByNowDbUseCase,
@@ -79,14 +81,16 @@ class ShowcaseViewModel(
     }
 
     // Обновление состояния избранного
-    fun toggleFavorite(id: Int, flag: Boolean) {
-//        if (flag) {
-//
-//        } else {
-//
-//        }
+    fun toggleFavorite(id: Int, flag: Boolean, idFavorite: Int) {
+
         viewModelScope.launch {
-            _isFavorite.emit(Triple(setFavoriteDbUseCase(id, flag), id, flag))
+//            _isFavorite.emit(Triple(setFavoriteDbUseCase(id, flag), id, flag))
+            _isFavorite.emit(Triple(setFavoriteApiUseCase(id, flag, idFavorite), id, flag))
+//            if (flag) {
+//
+//            } else {
+//
+//            }
         }
     }
 
@@ -109,6 +113,7 @@ class ShowcaseViewModel(
     class Factory(
         private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
         private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
+        private val setFavoriteApiUseCase: SetFavoriteApiUseCase,
         private val setFavoriteDbUseCase: SetFavoriteDbUseCase,
         private val setInvitationDbUseCase: SetInvitationDbUseCase,
         private val getQuotesByNowDbUseCase: GetQuotesByNowDbUseCase,
@@ -120,6 +125,7 @@ class ShowcaseViewModel(
                 return ShowcaseViewModel(
                     getCandidatesDbUseCase = getCandidatesDbUseCase,
                     getCandidatesApiUseCase = getCandidatesApiUseCase,
+                    setFavoriteApiUseCase = setFavoriteApiUseCase,
                     setFavoriteDbUseCase = setFavoriteDbUseCase,
                     setInvitationDbUseCase = setInvitationDbUseCase,
                     getQuotesByNowDbUseCase = getQuotesByNowDbUseCase,

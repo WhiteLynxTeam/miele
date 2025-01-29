@@ -6,7 +6,7 @@ import ru.miel.data.network.api.CandidatesApi
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.dbo.entity.CandidatesEntity
 import ru.miel.data.network.dto.candidates.request.SetFlagByIdRequest
-import ru.miel.data.network.dto.candidates.response.CandidatesByFlagResponse
+import ru.miel.data.network.dto.candidates.response.FavoritesCandidatesResponse
 import ru.miel.data.network.dto.candidates.response.CandidatesResponse
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
@@ -92,7 +92,7 @@ class CandidatesRepository(
     }
 
     override suspend fun delFavoriteApi(token: Token, id: Int): Boolean {
-        val result = candidatesApi.setFavorite("Token ${token.token}", SetFlagByIdRequest(id))
+        val result = candidatesApi.delFavorite("Token ${token.token}", id)
         return result.isSuccess
     }
 
@@ -151,37 +151,36 @@ class CandidatesRepository(
         return candidates.map {
             CandidatesFromApi(
                 id = it.id,
-                is_active = it.is_active,
                 name = it.name,
                 surname = it.surname,
                 patronymic = it.patronymic,
                 birth = it.birth,
+                age = it.age,
                 education = it.education,
                 photo = it.photo,
                 country = it.country,
                 city = it.city,
-                email = it.email,
                 resume = it.resume,
-                is_free = it.is_free,
                 course_rieltor_join = it.course_rieltor_join,
                 basic_legal_course = it.basic_legal_course,
                 course_mortgage = it.course_mortgage,
                 course_taxation = it.course_taxation,
                 completed_objects = it.completed_objects,
                 clients = it.clients,
-                created_at = it.created_at,
                 updated_at = it.updated_at,
-                office = it.office,
+                isFavorite = it.is_favorite,
+                favorite_id = it.favorite_id,
+                isInvited = it.is_invited,
             )
         }
     }
 
     private fun mapperIdCandidatesDtoToIdCandidates(
-        candidates: List<CandidatesByFlagResponse>
+        candidates: List<FavoritesCandidatesResponse>
     ): List<IdCandidateFromApi> {
         return candidates.map {
             IdCandidateFromApi(
-                id = it.candidate.id,
+                id = it.id,
             )
         }
     }

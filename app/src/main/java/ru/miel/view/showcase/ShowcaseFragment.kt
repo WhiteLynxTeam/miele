@@ -30,8 +30,8 @@ class ShowcaseFragment : Fragment() {
     lateinit var vmFactory: ShowcaseViewModel.Factory
 
     private val candidatesAdapter by lazy {
-        CandidatesAdapter({ id, flag ->
-            viewModel.toggleFavorite(id, flag)
+        CandidatesAdapter({ id, flag, idFavorite ->
+            viewModel.toggleFavorite(id, flag, idFavorite)
         },
             { id, flag ->
                 viewModel.toggleInvite(id, flag)
