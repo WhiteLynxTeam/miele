@@ -2,6 +2,13 @@ package ru.miel.view.activity
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +17,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import dagger.android.AndroidInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.ActivityMainBinding
+import ru.miel.domain.BASE_URL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -79,18 +88,27 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.fullName.collect {
                 binding.tvUsersGreeting.text = "Привет, $it"
+                val words = it.trim().split("\\s+".toRegex()) // Разбиваем по пробелам
+                binding.tvAvatar.text = "${words[0].first().uppercase()}${words[1].first().uppercase()}"
             }
         }
 
         lifecycleScope.launch {
             viewModel.photo.collect {
-                if (it.isNullOrEmpty()) {
-                    binding.ivAvatar.setImageResource(R.drawable.img_avatar_default)
-                } else {
-                    /*** Красный флаг*/
-                    /*** Поменять на загрузку с сервера фото по ссылке с проверкой */
-                    binding.ivAvatar.setImageResource(R.drawable.img_avatar)
 
+                if (it.isNullOrEmpty()) {
+                    // Если нет фото, ставим инициалы
+                    binding.tvAvatar.visibility = View.VISIBLE
+                    Glide.with(this@MainActivity)
+                        .load(R.drawable.bg_for_img_avatar)
+                        .circleCrop()
+                        .into(binding.ivAvatar)
+                } else {
+                    // Загружаем фото с сервера
+                    Glide.with(this@MainActivity)
+                        .load(it)
+                        .circleCrop()
+                        .into(binding.ivAvatar)
                 }
             }
         }
