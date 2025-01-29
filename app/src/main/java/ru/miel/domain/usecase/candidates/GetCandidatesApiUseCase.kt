@@ -20,11 +20,11 @@ class GetCandidatesApiUseCase(
             val candidates = result.getOrNull()
             if (candidates != null) {
 
-                val favoriteIds = getFavoritesApiUseCase(token).map { it.id }
+/*                val favoriteIds = getFavoritesApiUseCase(token).map { it.id }
 
                 candidates.forEach { candidate ->
                     candidate.isFavorite = candidate.id in favoriteIds
-                }
+                }*/
 
                 return candidates
             }

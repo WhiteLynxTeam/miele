@@ -8,19 +8,20 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
 
 class FavoritesViewModel(
     private val getFavoritesDbUseCase: GetFavoritesDbUseCase,
 ): ViewModel() {
-    private var _candidates = MutableSharedFlow<List<Candidates>>()
-    val candidates: SharedFlow<List<Candidates>>
+    private var _candidates = MutableSharedFlow<List<CandidatesFromApi>>()
+    val candidates: SharedFlow<List<CandidatesFromApi>>
         get() = _candidates.asSharedFlow()
 
     fun getFavorites() {
         viewModelScope.launch {
-            val result = getFavoritesDbUseCase()
-            _candidates.emit(result)
+//            val result = getFavoritesDbUseCase()
+//            _candidates.emit(result)
         }
     }
 

@@ -28,7 +28,7 @@ class FavoritesFragment : Fragment() {
     lateinit var vmFactory: FavoritesViewModel.Factory
 
     private val candidatesAdapter by lazy {
-        CandidatesAdapter({ id, flag ->
+        CandidatesAdapter({ id, flag, idFavorite ->
 //            viewModel.toggleFavorite(id, flag)
             println("FavoritesFragment onIconClick = $id")
         },

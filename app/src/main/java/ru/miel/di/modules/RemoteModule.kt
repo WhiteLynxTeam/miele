@@ -7,8 +7,8 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.miel.data.api.CandidatesApi
-import ru.miel.data.api.UserApi
+import ru.miel.data.network.api.CandidatesApi
+import ru.miel.data.network.api.UserApi
 import ru.miel.domain.BASE_URL
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
