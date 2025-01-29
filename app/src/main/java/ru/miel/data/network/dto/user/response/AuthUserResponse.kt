@@ -1,4 +1,4 @@
-package ru.miel.data.dto.user.response
+package ru.miel.data.network.dto.user.response
 
 
 data class AuthUserResponse(

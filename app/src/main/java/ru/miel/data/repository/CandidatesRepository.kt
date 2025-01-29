@@ -2,12 +2,12 @@ package ru.miel.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.miel.data.api.CandidatesApi
+import ru.miel.data.network.api.CandidatesApi
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.dbo.entity.CandidatesEntity
-import ru.miel.data.dto.candidates.request.SetFlagByIdRequest
-import ru.miel.data.dto.candidates.response.CandidatesByFlagResponse
-import ru.miel.data.dto.candidates.response.CandidatesResponse
+import ru.miel.data.network.dto.candidates.request.SetFlagByIdRequest
+import ru.miel.data.network.dto.candidates.response.CandidatesByFlagResponse
+import ru.miel.data.network.dto.candidates.response.CandidatesResponse
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
 import ru.miel.domain.models.IdCandidateFromApi

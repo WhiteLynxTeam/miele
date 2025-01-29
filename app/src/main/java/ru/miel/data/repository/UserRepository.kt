@@ -1,9 +1,9 @@
 package ru.miel.data.repository
 
-import ru.miel.data.api.UserApi
-import ru.miel.data.dto.user.request.AuthUserRequest
-import ru.miel.data.dto.user.response.AuthUserResponse
-import ru.miel.data.dto.user.response.InfoUserResponse
+import ru.miel.data.network.api.UserApi
+import ru.miel.data.network.dto.user.request.AuthUserRequest
+import ru.miel.data.network.dto.user.response.AuthUserResponse
+import ru.miel.data.network.dto.user.response.InfoUserResponse
 import ru.miel.domain.irepository.IUserRepository
 import ru.miel.domain.models.InfoUser
 import ru.miel.domain.models.Token

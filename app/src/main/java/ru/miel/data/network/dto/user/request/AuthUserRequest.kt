@@ -1,4 +1,4 @@
-package ru.miel.data.dto.user.request
+package ru.miel.data.network.dto.user.request
 
 data class AuthUserRequest(
     val username: String,
