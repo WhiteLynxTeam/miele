@@ -81,7 +81,7 @@ class ShowcaseViewModel(
     }
 
     // Обновление состояния избранного
-    fun toggleFavorite(id: Int, flag: Boolean, idFavorite: Int) {
+    fun toggleFavorite(id: Int, flag: Boolean, idFavorite: Int?) {
 
         viewModelScope.launch {
 //            _isFavorite.emit(Triple(setFavoriteDbUseCase(id, flag), id, flag))

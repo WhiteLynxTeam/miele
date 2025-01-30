@@ -10,7 +10,7 @@ import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.CandidatesFromApi
 
 class CandidatesAdapter(
-    private val onIconClick: (id: Int, flag: Boolean, idFavorite: Int) -> Unit,
+    private val onIconClick: (id: Int, flag: Boolean, idFavorite: Int?) -> Unit,
     private val onButtonClick: (id: Int, flag: Boolean) -> Unit
 ) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
@@ -68,9 +68,7 @@ class CandidatesAdapter(
 
             binding.ivFavorites.setOnClickListener {
 //                candidates.id?.let { id -> onIconClick(id, candidates.isFavorite) }
-                candidates.favorite_id?.let { idFavorite ->
-                    onIconClick(candidates.id, candidates.isFavorite, idFavorite)
-                }
+                onIconClick(candidates.id, candidates.isFavorite, candidates.favorite_id)
             }
             binding.btnInvite.setOnClickListener {
                 candidates.id?.let { id -> onButtonClick(id, candidates.isInvited) }
