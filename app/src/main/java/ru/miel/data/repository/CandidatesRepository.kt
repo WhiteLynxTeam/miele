@@ -2,17 +2,21 @@ package ru.miel.data.repository
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.miel.data.network.api.CandidatesApi
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.dbo.entity.CandidatesEntity
+import ru.miel.data.network.api.CandidatesApi
 import ru.miel.data.network.dto.candidates.request.SetFlagByIdRequest
-import ru.miel.data.network.dto.candidates.response.FavoritesCandidatesResponse
 import ru.miel.data.network.dto.candidates.response.CandidatesResponse
+import ru.miel.data.network.dto.candidates.response.FavoritesCandidatesResponse
+import ru.miel.data.network.dto.candidates.response.InvitationsCandidatesResponse
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
-import ru.miel.domain.models.IdCandidateFromApi
 import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.models.enummodel.CourseStatus
+import ru.miel.domain.models.IdCandidateFromApi
+import ru.miel.domain.models.InvitationsCandidatesFromApi
 import ru.miel.domain.models.Token
+import ru.miel.domain.models.enummodel.InvitationStatus
 import ru.miel.utils.randomUuid
 
 class CandidatesRepository(
@@ -81,9 +85,9 @@ class CandidatesRepository(
         return result.map { mapperIdCandidatesDtoToIdCandidates(it) }
     }
 
-    override suspend fun getInvitationsApi(token: Token): Result<List<IdCandidateFromApi>> {
+    override suspend fun getInvitationsApi(token: Token): Result<List<InvitationsCandidatesFromApi>> {
         val result = candidatesApi.getInvitations("Token ${token.token}")
-        return result.map { mapperIdCandidatesDtoToIdCandidates(it) }
+        return result.map { mapperListInvitationsCandidatesDtoToListInvitationsCandidates(it) }
     }
 
     override suspend fun setFavoriteApi(token: Token, id: Int): Boolean {
@@ -96,9 +100,12 @@ class CandidatesRepository(
         return result.isSuccess
     }
 
-    override suspend fun setInvitationApi(token: Token, id: Int): Boolean {
+    override suspend fun setInvitationApi(
+        token: Token,
+        id: Int
+    ): Result<InvitationsCandidatesFromApi> {
         val result = candidatesApi.setInvitation("Token ${token.token}", SetFlagByIdRequest(id))
-        return result.isSuccess
+        return result.map { mapperInvitationsCandidateDtoToInvitationsCandidate(it) }
     }
 
     private fun mapperCandidatesToCandidatesEntity(
@@ -161,10 +168,10 @@ class CandidatesRepository(
                 country = it.country,
                 city = it.city,
                 resume = it.resume,
-                course_rieltor_join = it.course_rieltor_join,
-                basic_legal_course = it.basic_legal_course,
-                course_mortgage = it.course_mortgage,
-                course_taxation = it.course_taxation,
+                course_rieltor_join = CourseStatus.fromValue(it.course_rieltor_join),
+                basic_legal_course = CourseStatus.fromValue(it.basic_legal_course),
+                course_mortgage = CourseStatus.fromValue(it.course_mortgage),
+                course_taxation = CourseStatus.fromValue(it.course_taxation),
                 completed_objects = it.completed_objects,
                 clients = it.clients,
                 updated_at = it.updated_at,
@@ -183,5 +190,39 @@ class CandidatesRepository(
                 id = it.id,
             )
         }
+    }
+
+
+    private fun mapperListInvitationsCandidatesDtoToListInvitationsCandidates(
+        invitationsCandidatesResponse: List<InvitationsCandidatesResponse>
+    ): List<InvitationsCandidatesFromApi> {
+        return invitationsCandidatesResponse.map {
+            InvitationsCandidatesFromApi(
+                candidateId = it.candidate,
+                name = it.name,
+                surname = it.surname,
+                patronymic = it.patronymic,
+                city = it.city,
+                age = it.age,
+                status = InvitationStatus.fromValue(it.status),
+                updatedAt = it.updated_at,
+            )
+        }
+    }
+
+    private fun mapperInvitationsCandidateDtoToInvitationsCandidate(
+        invitationsCandidatesResponse: InvitationsCandidatesResponse
+    ): InvitationsCandidatesFromApi {
+        return InvitationsCandidatesFromApi(
+            candidateId = invitationsCandidatesResponse.candidate,
+            name = invitationsCandidatesResponse.name,
+            surname = invitationsCandidatesResponse.surname,
+            patronymic = invitationsCandidatesResponse.patronymic,
+            city = invitationsCandidatesResponse.city,
+            age = invitationsCandidatesResponse.age,
+            status = InvitationStatus.fromValue(invitationsCandidatesResponse.status),
+            updatedAt = invitationsCandidatesResponse.updated_at,
+        )
+
     }
 }

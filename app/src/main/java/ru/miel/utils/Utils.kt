@@ -1,5 +1,8 @@
 package ru.miel.utils
 
+import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import ru.miel.domain.models.HasUuid
 import java.util.UUID
 
@@ -27,4 +30,9 @@ fun String.replaceAfterLastSpace(digit: Int): String {
     } else {
         "$this $digit"
     }
+}
+
+fun TextView.setTextColorRes(@ColorRes colorRes: Int) {
+    val color = ContextCompat.getColor(context, colorRes)
+    setTextColor(color)
 }

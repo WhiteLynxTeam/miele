@@ -8,10 +8,12 @@ import com.bumptech.glide.Glide
 import ru.miel.R
 import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.models.enummodel.CourseStatus
+import ru.miel.utils.setTextColorRes
 
 class CandidatesAdapter(
     private val onIconClick: (id: Int, flag: Boolean, idFavorite: Int?) -> Unit,
-    private val onButtonClick: (id: Int, flag: Boolean) -> Unit
+    private val onButtonClick: (id: Int) -> Unit
 ) : RecyclerView.Adapter<CandidatesAdapter.CandidatesViewHolder>() {
 
     private var candidatesList: MutableList<CandidatesFromApi> = mutableListOf()
@@ -30,6 +32,7 @@ class CandidatesAdapter(
         fun bind(candidates: CandidatesFromApi, position: Int) {
 //        fun bind(candidates: Candidates, position: Int) {
 
+            /*** Red flag: Иконку для error*/
             Glide.with(binding.root)
                 .load(candidates.photo)
                 .error(R.drawable.img_avatar)
@@ -40,13 +43,33 @@ class CandidatesAdapter(
             binding.tvYear.text = candidates.birth
             binding.tvCity.text = candidates.city
             binding.tvRealtor.text =
-                "Введение в профессию риелтор (${candidates.course_rieltor_join})"
+                "Введение в профессию риелтор (${candidates.course_rieltor_join?.text() ?: "#error"})"
+            binding.tvRealtor.setTextColorRes(if (candidates.course_rieltor_join != CourseStatus.NOT_STARTED)
+                    R.color.black else R.color.text_date)
+
             binding.tvJuridicalCourse.text =
-                "Базовый юридический курс (${candidates.basic_legal_course})"
-            binding.tvMortgage.text = "Курс “Ипотека” (${candidates.course_mortgage})"
-            binding.tvTaxation.text = "Курс “Налогообложение” (${candidates.course_taxation})"
-            binding.tvObjects.text = candidates.completed_objects.toString()
-            binding.tvClients.text = candidates.clients.toString()
+                "Базовый юридический курс (${candidates.basic_legal_course?.text() ?: "#error"})"
+            binding.tvJuridicalCourse.setTextColorRes(
+                if (candidates.basic_legal_course != CourseStatus.NOT_STARTED)
+                    R.color.black else R.color.text_date
+            )
+
+            binding.tvMortgage.text =
+                "Курс “Ипотека” (${candidates.course_mortgage?.text() ?: "#error"})"
+            binding.tvMortgage.setTextColorRes(
+                if (candidates.course_mortgage != CourseStatus.NOT_STARTED)
+                    R.color.black else R.color.text_date
+            )
+
+            binding.tvTaxation.text =
+                "Курс “Налогообложение” (${candidates.course_taxation?.text() ?: "#error"})"
+            binding.tvTaxation.setTextColorRes(
+                if (candidates.course_taxation != CourseStatus.NOT_STARTED)
+                    R.color.black else R.color.text_date
+            )
+
+            binding.tvObjects.text = "Объекты: ${candidates.completed_objects.toString()}"
+            binding.tvClients.text = "Клиенты: ${candidates.clients.toString()}"
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
             binding.btnInvite.text = if (candidates.isInvited) "Приглашен" else "Пригласить"
             binding.btnInvite.setBackgroundResource(if (candidates.isInvited) R.color.lime else R.color.bordo)
@@ -60,18 +83,18 @@ class CandidatesAdapter(
                         binding.tvMortgage.text = candidates.mortgage
                         binding.tvTaxation.text = candidates.taxation
                         binding.tvObjects.text = candidates.objects
-                        binding.tvClients.text = candidates.clients*/
+                        binding.tvClients.text = candidates.clients
 
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
             binding.btnInvite.text = if (candidates.isInvited) "Приглашен" else "Пригласить"
-            binding.btnInvite.setBackgroundResource(if (candidates.isInvited) R.color.lime else R.color.bordo)
+            binding.btnInvite.setBackgroundResource(if (candidates.isInvited) R.color.lime else R.color.bordo)*/
 
             binding.ivFavorites.setOnClickListener {
 //                candidates.id?.let { id -> onIconClick(id, candidates.isFavorite) }
                 onIconClick(candidates.id, candidates.isFavorite, candidates.favorite_id)
             }
             binding.btnInvite.setOnClickListener {
-                candidates.id?.let { id -> onButtonClick(id, candidates.isInvited) }
+                if (!candidates.isInvited) onButtonClick(candidates.id)
             }
         }
     }
@@ -105,10 +128,9 @@ class CandidatesAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateInvite(id: Int, flag: Boolean) {
+    fun updateInvite(id: Int) {
         val itemToUpdate = candidatesList.find { it.id == id }
-        itemToUpdate?.let { it.isInvited = !flag }
+        itemToUpdate?.let { it.isInvited = true }
         notifyDataSetChanged()
     }
-
 }

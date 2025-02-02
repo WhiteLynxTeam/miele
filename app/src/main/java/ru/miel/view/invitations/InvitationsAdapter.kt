@@ -1,21 +1,40 @@
 package ru.miel.view.invitations
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import ru.miel.R
 import ru.miel.databinding.ItemInvitationsBinding
-import ru.miel.domain.models.InvitationsCandidates
+import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.models.InvitationsCandidatesFromApi
 
-class InvitationsAdapter(private val invitationsList: List<InvitationsCandidates>) :
+class InvitationsAdapter() :
     RecyclerView.Adapter<InvitationsAdapter.InvitationsViewHolder>() {
+
+    private var candidatesList: MutableList<InvitationsCandidatesFromApi> = mutableListOf()
+
     class InvitationsViewHolder(private val binding: ItemInvitationsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(invitationsCandidates: InvitationsCandidates) {
-            binding.ivAvatar.setImageResource(invitationsCandidates.img)
+        @SuppressLint("SetTextI18n")
+        fun bind(candidates: InvitationsCandidatesFromApi) {
+//            Glide.with(binding.root)
+//                .load(candidates.photo)
+//                .error(R.drawable.img_avatar)
+//                .centerCrop()
+//                .into(binding.ivAvatar)
+            binding.tvName.text = "${candidates.surname} ${candidates.name} ${candidates.patronymic}"
+//            binding.tvEmploymentOptions.text = if (candidates.isInvited) "Приглашен" else "Не приглашен"
+            binding.tvEmploymentOptions.text = candidates.status?.text() ?: "#error"
+            binding.ibMoreInf.setImageResource(R.drawable.ic_more_inf)
+            binding.employmentOptions.setBackgroundResource(candidates.status?.color() ?: R.color.white)
+
+/*            binding.ivAvatar.setImageResource(invitationsCandidates.img)
             binding.tvName.text = invitationsCandidates.name
             binding.tvEmploymentOptions.text = invitationsCandidates.employment
             binding.ibMoreInf.setImageResource(invitationsCandidates.inf)
-            binding.employmentOptions.setBackgroundResource(invitationsCandidates.options)
+            binding.employmentOptions.setBackgroundResource(invitationsCandidates.options)*/
             /*binding.employmentOptions.setBackgroundResource(if (invitationsCandidates.options) R.color.turquoise else R.color.orange)*/
         }
     }
@@ -27,8 +46,14 @@ class InvitationsAdapter(private val invitationsList: List<InvitationsCandidates
     }
 
     override fun onBindViewHolder(holder: InvitationsViewHolder, position: Int) {
-        holder.bind(invitationsList[position])
+        holder.bind(candidatesList[position])
     }
 
-    override fun getItemCount() = invitationsList.size
+    override fun getItemCount() = candidatesList.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setData(candidates: List<InvitationsCandidatesFromApi>) {
+        this.candidatesList = candidates.toMutableList()
+        notifyDataSetChanged()
+    }
 }

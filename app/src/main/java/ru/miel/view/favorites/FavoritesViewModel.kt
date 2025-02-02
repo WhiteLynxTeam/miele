@@ -9,30 +9,34 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import ru.miel.domain.models.Candidates
 import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
 
 class FavoritesViewModel(
     private val getFavoritesDbUseCase: GetFavoritesDbUseCase,
-): ViewModel() {
+    private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
+    ): ViewModel() {
     private var _candidates = MutableSharedFlow<List<CandidatesFromApi>>()
     val candidates: SharedFlow<List<CandidatesFromApi>>
         get() = _candidates.asSharedFlow()
 
     fun getFavorites() {
         viewModelScope.launch {
-//            val result = getFavoritesDbUseCase()
-//            _candidates.emit(result)
+            val result = getCandidatesApiUseCase().filter { it.isFavorite }
+            _candidates.emit(result)
         }
     }
 
     class Factory(
         private val getFavoritesDbUseCase: GetFavoritesDbUseCase,
+        private val getCandidatesApiUseCase: GetCandidatesApiUseCase,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(FavoritesViewModel::class.java)) {
                 return FavoritesViewModel(
                     getFavoritesDbUseCase = getFavoritesDbUseCase,
+                    getCandidatesApiUseCase = getCandidatesApiUseCase,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

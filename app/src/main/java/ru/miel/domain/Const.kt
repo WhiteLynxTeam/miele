@@ -45,14 +45,14 @@ val sampleListOfQuotes = listOf(
     Quotes(
         startDate = "16.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
         endDate = "22.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
+        quotesUsed = 3,
         quotes = 3,
-        quotesRemaining = 3,
     ),
     Quotes(
         startDate = "23.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
         endDate = "29.12.2024".convertStringToLocalDate(DATE_PATTERN_DEFAULT),
+        quotesUsed = 3,
         quotes = 3,
-        quotesRemaining = 3,
     ),
 )
 
