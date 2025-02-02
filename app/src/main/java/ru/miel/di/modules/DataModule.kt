@@ -7,6 +7,7 @@ import ru.miel.data.network.api.CandidatesApi
 import ru.miel.data.network.api.UserApi
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.dbo.dao.QuotesDao
+import ru.miel.data.network.api.QuotesApi
 import ru.miel.data.repository.CandidatesRepository
 import ru.miel.data.repository.QuotesRepository
 import ru.miel.data.repository.UserRepository
@@ -37,9 +38,11 @@ class DataModule {
     @Singleton
     fun provideQuotesRepository(
         quotesDao: QuotesDao,
+        quotesApi: QuotesApi,
     ) : IQuotesRepository {
         return QuotesRepository(
             quotesDao = quotesDao,
+            quotesApi = quotesApi,
         )
     }
 

@@ -14,13 +14,16 @@ import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesApiUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
-import ru.miel.domain.usecase.candidates.GetQuotesByNowDbUseCase
+import ru.miel.domain.usecase.candidates.GetInvitationsApiUseCase
+import ru.miel.domain.usecase.quotes.GetQuotesByNowDbUseCase
 import ru.miel.domain.usecase.user.GetTokenPrefUseCase
-import ru.miel.domain.usecase.candidates.MinusQuoteDbUseCase
+import ru.miel.domain.usecase.quotes.MinusQuoteDbUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.user.SaveTokenPrefUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
+import ru.miel.domain.usecase.candidates.SetInvitationsApiUseCase
+import ru.miel.domain.usecase.quotes.GetQuotesApiUseCase
 import ru.miel.domain.usecase.user.GetFullNamePrefUseCase
 import ru.miel.domain.usecase.user.GetPhotoUserPrefUseCase
 import ru.miel.domain.usecase.user.SaveUserInfoPrefUseCase
@@ -82,6 +85,30 @@ class DomainModule {
 
     @Singleton
     @Provides
+    fun provideGetInvitationsApiUseCase(
+        repository: ICandidatesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): GetInvitationsApiUseCase {
+        return GetInvitationsApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideSetInvitationsApiUseCase(
+        repository: ICandidatesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): SetInvitationsApiUseCase {
+        return SetInvitationsApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
     fun provideGetCandidatesApiUseCase(
         repository: ICandidatesRepository,
         getTokenPrefUseCase: GetTokenPrefUseCase,
@@ -91,6 +118,18 @@ class DomainModule {
             repository = repository,
             getTokenPrefUseCase = getTokenPrefUseCase,
             getFavoritesApiUseCase = getFavoritesApiUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetQuotesApiUseCase(
+        repository: IQuotesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): GetQuotesApiUseCase {
+        return GetQuotesApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
         )
     }
 

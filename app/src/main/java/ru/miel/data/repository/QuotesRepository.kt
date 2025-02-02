@@ -4,13 +4,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.miel.data.dbo.dao.QuotesDao
 import ru.miel.data.dbo.entity.QuotesEntity
+import ru.miel.data.network.api.QuotesApi
+import ru.miel.data.network.dto.quotes.QuotesResponse
 import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.models.Quotes
+import ru.miel.domain.models.Token
 import java.time.ZoneOffset
 
 class QuotesRepository(
     private val quotesDao: QuotesDao,
-) : IQuotesRepository {
+    private val quotesApi: QuotesApi,
+    ) : IQuotesRepository {
     override suspend fun createQuotes(quotes: List<Quotes>): Boolean {
         val quotesDb = mapperQuotesToQuotesEntity(quotes)
         withContext(Dispatchers.IO) {
@@ -34,6 +38,11 @@ class QuotesRepository(
         return true
     }
 
+    override suspend fun getQuotesApi(token: Token): Result<Quotes> {
+        val result = quotesApi.quotes("Token ${token.token}")
+        return result.map { mapperQuotesDtoToQuotes(it[0]) }
+    }
+
     private fun mapperQuotesToQuotesEntity(
         quotes: List<Quotes>
     ): List<QuotesEntity> {
@@ -47,9 +56,19 @@ class QuotesRepository(
                 end_date = it.endDate?.atTime(23, 59, 59)?.toInstant(ZoneOffset.UTC)
                     ?.toEpochMilli()
                     ?: 0L,
-                quotes = it.quotes,
-                quotes_remaining = it.quotesRemaining,
+                quotes = it.quotesUsed,
+                quotes_remaining = it.quotes,
             )
         }
+    }
+
+
+    private fun mapperQuotesDtoToQuotes(
+        quotesResponse: QuotesResponse
+    ): Quotes {
+        return Quotes(
+            quotesUsed = quotesResponse.office_used_quota.toInt(),
+            quotes = quotesResponse.office_quota.toInt(),
+        )
     }
 }

@@ -7,15 +7,17 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
-import ru.miel.domain.models.Candidates
 import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.models.Quotes
 import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
-import ru.miel.domain.usecase.candidates.GetQuotesByNowDbUseCase
-import ru.miel.domain.usecase.candidates.MinusQuoteDbUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
+import ru.miel.domain.usecase.candidates.SetInvitationsApiUseCase
+import ru.miel.domain.usecase.quotes.GetQuotesApiUseCase
+import ru.miel.domain.usecase.quotes.GetQuotesByNowDbUseCase
+import ru.miel.domain.usecase.quotes.MinusQuoteDbUseCase
 
 class ShowcaseViewModel(
     private val getCandidatesDbUseCase: GetCandidatesDbUseCase,
@@ -25,12 +27,15 @@ class ShowcaseViewModel(
     private val setInvitationDbUseCase: SetInvitationDbUseCase,
     private val getQuotesByNowDbUseCase: GetQuotesByNowDbUseCase,
     private val minusQuoteDbUseCase: MinusQuoteDbUseCase,
+    private val getQuotesApiUseCase: GetQuotesApiUseCase,
+    private val setInvitationsApiUseCase: SetInvitationsApiUseCase,
 ) :
     ViewModel() {
     /***Кандидаты с сервера*/
     private var _candidates = MutableSharedFlow<List<CandidatesFromApi>>()
     val candidates: SharedFlow<List<CandidatesFromApi>>
         get() = _candidates.asSharedFlow()
+
     /****/
 
     init {
@@ -42,23 +47,25 @@ class ShowcaseViewModel(
 //    val candidates: SharedFlow<List<Candidates>>
 //        get() = _candidates.asSharedFlow()
 
-    private var _quotes = MutableSharedFlow<Int>()
-    val quotes: SharedFlow<Int>
+    private var _quotes = MutableSharedFlow<Quotes>()
+    val quotes: SharedFlow<Quotes>
         get() = _quotes.asSharedFlow()
 
     private var _isFavorite = MutableSharedFlow<Triple<Boolean, Int, Boolean>>()
     val isFavorite: SharedFlow<Triple<Boolean, Int, Boolean>>
         get() = _isFavorite.asSharedFlow()
 
-    private var _isInvite = MutableSharedFlow<Triple<Boolean, Int, Boolean>>()
-    val isInvite: SharedFlow<Triple<Boolean, Int, Boolean>>
+    private var _isInvite = MutableSharedFlow<Pair<Boolean, Int>>()
+    val isInvite: SharedFlow<Pair<Boolean, Int>>
         get() = _isInvite.asSharedFlow()
 
     fun getQuotes() {
         viewModelScope.launch {
-//            val result = getCandidatesApiUseCase()
-            val result = getQuotesByNowDbUseCase()
-            _quotes.emit(result)
+            val result = getQuotesApiUseCase()
+//            val result = getQuotesByNowDbUseCase()
+            if (result != null) {
+                _quotes.emit(result)
+            }
         }
     }
 
@@ -67,7 +74,7 @@ class ShowcaseViewModel(
 //            val result = getCandidatesApiUseCase()
             if (minusQuoteDbUseCase()) {
                 val result = getQuotesByNowDbUseCase()
-                _quotes.emit(result)
+//                _quotes.emit(result)
             }
         }
     }
@@ -95,16 +102,15 @@ class ShowcaseViewModel(
     }
 
     // Обновление статуса приглашения
-    fun toggleInvite(id: Int, flag: Boolean) {
+    fun toggleInvite(id: Int) {
         viewModelScope.launch {
-            val quotes = getQuotesByNowDbUseCase()
-            if (quotes > 0) {
-                if (!flag) {
-                    val result = setInvitationDbUseCase(id, flag)
-                    if (result) {
-                        minusQuote()
-                        _isInvite.emit(Triple(result, id, flag))
-                    }
+            var officeQuotes = getQuotesApiUseCase()
+            if (officeQuotes != null && (officeQuotes.quotes - officeQuotes.quotesUsed) > 0) {
+                val result = setInvitationsApiUseCase(id)
+                if (result) {
+                    officeQuotes = getQuotesApiUseCase()
+                    if (officeQuotes != null) _quotes.emit(officeQuotes)
+                    _isInvite.emit(Pair(result, id))
                 }
             }
         }
@@ -118,6 +124,8 @@ class ShowcaseViewModel(
         private val setInvitationDbUseCase: SetInvitationDbUseCase,
         private val getQuotesByNowDbUseCase: GetQuotesByNowDbUseCase,
         private val minusQuoteDbUseCase: MinusQuoteDbUseCase,
+        private val getQuotesApiUseCase: GetQuotesApiUseCase,
+        private val setInvitationsApiUseCase: SetInvitationsApiUseCase,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -130,6 +138,8 @@ class ShowcaseViewModel(
                     setInvitationDbUseCase = setInvitationDbUseCase,
                     getQuotesByNowDbUseCase = getQuotesByNowDbUseCase,
                     minusQuoteDbUseCase = minusQuoteDbUseCase,
+                    getQuotesApiUseCase = getQuotesApiUseCase,
+                    setInvitationsApiUseCase = setInvitationsApiUseCase,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

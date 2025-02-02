@@ -9,6 +9,7 @@ import retrofit2.http.Path
 import ru.miel.data.network.dto.candidates.request.SetFlagByIdRequest
 import ru.miel.data.network.dto.candidates.response.FavoritesCandidatesResponse
 import ru.miel.data.network.dto.candidates.response.CandidatesResponse
+import ru.miel.data.network.dto.candidates.response.InvitationsCandidatesResponse
 
 interface CandidatesApi {
     @GET("/api/supervisor/candidates/")
@@ -36,11 +37,11 @@ interface CandidatesApi {
     @GET("/api/supervisor/invitations/")
     suspend fun getInvitations(
         @Header("Authorization") token: String
-        ): Result<List<FavoritesCandidatesResponse>>
+        ): Result<List<InvitationsCandidatesResponse>>
 
     @POST("/api/supervisor/invitations/")
     suspend fun setInvitation(
         @Header("Authorization") token: String,
         @Body setFlagByIdRequest: SetFlagByIdRequest,
-        ): Result<FavoritesCandidatesResponse>
+        ): Result<InvitationsCandidatesResponse>
 }

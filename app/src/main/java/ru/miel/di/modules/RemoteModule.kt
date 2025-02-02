@@ -8,6 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.miel.data.network.api.CandidatesApi
+import ru.miel.data.network.api.QuotesApi
 import ru.miel.data.network.api.UserApi
 import ru.miel.domain.BASE_URL
 import java.util.concurrent.TimeUnit
@@ -47,6 +48,10 @@ class RemoteModule {
     @Provides
     @Singleton
     fun provideCandidatesApi(retrofit: Retrofit): CandidatesApi = retrofit.create(CandidatesApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideQuotesApi(retrofit: Retrofit): QuotesApi = retrofit.create(QuotesApi::class.java)
 
     companion object {
         private const val HALF_MINUTE_FOR_SLOW_INTERNET = 30L

@@ -1,5 +1,7 @@
 package ru.miel.domain.models
 
+import ru.miel.domain.models.enummodel.CourseStatus
+
 data class CandidatesFromApi(
     val id: Int,
 //    val is_active: Boolean,
@@ -15,10 +17,10 @@ data class CandidatesFromApi(
 //    val email: String,
     val resume: String?,
 //    val is_free: Boolean,
-    val course_rieltor_join: String,
-    val basic_legal_course: String,
-    val course_mortgage: String,
-    val course_taxation: String,
+    val course_rieltor_join: CourseStatus?,
+    val basic_legal_course: CourseStatus?,
+    val course_mortgage: CourseStatus?,
+    val course_taxation: CourseStatus?,
     val completed_objects: Int,
     val clients: Int,
 //    val created_at: String,

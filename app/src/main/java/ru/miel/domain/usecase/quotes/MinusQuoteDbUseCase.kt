@@ -1,4 +1,4 @@
-package ru.miel.domain.usecase.candidates
+package ru.miel.domain.usecase.quotes
 
 import ru.miel.domain.irepository.IQuotesRepository
 

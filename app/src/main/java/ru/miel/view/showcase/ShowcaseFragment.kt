@@ -33,8 +33,8 @@ class ShowcaseFragment : Fragment() {
         CandidatesAdapter({ id, flag, idFavorite ->
             viewModel.toggleFavorite(id, flag, idFavorite)
         },
-            { id, flag ->
-                viewModel.toggleInvite(id, flag)
+            { id ->
+                viewModel.toggleInvite(id)
             })
     }
 
@@ -64,7 +64,7 @@ class ShowcaseFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isInvite.collect {
                 if (it.first) {
-                    candidatesAdapter.updateInvite(it.second, it.third)
+                    candidatesAdapter.updateInvite(it.second)
                 }
             }
         }
@@ -88,7 +88,8 @@ class ShowcaseFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.quotes.collect {
                 binding.tvQuotas.text =
-                    binding.tvQuotas.text.toString().trim().replaceAfterLastSpace(it)
+                    binding.tvQuotas.text.toString().trim()
+                        .replaceAfterLastSpace(it.quotes - it.quotesUsed)
             }
         }
 

@@ -32,7 +32,7 @@ class FavoritesFragment : Fragment() {
 //            viewModel.toggleFavorite(id, flag)
             println("FavoritesFragment onIconClick = $id")
         },
-            { id, flag ->
+            { id ->
 //                viewModel.toggleInvite(id, flag)
                 println("FavoritesFragment onButtonClick = $id")
             })
