@@ -1,14 +1,8 @@
 package ru.miel.view.activity
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.pm.ActivityInfo
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Typeface
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +16,6 @@ import dagger.android.AndroidInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.ActivityMainBinding
-import ru.miel.domain.BASE_URL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -114,11 +107,32 @@ class MainActivity : AppCompatActivity() {
         binding.tvDate.text =
             SimpleDateFormat("EEEE, d MMMM yyyy 'года'", Locale("ru")).format(Date())
                 .replaceFirstChar { it.uppercase() }
+
+        binding.ivExit.setOnClickListener {
+            showExitConfirmationDialog()
+        }
     }
 
     // Метод для управления видимостью элементов в activity_main
     fun setUIVisibility(showHeader: Boolean, showBottomNav: Boolean) {
         binding.header.visibility = if (showHeader) View.VISIBLE else View.GONE
         binding.bottomNavigation.visibility = if (showBottomNav) View.VISIBLE else View.GONE
+    }
+
+    fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this).apply {
+            setTitle("Подтверждение выхода")
+            setMessage("Вы уверены, что хотите выйти из приложения?")
+            setPositiveButton("Да") { _, _ ->
+                // Действие при подтверждении выхода
+                this@MainActivity.finishAffinity() // Закрываем активити и выходим из приложения
+            }
+            setNegativeButton("Нет") { dialog, _ ->
+                // Действие при отмене выхода
+                dialog.dismiss() // Закрываем диалоговое окно и продолжаем работу в приложении
+            }
+            create()
+            show()
+        }
     }
 }

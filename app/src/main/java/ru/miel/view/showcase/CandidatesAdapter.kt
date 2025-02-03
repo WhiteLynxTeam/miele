@@ -72,7 +72,7 @@ class CandidatesAdapter(
             binding.tvClients.text = "Клиенты: ${candidates.clients.toString()}"
             binding.ivFavorites.setImageResource(if (candidates.isFavorite) R.drawable.ic_favorites_candidates_selected else R.drawable.ic_favorites)
             binding.btnInvite.text = if (candidates.isInvited) "Приглашен" else "Пригласить"
-            binding.btnInvite.setBackgroundResource(if (candidates.isInvited) R.color.lime else R.color.bordo)
+            binding.btnInvite.setBackgroundResource(if (candidates.isInvited) R.drawable.bg_for_button_lime else R.drawable.bg_for_button_bordo)
 
             /*            binding.ivAvatar.setImageResource(candidates.img)
                         binding.tvName.text = candidates.name
