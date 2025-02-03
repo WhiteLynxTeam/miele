@@ -206,12 +206,13 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         app:layout_constraintWidth_percent="0.4"
-        android:background="@color/bordo"
+        android:background="@drawable/bg_for_button_bordo"
         android:fontFamily="@font/pt_sans_regular"
         android:textSize="18sp"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/iv_favorites"
-        app:layout_constraintBottom_toBottomOf="@id/indicator_clients"/>
+        app:layout_constraintBottom_toBottomOf="@id/indicator_clients"
+        android:stateListAnimator="@animator/anim_btn_invited"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

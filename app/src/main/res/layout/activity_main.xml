@@ -51,27 +51,30 @@
             android:fontFamily="@font/pt_sans_regular"
             android:textColor="@color/text_date"
             app:layout_constraintStart_toEndOf="@id/iv_avatar"
-            app:layout_constraintEnd_toStartOf="@id/oval"
+            app:layout_constraintEnd_toStartOf="@id/iv_bell"
             app:layout_constraintTop_toBottomOf="@id/tv_users_greeting" />
-
-        <View
-            android:id="@+id/oval"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_oval_bordo"
-            app:layout_constraintTop_toTopOf="@id/iv_avatar"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <ImageView
             android:id="@+id/iv_bell"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/ic_bell"
-            app:layout_constraintStart_toStartOf="@id/oval"
-            app:layout_constraintTop_toTopOf="@id/oval"
-            app:layout_constraintEnd_toEndOf="@id/oval"
-            app:layout_constraintBottom_toBottomOf="@id/oval"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_exit"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+            android:id="@+id/iv_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_exit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:stateListAnimator="@animator/anim_btn_invited"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
