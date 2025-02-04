@@ -5,6 +5,7 @@ import dagger.Provides
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.candidates.GetCountInvitationsApiUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
 import ru.miel.domain.usecase.candidates.GetInvitationsApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
@@ -22,6 +23,7 @@ import ru.miel.view.auth.AuthViewModel
 import ru.miel.view.favorites.FavoritesViewModel
 import ru.miel.view.greetings.GreetingViewModel
 import ru.miel.view.invitations.InvitationsViewModel
+import ru.miel.view.office.statistics.StatisticsViewModel
 import ru.miel.view.showcase.ShowcaseViewModel
 
 @Module
@@ -75,6 +77,15 @@ class AppModule() {
     ) = FavoritesViewModel.Factory(
         getFavoritesDbUseCase = getFavoritesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
+    )
+
+    @Provides
+    fun provideStatisticsViewModelFactory(
+        getQuotesApiUseCase: GetQuotesApiUseCase,
+        getCountInvitationsApiUseCase: GetCountInvitationsApiUseCase,
+    ) = StatisticsViewModel.Factory(
+        getQuotesApiUseCase = getQuotesApiUseCase,
+        getCountInvitationsApiUseCase = getCountInvitationsApiUseCase,
     )
 
     @Provides
