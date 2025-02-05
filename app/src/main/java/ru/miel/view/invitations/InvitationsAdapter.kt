@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import ru.miel.R
 import ru.miel.databinding.ItemInvitationsBinding
-import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.models.InvitationsCandidatesFromApi
 
 class InvitationsAdapter() :
@@ -24,7 +22,7 @@ class InvitationsAdapter() :
 //                .error(R.drawable.img_avatar)
 //                .centerCrop()
 //                .into(binding.ivAvatar)
-            binding.tvName.text = "${candidates.surname} ${candidates.name} ${candidates.patronymic}"
+            binding.tvName.text = "${candidates.id}. ${candidates.surname} ${candidates.name} ${candidates.patronymic}"
 //            binding.tvEmploymentOptions.text = if (candidates.isInvited) "Приглашен" else "Не приглашен"
             binding.tvEmploymentOptions.text = candidates.status?.text() ?: "#error"
             binding.ibMoreInf.setImageResource(R.drawable.ic_more_inf)

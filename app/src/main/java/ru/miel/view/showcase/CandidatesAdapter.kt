@@ -39,13 +39,15 @@ class CandidatesAdapter(
                 .centerCrop()
                 .into(binding.ivAvatar)
             binding.tvName.text =
-                "${candidates.surname} ${candidates.name} ${candidates.patronymic}"
+                "${candidates.id}. ${candidates.surname} ${candidates.name} ${candidates.patronymic}"
             binding.tvYear.text = candidates.birth
             binding.tvCity.text = candidates.city
             binding.tvRealtor.text =
                 "Введение в профессию риелтор (${candidates.course_rieltor_join?.text() ?: "#error"})"
-            binding.tvRealtor.setTextColorRes(if (candidates.course_rieltor_join != CourseStatus.NOT_STARTED)
-                    R.color.black else R.color.text_date)
+            binding.tvRealtor.setTextColorRes(
+                if (candidates.course_rieltor_join != CourseStatus.NOT_STARTED)
+                    R.color.black else R.color.text_date
+            )
 
             binding.tvJuridicalCourse.text =
                 "Базовый юридический курс (${candidates.basic_legal_course?.text() ?: "#error"})"
@@ -132,5 +134,24 @@ class CandidatesAdapter(
         val itemToUpdate = candidatesList.find { it.id == id }
         itemToUpdate?.let { it.isInvited = true }
         notifyDataSetChanged()
+    }
+
+    fun sort() {
+        if (candidatesList.size > 1) {
+            val first = getFullName(candidatesList.first())
+            val last = getFullName(candidatesList.last())
+
+            if (last.isNullOrEmpty() || first.isNullOrEmpty()) return
+            if (first > last) {
+                candidatesList.sortBy { getFullName(it) }
+            } else {
+                candidatesList.sortByDescending { getFullName(it) }
+            }
+            notifyDataSetChanged()
+        }
+    }
+
+    private fun getFullName(candidate: CandidatesFromApi) : String {
+        return "${candidate.surname} ${candidate.name} ${candidate.patronymic}"
     }
 }

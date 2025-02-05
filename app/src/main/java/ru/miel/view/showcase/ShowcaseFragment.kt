@@ -96,6 +96,10 @@ class ShowcaseFragment : Fragment() {
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
 
+        binding.ivSorting.setOnClickListener {
+            candidatesAdapter.sort()
+        }
+
         activityViewModel.getFullNameUser()
         activityViewModel.getPhotoUser()
         viewModel.getCandidates()
