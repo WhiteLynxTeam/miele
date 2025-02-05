@@ -74,9 +74,11 @@ class AppModule() {
     fun provideFavoritesViewModelFactory(
         getFavoritesDbUseCase: GetFavoritesDbUseCase,
         getCandidatesApiUseCase: GetCandidatesApiUseCase,
+        setInvitationsApiUseCase: SetInvitationsApiUseCase,
     ) = FavoritesViewModel.Factory(
         getFavoritesDbUseCase = getFavoritesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
+        setInvitationsApiUseCase = setInvitationsApiUseCase,
     )
 
     @Provides
