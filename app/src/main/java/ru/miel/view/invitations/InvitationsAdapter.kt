@@ -8,12 +8,15 @@ import ru.miel.R
 import ru.miel.databinding.ItemInvitationsBinding
 import ru.miel.domain.models.InvitationsCandidatesFromApi
 
-class InvitationsAdapter() :
+class InvitationsAdapter(
+    private val onClick: (id: Int) -> Unit
+
+) :
     RecyclerView.Adapter<InvitationsAdapter.InvitationsViewHolder>() {
 
     private var candidatesList: MutableList<InvitationsCandidatesFromApi> = mutableListOf()
 
-    class InvitationsViewHolder(private val binding: ItemInvitationsBinding) :
+   inner class InvitationsViewHolder(private val binding: ItemInvitationsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(candidates: InvitationsCandidatesFromApi) {
@@ -28,6 +31,10 @@ class InvitationsAdapter() :
             binding.ibMoreInf.setImageResource(R.drawable.ic_more_inf)
             binding.employmentOptions.setBackgroundResource(candidates.status?.color() ?: R.color.white)
 
+            binding.ibMoreInf.setOnClickListener {
+               println("Работает = ${candidates.surname} ${candidates.name} ${candidates.patronymic} ${candidates.city} ${candidates.age} ${candidates.status} ${candidates.updatedAt}")
+                onClick(candidates.id)
+            }
 /*            binding.ivAvatar.setImageResource(invitationsCandidates.img)
             binding.tvName.text = invitationsCandidates.name
             binding.tvEmploymentOptions.text = invitationsCandidates.employment
