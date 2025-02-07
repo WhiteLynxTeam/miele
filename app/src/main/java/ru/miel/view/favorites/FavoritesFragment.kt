@@ -33,8 +33,7 @@ class FavoritesFragment : Fragment() {
             println("FavoritesFragment onIconClick = $id")
         },
             { id ->
-//                viewModel.toggleInvite(id, flag)
-                println("FavoritesFragment onButtonClick = $id")
+                viewModel.toggleInvite(id)
             })
     }
 
@@ -66,8 +65,20 @@ class FavoritesFragment : Fragment() {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isInvite.collect {
+                if (it.first) {
+                    candidatesAdapter.updateInvite(it.second)
+                }
+            }
+        }
+
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+
+        binding.ivSorting.setOnClickListener {
+            candidatesAdapter.sort()
+        }
 
         viewModel.getFavorites()
     }

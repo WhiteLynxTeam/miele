@@ -25,7 +25,7 @@ class InvitationsAdapter(
 //                .error(R.drawable.img_avatar)
 //                .centerCrop()
 //                .into(binding.ivAvatar)
-            binding.tvName.text = "${candidates.surname} ${candidates.name} ${candidates.patronymic}"
+            binding.tvName.text = "${candidates.id}. ${candidates.surname} ${candidates.name} ${candidates.patronymic}"
 //            binding.tvEmploymentOptions.text = if (candidates.isInvited) "Приглашен" else "Не приглашен"
             binding.tvEmploymentOptions.text = candidates.status?.text() ?: "#error"
             binding.ibMoreInf.setImageResource(R.drawable.ic_more_inf)

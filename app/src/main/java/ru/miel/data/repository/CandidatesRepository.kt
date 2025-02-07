@@ -198,7 +198,7 @@ class CandidatesRepository(
     ): List<InvitationsCandidatesFromApi> {
         return invitationsCandidatesResponse.map {
             InvitationsCandidatesFromApi(
-                candidateId = it.candidate,
+                id = it.candidate,
                 name = it.name,
                 surname = it.surname,
                 patronymic = it.patronymic,
@@ -214,7 +214,7 @@ class CandidatesRepository(
         invitationsCandidatesResponse: InvitationsCandidatesResponse
     ): InvitationsCandidatesFromApi {
         return InvitationsCandidatesFromApi(
-            candidateId = invitationsCandidatesResponse.candidate,
+            id = invitationsCandidatesResponse.candidate,
             name = invitationsCandidatesResponse.name,
             surname = invitationsCandidatesResponse.surname,
             patronymic = invitationsCandidatesResponse.patronymic,

@@ -6,7 +6,7 @@ import ru.miel.domain.models.enummodel.InvitationStatus
 
 @Parcelize
 data class InvitationsCandidatesFromApi(
-    val candidateId: Int,
+    val id: Int,
     val name: String,
     val surname: String,
     val patronymic: String,
