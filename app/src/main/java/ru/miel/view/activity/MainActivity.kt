@@ -82,7 +82,14 @@ class MainActivity : AppCompatActivity() {
             viewModel.fullName.collect {
                 binding.tvUsersGreeting.text = "Привет, $it"
                 val words = it.trim().split("\\s+".toRegex()) // Разбиваем по пробелам
-                binding.tvAvatar.text = "${words[0].first().uppercase()}${words[1].first().uppercase()}"
+                if (words.size >= 2) {
+                    binding.tvAvatar.text =
+                        "${words[0].first().uppercase()}${words[1].first().uppercase()}"
+                } else if (words.size == 1) {
+                    binding.tvAvatar.text = words[0].first().uppercase()
+                } else {
+                    binding.tvAvatar.text = ""
+                }
             }
         }
 

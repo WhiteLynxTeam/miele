@@ -75,3 +75,5 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+

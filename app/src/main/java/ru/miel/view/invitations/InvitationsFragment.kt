@@ -30,11 +30,11 @@ class InvitationsFragment : Fragment() {
     lateinit var vmFactory: InvitationsViewModel.Factory
 
     private val invitationsAdapter by lazy {
-       InvitationsAdapter { id ->
+       InvitationsAdapter { candidate ->
            findNavController().navigate(R.id.action_invitationsFragment_to_infoBottomSheet,
-                Bundle().apply {
-                    putInt("id", id)
-                }
+               Bundle().apply {
+                   putParcelable("candidate", candidate)
+               }
             )
         }
     }
