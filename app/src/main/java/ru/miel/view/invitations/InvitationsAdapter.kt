@@ -9,7 +9,7 @@ import ru.miel.databinding.ItemInvitationsBinding
 import ru.miel.domain.models.InvitationsCandidatesFromApi
 
 class InvitationsAdapter(
-    private val onClick: (id: Int) -> Unit
+    private val onClick: (candidate: InvitationsCandidatesFromApi) -> Unit
 
 ) :
     RecyclerView.Adapter<InvitationsAdapter.InvitationsViewHolder>() {
@@ -19,21 +19,21 @@ class InvitationsAdapter(
    inner class InvitationsViewHolder(private val binding: ItemInvitationsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(candidates: InvitationsCandidatesFromApi) {
+        fun bind(candidate: InvitationsCandidatesFromApi) {
 //            Glide.with(binding.root)
 //                .load(candidates.photo)
 //                .error(R.drawable.img_avatar)
 //                .centerCrop()
 //                .into(binding.ivAvatar)
-            binding.tvName.text = "${candidates.id}. ${candidates.surname} ${candidates.name} ${candidates.patronymic}"
+            binding.tvName.text = "${candidate.id}. ${candidate.surname} ${candidate.name} ${candidate.patronymic}"
 //            binding.tvEmploymentOptions.text = if (candidates.isInvited) "Приглашен" else "Не приглашен"
-            binding.tvEmploymentOptions.text = candidates.status?.text() ?: "#error"
+            binding.tvEmploymentOptions.text = candidate.status?.text() ?: "#error"
             binding.ibMoreInf.setImageResource(R.drawable.ic_more_inf)
-            binding.employmentOptions.setBackgroundResource(candidates.status?.color() ?: R.color.white)
+            binding.employmentOptions.setBackgroundResource(candidate.status?.color() ?: R.color.white)
 
             binding.ibMoreInf.setOnClickListener {
-               println("Работает = ${candidates.surname} ${candidates.name} ${candidates.patronymic} ${candidates.city} ${candidates.age} ${candidates.status} ${candidates.updatedAt}")
-                onClick(candidates.id)
+               println("Работает = ${candidate.surname} ${candidate.name} ${candidate.patronymic} ${candidate.city} ${candidate.age} ${candidate.status} ${candidate.updatedAt}")
+                onClick(candidate)
             }
 /*            binding.ivAvatar.setImageResource(invitationsCandidates.img)
             binding.tvName.text = invitationsCandidates.name
