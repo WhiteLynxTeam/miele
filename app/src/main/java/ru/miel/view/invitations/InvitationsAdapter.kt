@@ -33,7 +33,7 @@ class InvitationsAdapter(
 
             binding.ibMoreInf.setOnClickListener {
                println("Работает = ${candidates.surname} ${candidates.name} ${candidates.patronymic} ${candidates.city} ${candidates.age} ${candidates.status} ${candidates.updatedAt}")
-                onClick(candidates.candidateId)
+                onClick(candidates.id)
             }
 /*            binding.ivAvatar.setImageResource(invitationsCandidates.img)
             binding.tvName.text = invitationsCandidates.name
