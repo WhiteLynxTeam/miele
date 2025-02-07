@@ -1,21 +1,22 @@
 package ru.miel.view.invitations
 
 import android.content.Context
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentInvitationsBinding
-import ru.miel.domain.models.InvitationsCandidates
-import ru.miel.view.favorites.FavoritesViewModel
-import ru.miel.view.showcase.CandidatesAdapter
+import ru.miel.domain.models.InvitationsCandidatesFromApi
+import ru.miel.view.activity.MainActivity
 import javax.inject.Inject
 
 class InvitationsFragment : Fragment() {
@@ -29,7 +30,13 @@ class InvitationsFragment : Fragment() {
     lateinit var vmFactory: InvitationsViewModel.Factory
 
     private val invitationsAdapter by lazy {
-        InvitationsAdapter()
+       InvitationsAdapter { id ->
+           findNavController().navigate(R.id.action_invitationsFragment_to_infoBottomSheet,
+                Bundle().apply {
+                    putInt("id", id)
+                }
+            )
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -68,3 +75,5 @@ class InvitationsFragment : Fragment() {
         viewModel.getInvitations()
     }
 }
+
+//Как с помошью сеарилизацию прередать класс через бандл из фрагмента во фрагменит

@@ -1,7 +1,10 @@
 package ru.miel.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import ru.miel.domain.models.enummodel.InvitationStatus
 
+@Parcelize
 data class InvitationsCandidatesFromApi(
     val candidateId: Int,
     val name: String,
@@ -11,4 +14,4 @@ data class InvitationsCandidatesFromApi(
     val age: Int,
     val status: InvitationStatus?,
     val updatedAt: String,
-)
+) : Parcelable

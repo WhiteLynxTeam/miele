@@ -76,7 +76,11 @@
         android:id="@+id/invitationsFragment"
         android:name="ru.miel.view.invitations.InvitationsFragment"
         android:label="fragment_invitations"
-        tools:layout="@layout/fragment_invitations" />
+        tools:layout="@layout/fragment_invitations" >
+        <action
+            android:id="@+id/action_invitationsFragment_to_infoBottomSheet"
+            app:destination="@id/infoBottomSheet" />
+    </fragment>
     <fragment
         android:id="@+id/greetingFragment"
         android:name="ru.miel.view.greetings.GreetingFragment"
@@ -86,4 +90,8 @@
             android:id="@+id/action_greetingFragment_to_showcaseFragment"
             app:destination="@id/showcaseFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/infoBottomSheet"
+        android:name="ru.miel.view.invitations.InfoBottomSheet"
+        android:label="InfoBottomSheet" />
 </navigation>
