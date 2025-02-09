@@ -43,4 +43,5 @@
     <string name="period">Период</string>
     <string name="variants">Выберите вариант из списка</string>
 
+    <string name="request_quotas">Запросить квоты</string>
 </resources>

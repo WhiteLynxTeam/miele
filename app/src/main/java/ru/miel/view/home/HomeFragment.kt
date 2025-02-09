@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import dagger.android.support.AndroidSupportInjection
 import ru.miel.databinding.FragmentHomeBinding
 import ru.miel.domain.models.DayOfWeek
 import ru.miel.view.activity.MainActivity
-import ru.miel.view.showcase.CandidatesAdapter
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -75,7 +72,11 @@ class HomeFragment : Fragment() {
         settingTheDate()
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
-        (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+        (activity as MainActivity).setUIVisibility(
+            showHeader = true,
+            showBottomNav = true,
+            showRequestQuotas = true
+        )
     }
 
     //Установка даты в календаре
@@ -112,7 +113,13 @@ class HomeFragment : Fragment() {
         )
     }
 
-    private fun shiftCalendar(today: Calendar, weeks: MutableList<DayOfWeek>, startValue: Float, endValue: Float, direction: Int) {
+    private fun shiftCalendar(
+        today: Calendar,
+        weeks: MutableList<DayOfWeek>,
+        startValue: Float,
+        endValue: Float,
+        direction: Int
+    ) {
         binding.rcCalendar.animate()
             .translationX(startValue)
             .setDuration(100)

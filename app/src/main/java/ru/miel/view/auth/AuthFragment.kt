@@ -59,7 +59,11 @@ class AuthFragment : Fragment() {
         }
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
-        (activity as MainActivity).setUIVisibility(showHeader = false, showBottomNav = false)
+        (activity as MainActivity).setUIVisibility(
+            showHeader = false,
+            showBottomNav = false,
+            showRequestQuotas = false
+        )
 
         binding.btnSignIn.setOnClickListener {
 //            findNavController().navigate(R.id.action_authFragment_to_homeFragment)
