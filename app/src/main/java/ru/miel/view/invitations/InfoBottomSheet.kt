@@ -44,7 +44,7 @@ class InfoBottomSheet : DialogFragment() {
         binding.tvCity.text = candidate.city
         binding.tvYear.inputType = candidate.age
         binding.tvStatus.text = candidate.status?.text() ?: "#error"
-        binding.tvUpdated.text = candidate.updatedAt
+        binding.tvUpdated.text = candidate.updatedAt.substring(0, 10)
     }
 
 }
