@@ -30,6 +30,7 @@ const val BASE_URL = "http://80.85.246.168"
  */
 const val DATE_PATTERN_DEFAULT = "dd.MM.yyyy"
 const val DATE_PATTERN_WITH_ZONE = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+const val DATE_PATTERN_WITH_MILIS = "yyyy-MM-dd HH:mm:ss.SSSSSS"
 const val DATE_PATTERN_WITHOUT_ZONE = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 const val DATE_PATTERN_LESSON_IGOTIT = "yyyy-MM-dd - HH:mm"
 const val DATE_PATTERN_FULL_DATE_AND_TEXT_MONTH = "dd MMMM yyyy"
