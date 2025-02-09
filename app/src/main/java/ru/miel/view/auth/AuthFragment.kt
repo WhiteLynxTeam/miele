@@ -62,7 +62,6 @@ class AuthFragment : Fragment() {
         (activity as MainActivity).setUIVisibility(
             showHeader = false,
             showBottomNav = false,
-            showRequestQuotas = false
         )
 
         binding.btnSignIn.setOnClickListener {

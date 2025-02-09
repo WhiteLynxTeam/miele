@@ -75,7 +75,6 @@ class HomeFragment : Fragment() {
         (activity as MainActivity).setUIVisibility(
             showHeader = true,
             showBottomNav = true,
-            showRequestQuotas = true
         )
     }
 
