@@ -37,9 +37,13 @@ class InfoBottomSheet : DialogFragment() {
 
         //устанавливаем размеры для диалогового окна
         dialog?.window?.setLayout(
-            (resources.displayMetrics.widthPixels * 0.9).toInt(),
+            (resources.displayMetrics.widthPixels * 1.0).toInt(),
             (resources.displayMetrics.heightPixels * 0.3).toInt(),
         )
+
+        binding.dialogFragmentContainer.setOnClickListener {
+            dismiss()
+        }
 
         candidate?.let { setCandidatesDetails(it) }
     }
