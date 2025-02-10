@@ -19,21 +19,20 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_avatar"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:visibility="gone"
             android:background="@drawable/bg_for_img_avatar"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/iv_avatar"
-            app:layout_constraintTop_toTopOf="@id/iv_avatar"/>
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
 
         <TextView
             android:id="@+id/tv_users_greeting"
@@ -42,7 +41,7 @@
             android:fontFamily="@font/pt_sans_regular"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/tv_date"
-            app:layout_constraintTop_toTopOf="@id/iv_avatar"/>
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -50,8 +49,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pt_sans_regular"
             android:textColor="@color/text_date"
-            app:layout_constraintStart_toEndOf="@id/iv_avatar"
             app:layout_constraintEnd_toStartOf="@id/iv_bell"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
             app:layout_constraintTop_toBottomOf="@id/tv_users_greeting" />
 
         <ImageView
@@ -60,9 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:src="@drawable/ic_bell"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/iv_exit"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_exit"
@@ -70,24 +69,24 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_exit"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:stateListAnimator="@animator/anim_btn_invited"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:stateListAnimator="@animator/anim_btn_invited"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.fragment.app.FragmentContainerView
+        <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_placeholder"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:navGraph="@navigation/navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -97,12 +96,12 @@
         android:background="@color/bordo"
         app:itemActiveIndicatorStyle="@android:color/transparent"
         app:itemIconSize="32dp"
+        app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="labeled"
-        app:itemIconTint="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navigation_menu"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
