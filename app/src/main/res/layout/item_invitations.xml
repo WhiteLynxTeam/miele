@@ -54,6 +54,7 @@
         android:id="@+id/ib_more_inf"
         android:layout_width="24dp"
         android:layout_height="24dp"
+        android:stateListAnimator="@animator/anim_btn_invited"
         android:background="@drawable/ic_more_inf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

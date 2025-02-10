@@ -25,4 +25,12 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <!--DialogFragment в infoBottomLayout-->
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:maxWidth">600dp</item>
+        <item name="android:maxHeight">400dp</item>
+    </style>
+
 </resources>
