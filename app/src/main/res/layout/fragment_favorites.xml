@@ -15,6 +15,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_request_quotas"
+        android:layout_width="102dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_border_for_button_bordo"
+        android:fontFamily="@font/pt_sans_regular"
+        android:stateListAnimator="@animator/anim_btn_invited"
+        android:text="@string/request_quotas"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_favorites"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_favorites"
+        app:layout_constraintWidth_percent="0.4" />
+
     <ImageView
         android:id="@+id/iv_sorting"
         android:layout_width="wrap_content"

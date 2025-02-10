@@ -39,6 +39,9 @@ class AdministratorFragment : Fragment() {
         }
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
-        (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+        (activity as MainActivity).setUIVisibility(
+            showHeader = true,
+            showBottomNav = true,
+        )
     }
 }

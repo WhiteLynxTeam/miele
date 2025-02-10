@@ -1,11 +1,14 @@
 package ru.miel.view.office.statistics
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -13,9 +16,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentStatisticsBinding
-import ru.miel.utils.replaceAfterLastSpace
 import ru.miel.view.activity.MainActivity
-import ru.miel.view.invitations.InvitationsViewModel
 import javax.inject.Inject
 
 class StatisticsFragment : Fragment() {
@@ -74,7 +75,10 @@ class StatisticsFragment : Fragment() {
         binding.spinnerPeriod.adapter = spinnerAdapter
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
-        (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+        (activity as MainActivity).setUIVisibility(
+            showHeader = true,
+            showBottomNav = true,
+        )
 
         viewModel.getQuotes()
         viewModel.getCountInvitation()

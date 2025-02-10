@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Метод для управления видимостью элементов в activity_main
-    fun setUIVisibility(showHeader: Boolean, showBottomNav: Boolean) {
+    fun setUIVisibility(showHeader: Boolean, showBottomNav: Boolean,) {
         binding.header.visibility = if (showHeader) View.VISIBLE else View.GONE
         binding.bottomNavigation.visibility = if (showBottomNav) View.VISIBLE else View.GONE
     }

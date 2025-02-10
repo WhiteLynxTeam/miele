@@ -1,10 +1,13 @@
 package ru.miel.view.office
 
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
@@ -47,6 +50,9 @@ class OfficeFragment : Fragment() {
         }
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
-        (activity as MainActivity).setUIVisibility(showHeader = true, showBottomNav = true)
+        (activity as MainActivity).setUIVisibility(
+            showHeader = true,
+            showBottomNav = true,
+        )
     }
 }
