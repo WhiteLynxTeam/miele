@@ -9,6 +9,7 @@ import ru.miel.R
 import ru.miel.databinding.ItemCandidatesBinding
 import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.models.enummodel.CourseStatus
+import ru.miel.domain.models.enummodel.SortOption
 import ru.miel.utils.setTextColorRes
 
 class CandidatesAdapter(
@@ -137,21 +138,31 @@ class CandidatesAdapter(
     }
 
     fun sort() {
-        if (candidatesList.size > 1) {
-            val first = getFullName(candidatesList.first())
-            val last = getFullName(candidatesList.last())
+        when (SortOption.getSelected()) {
+            0 -> {
+                candidatesList.sortBy { it.updated_at }
+            }
 
-            if (last.isNullOrEmpty() || first.isNullOrEmpty()) return
-            if (first > last) {
+            1 -> {
+                candidatesList.sortByDescending { it.updated_at }
+            }
+
+            2 -> {
                 candidatesList.sortBy { getFullName(it) }
-            } else {
+            }
+
+            3 -> {
                 candidatesList.sortByDescending { getFullName(it) }
             }
-            notifyDataSetChanged()
+
+            else -> {
+                println("Сюда не должные заходить")
+            }
         }
+        notifyDataSetChanged()
     }
 
-    private fun getFullName(candidate: CandidatesFromApi) : String {
+    private fun getFullName(candidate: CandidatesFromApi): String {
         return "${candidate.surname} ${candidate.name} ${candidate.patronymic}"
     }
 }
