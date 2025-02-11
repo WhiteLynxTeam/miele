@@ -15,6 +15,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentFavoritesBinding
+import ru.miel.domain.models.enummodel.SortOption
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
 import javax.inject.Inject
@@ -64,6 +65,7 @@ class FavoritesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.candidates.collect {
                 candidatesAdapter.setData(it)
+                candidatesAdapter.sort()
             }
         }
 

@@ -2,22 +2,22 @@ package ru.miel.view.showcase
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatButton
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
-import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
+import ru.miel.domain.models.enummodel.SortOption
 import ru.miel.utils.replaceAfterLastSpace
+import ru.miel.utils.showRadioDialog
 import ru.miel.view.activity.ActivityMainViewModel
 import ru.miel.view.activity.MainActivity
 import javax.inject.Inject
@@ -86,6 +86,7 @@ class ShowcaseFragment : Fragment() {
                 binding.tvCandidates.text =
                     binding.tvCandidates.text.toString().trim().replaceAfterLastSpace(it.size)
                 candidatesAdapter.setData(it)
+                candidatesAdapter.sort()
             }
         }
 
@@ -104,7 +105,9 @@ class ShowcaseFragment : Fragment() {
         )
 
         binding.ivSorting.setOnClickListener {
-            candidatesAdapter.sort()
+            showRadioDialog(requireContext()) {
+                candidatesAdapter.sort()
+            }
         }
 
         activityViewModel.getFullNameUser()
