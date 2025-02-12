@@ -12,8 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
+import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
 import ru.miel.domain.models.enummodel.SortOption
 import ru.miel.utils.replaceAfterLastSpace
@@ -113,6 +115,10 @@ class ShowcaseFragment : Fragment() {
         activityViewModel.getFullNameUser()
         activityViewModel.getPhotoUser()
         viewModel.getCandidates()
+
+        binding.borderFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_showcaseFragment_to_filterFragment)
+        }
     }
 
 }

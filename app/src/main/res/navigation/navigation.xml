@@ -66,12 +66,20 @@
         android:id="@+id/showcaseFragment"
         android:name="ru.miel.view.showcase.ShowcaseFragment"
         android:label="fragment_showcase"
-        tools:layout="@layout/fragment_showcase" />
+        tools:layout="@layout/fragment_showcase" >
+        <action
+            android:id="@+id/action_showcaseFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="ru.miel.view.favorites.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+    </fragment>
     <fragment
         android:id="@+id/invitationsFragment"
         android:name="ru.miel.view.invitations.InvitationsFragment"
@@ -94,4 +102,9 @@
         android:id="@+id/infoBottomSheet"
         android:name="ru.miel.view.invitations.InfoBottomSheet"
         android:label="InfoBottomSheet" />
+    <dialog
+        android:id="@+id/filterFragment"
+        android:name="ru.miel.view.showcase.FilterFragment"
+        android:label="fragment_filter"
+        tools:layout="@layout/fragment_filter" />
 </navigation>

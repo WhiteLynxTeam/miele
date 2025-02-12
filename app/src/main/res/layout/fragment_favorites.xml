@@ -37,8 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@drawable/bg_sorting"
         android:padding="10dp"
-        android:background="@drawable/bg_et_auth"
         android:src="@drawable/ic_sorting"
         app:layout_constraintStart_toStartOf="@id/tv_favorites"
         app:layout_constraintTop_toBottomOf="@id/tv_favorites"/>

@@ -11,11 +11,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentFavoritesBinding
 import ru.miel.domain.models.enummodel.SortOption
+import ru.miel.utils.showRadioDialog
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
 import javax.inject.Inject
@@ -84,9 +86,15 @@ class FavoritesFragment : Fragment() {
         )
 
         binding.ivSorting.setOnClickListener {
-            candidatesAdapter.sort()
+            showRadioDialog(requireContext()) {
+                candidatesAdapter.sort()
+            }
         }
 
         viewModel.getFavorites()
+
+        binding.borderFilter.setOnClickListener {
+            findNavController().navigate(R.id.action_favoritesFragment_to_filterFragment)
+        }
     }
 }

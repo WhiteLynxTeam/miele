@@ -44,4 +44,13 @@
     <string name="variants">Выберите вариант из списка</string>
 
     <string name="request_quotas">Запросить квоты</string>
+
+    <!-- TODO: Текст для fragment_filter -->
+    <string name="filters">Фильтры</string>
+    <string name="cancel">Отмена</string>
+    <string name="age">Возраст</string>
+    <string name="from">от</string>
+    <string name="to">до</string>
+    <string name="apply">Применить</string>
+    <string name="courses_completed">Пройденные курсы</string>
 </resources>
