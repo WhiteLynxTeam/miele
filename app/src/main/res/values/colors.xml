@@ -22,4 +22,7 @@
     <color name="icon_hint">#A4AAAF</color>
     <color name="text_date">#686E74</color>
 
+
+    <color name="inp_border">#CACBCD</color>
+
 </resources>

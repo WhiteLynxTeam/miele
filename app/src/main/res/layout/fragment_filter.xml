@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.showcase.FilterFragment">
+
+
+    <TextView
+        android:id="@+id/tv_filters_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/pt_sans_bold"
+        android:text="@string/filters"
+        android:textColor="@color/bordo"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/cancel"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_filters_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_filters_title" />
+
+    <View
+        android:id="@+id/stripe1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="14dp"
+        android:background="@color/inp_border"
+        app:layout_constraintTop_toBottomOf="@+id/tv_filters_title" />
+
+    <TextView
+        android:id="@+id/tv_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/age"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stripe1" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_from"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_input"
+        android:fontFamily="@font/pt_sans_regular"
+        android:hint="@string/from"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/et_to"
+        app:layout_constraintStart_toStartOf="@+id/tv_age"
+        app:layout_constraintTop_toBottomOf="@+id/tv_age" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_to"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_input"
+        android:fontFamily="@font/pt_sans_regular"
+        android:hint="@string/to"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_cancel"
+        app:layout_constraintStart_toEndOf="@+id/et_from"
+        app:layout_constraintTop_toBottomOf="@+id/tv_age" />
+
+    <View
+        android:id="@+id/stripe2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="25dp"
+        android:background="@color/inp_border"
+        app:layout_constraintTop_toBottomOf="@+id/et_from" />
+
+    <TextView
+        android:id="@+id/tv_courses_completed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/pt_sans_regular"
+        android:text="@string/courses_completed"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stripe2" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:constraint_referenced_ids="value_1,value_2,value_3,value_4"
+        app:flow_horizontalAlign="start"
+        app:flow_horizontalGap="8dp"
+        app:flow_horizontalStyle="spread_inside"
+        app:flow_verticalGap="8dp"
+        app:flow_wrapMode="chain"
+        app:layout_constraintEnd_toEndOf="@+id/tv_cancel"
+        app:layout_constraintStart_toStartOf="@+id/tv_courses_completed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_courses_completed" />
+
+    <TextView
+        android:id="@+id/value_1"
+        style="@style/flow_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="Введение в профессию риелтор" />
+
+    <TextView
+        android:id="@+id/value_2"
+        style="@style/flow_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="Ипотека" />
+
+    <TextView
+        android:id="@+id/value_3"
+        style="@style/flow_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="Базовый юридический курс" />
+
+    <TextView
+        android:id="@+id/value_4"
+        style="@style/flow_values"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:text="Налогообложение" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_sign_in"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/bg_for_button_bordo"
+        android:fontFamily="@font/pt_sans_regular"
+        android:stateListAnimator="@animator/anim_btn_invited"
+        android:text="@string/apply"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
