@@ -1,4 +1,4 @@
-package ru.miel.view.showcase
+package ru.miel.view.filter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,10 +51,10 @@ class FilterFragment : DialogFragment() {
 
         //при нажатии красим bg textview при повторном нажатии возвращаем исходный bg
         with(binding) {
-            value1.setOnClickListener(onTimeClickListener)
-            value2.setOnClickListener(onTimeClickListener)
-            value3.setOnClickListener(onTimeClickListener)
-            value4.setOnClickListener(onTimeClickListener)
+            tvCoursesRealtor.setOnClickListener(onTimeClickListener)
+            tvCoursesMortgage.setOnClickListener(onTimeClickListener)
+            tvCoursesLegal.setOnClickListener(onTimeClickListener)
+            tvCoursesTaxation.setOnClickListener(onTimeClickListener)
             }
     }
 }

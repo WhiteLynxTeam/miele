@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.showcase.FilterFragment">
+    tools:context=".view.filter.FilterFragment">
 
 
     <TextView
@@ -113,52 +113,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stripe2" />
 
-    <androidx.constraintlayout.helper.widget.Flow
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/tv_courses_realtor"
+        style="@style/flow_values"
         android:layout_marginTop="16dp"
-        app:constraint_referenced_ids="value_1,value_2,value_3,value_4"
-        app:flow_horizontalAlign="start"
-        app:flow_horizontalGap="8dp"
-        app:flow_horizontalStyle="spread_inside"
-        app:flow_verticalGap="8dp"
-        app:flow_wrapMode="chain"
-        app:layout_constraintEnd_toEndOf="@+id/tv_cancel"
+        android:text="Введение в профессию риелтор"
         app:layout_constraintStart_toStartOf="@+id/tv_courses_completed"
         app:layout_constraintTop_toBottomOf="@+id/tv_courses_completed" />
 
     <TextView
-        android:id="@+id/value_1"
+        android:id="@+id/tv_courses_mortgage"
         style="@style/flow_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Введение в профессию риелтор" />
+        android:layout_marginEnd="20dp"
+        android:text="Ипотека"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_courses_realtor" />
 
     <TextView
-        android:id="@+id/value_2"
+        android:id="@+id/tv_courses_legal"
         style="@style/flow_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Ипотека" />
+        android:layout_marginTop="8dp"
+        android:text="Базовый юридический курс"
+        app:layout_constraintStart_toStartOf="@+id/tv_courses_completed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_courses_realtor" />
 
     <TextView
-        android:id="@+id/value_3"
+        android:id="@+id/tv_courses_taxation"
         style="@style/flow_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Базовый юридический курс" />
-
-    <TextView
-        android:id="@+id/value_4"
-        style="@style/flow_values"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:text="Налогообложение" />
-
+        android:layout_marginTop="8dp"
+        android:text="Налогообложение"
+        app:layout_constraintStart_toStartOf="@+id/tv_courses_completed"
+        app:layout_constraintTop_toBottomOf="@+id/tv_courses_legal" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_sign_in"
