@@ -1,7 +1,7 @@
 package ru.miel.view.filter
 
-import com.google.android.material.textfield.TextInputEditText
+import ru.miel.domain.models.CandidatesFilter
 
 interface FilterListener {
-    fun onFilterApplied(etAgeFrom: TextInputEditText, etAgeTo: TextInputEditText, selectedCourses: List<String>)
+    fun onFilterApplied(filter: CandidatesFilter)
 }

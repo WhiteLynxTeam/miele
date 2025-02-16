@@ -5,6 +5,7 @@ import dagger.Provides
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.candidates.GetCandidatesFilterApiUseCase
 import ru.miel.domain.usecase.candidates.GetCountInvitationsApiUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
 import ru.miel.domain.usecase.candidates.GetInvitationsApiUseCase
@@ -49,6 +50,7 @@ class AppModule() {
         minusQuoteDbUseCase: MinusQuoteDbUseCase,
         getQuotesApiUseCase: GetQuotesApiUseCase,
         setInvitationsApiUseCase: SetInvitationsApiUseCase,
+        getCandidatesFilterApiUseCase: GetCandidatesFilterApiUseCase,
     ) = ShowcaseViewModel.Factory(
         getCandidatesDbUseCase = getCandidatesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
@@ -59,6 +61,7 @@ class AppModule() {
         minusQuoteDbUseCase = minusQuoteDbUseCase,
         getQuotesApiUseCase = getQuotesApiUseCase,
         setInvitationsApiUseCase = setInvitationsApiUseCase,
+        getCandidatesFilterApiUseCase = getCandidatesFilterApiUseCase,
     )
 
     @Provides

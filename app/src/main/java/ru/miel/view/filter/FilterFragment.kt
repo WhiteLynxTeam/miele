@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import ru.miel.R
 import ru.miel.databinding.FragmentFilterBinding
+import ru.miel.domain.models.CandidatesFilter
 
 class FilterFragment : DialogFragment() {
 
@@ -17,8 +18,10 @@ class FilterFragment : DialogFragment() {
 
     private val onTimeClickListener = View.OnClickListener { view ->
         val currentBackground = view.background
-        val selectedDrawable = ContextCompat.getDrawable(view.context, R.drawable.background_filters_selected)
-        val defaultDrawable = ContextCompat.getDrawable(view.context, R.drawable.background_input)//можно удалить
+        val selectedDrawable =
+            ContextCompat.getDrawable(view.context, R.drawable.background_filters_selected)
+        val defaultDrawable =
+            ContextCompat.getDrawable(view.context, R.drawable.background_input)//можно удалить
 
         if (currentBackground.constantState == selectedDrawable?.constantState) {
             // Если текущий drawable равен выбранному, возвращаем исходный
@@ -62,8 +65,10 @@ class FilterFragment : DialogFragment() {
         //по нжатию применить, подтверждаем выбранные фильтры
         binding.btnApply.setOnClickListener {
             //Получение возраста "от" и "до"
-            binding.etAgeFrom.text.toString().toIntOrNull() ?: 0  //если ни чего не выбрано от будет ставиться "0"
-            binding.etAgeTo.text.toString().toIntOrNull() //?: Int.MAX_VALUE //если ни чего не выбрано то будет макс значене Int
+            binding.etAgeFrom.text.toString().toIntOrNull()
+                ?: 0  //если ни чего не выбрано от будет ставиться "0"
+            binding.etAgeTo.text.toString()
+                .toIntOrNull() //?: Int.MAX_VALUE //если ни чего не выбрано то будет макс значене Int
 
             //Получение выбранные курсов
             val selectedCourses = mutableListOf<String>()
@@ -72,7 +77,16 @@ class FilterFragment : DialogFragment() {
             if (binding.tvCoursesLegal.isSelected) selectedCourses.add("Базовый юридический курс")
             if (binding.tvCoursesTaxation.isSelected) selectedCourses.add("Налогообложение")
 
-            listener?.onFilterApplied(binding.etAgeFrom, binding.etAgeTo, selectedCourses)
+            listener?.onFilterApplied(
+                CandidatesFilter(
+                    age_min = 16,
+                    age_max = 99,
+                    course_rieltor_join = binding.tvCoursesRealtor.isSelected,
+                    basic_legal_course = binding.tvCoursesMortgage.isSelected,
+                    course_mortgage = binding.tvCoursesLegal.isSelected,
+                    course_taxation = binding.tvCoursesTaxation.isSelected,
+                )
+            )
             dismiss()
         }
         return

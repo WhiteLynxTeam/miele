@@ -7,19 +7,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
-import ru.miel.domain.models.enummodel.SortOption
+import ru.miel.domain.models.CandidatesFilter
 import ru.miel.utils.replaceAfterLastSpace
 import ru.miel.utils.showRadioDialog
 import ru.miel.view.activity.ActivityMainViewModel
@@ -28,7 +25,7 @@ import ru.miel.view.filter.FilterFragment
 import ru.miel.view.filter.FilterListener
 import javax.inject.Inject
 
-class ShowcaseFragment : Fragment(),FilterListener {
+class ShowcaseFragment : Fragment(), FilterListener {
 
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
@@ -118,7 +115,7 @@ class ShowcaseFragment : Fragment(),FilterListener {
 
         activityViewModel.getFullNameUser()
         activityViewModel.getPhotoUser()
-        viewModel.getCandidates()
+        viewModel.getCandidates(null)
 
         //открываем филтьтр
         binding.borderFilter.setOnClickListener {
@@ -128,9 +125,13 @@ class ShowcaseFragment : Fragment(),FilterListener {
         }
     }
 
-    override fun onFilterApplied(etAgeFrom: TextInputEditText, etAgeTo: TextInputEditText, selectedCourses: List<String>) {
+    override fun onFilterApplied(filter: CandidatesFilter) {
         // Применение фильтрации по возрасту и курсам
         // Например, обновление списка пользователей или данных
-        Log.d("Filter", "Min Age: $etAgeFrom, Max Age: $etAgeTo, Selected Courses: $selectedCourses")
+        Log.d(
+            "Filter",
+            "Min Age: ${filter.age_min}, Max Age: ${filter.age_max}, Selected Courses: ${filter.getSelectedCourses()}"
+        )
+        viewModel.getCandidates(filter)
     }
 }

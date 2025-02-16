@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import ru.miel.data.dbo.dao.CandidatesDao
 import ru.miel.data.dbo.entity.CandidatesEntity
 import ru.miel.data.network.api.CandidatesApi
+import ru.miel.data.network.dto.candidates.CandidatesFilterApi
 import ru.miel.data.network.dto.candidates.request.SetFlagByIdRequest
 import ru.miel.data.network.dto.candidates.response.CandidatesResponse
 import ru.miel.data.network.dto.candidates.response.FavoritesCandidatesResponse
@@ -13,10 +14,10 @@ import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
 import ru.miel.domain.models.CandidatesFilter
 import ru.miel.domain.models.CandidatesFromApi
-import ru.miel.domain.models.enummodel.CourseStatus
 import ru.miel.domain.models.IdCandidateFromApi
 import ru.miel.domain.models.InvitationsCandidatesFromApi
 import ru.miel.domain.models.Token
+import ru.miel.domain.models.enummodel.CourseStatus
 import ru.miel.domain.models.enummodel.InvitationStatus
 import ru.miel.utils.randomUuid
 
@@ -101,8 +102,15 @@ class CandidatesRepository(
         return result.isSuccess
     }
 
-    override suspend fun getCandidatesFilterApi(token: Token , candidatesFilter: CandidatesFilter): Result<List<CandidatesFromApi>> {
-        val result = candidatesApi.getCandidatesFilter("Token ${token.token}")
+    override suspend fun getCandidatesFilterApi(
+        token: Token,
+        candidatesFilter: CandidatesFilter
+    ): Result<List<CandidatesFromApi>> {
+        val filter = mapperCandidateFilterToCandidateFilterApi(candidatesFilter)
+        val result = candidatesApi.getCandidatesFilter(
+            token = "Token ${token.token}", age = filter.age, age_min = filter.age_min,
+            age_max = filter.age_max, courses = filter.courses
+        )
         return result.map { mapperCandidatesDtoToCandidates(it) }
     }
 
@@ -228,6 +236,18 @@ class CandidatesRepository(
             age = invitationsCandidatesResponse.age,
             status = InvitationStatus.fromValue(invitationsCandidatesResponse.status),
             updatedAt = invitationsCandidatesResponse.updated_at,
+        )
+
+    }
+
+    private fun mapperCandidateFilterToCandidateFilterApi(
+        candidatesFilter: CandidatesFilter
+    ): CandidatesFilterApi {
+        return CandidatesFilterApi(
+            age = if (candidatesFilter.age_max == null) candidatesFilter.age_min else null,
+            age_min = if (candidatesFilter.age_max != null) candidatesFilter.age_min else null,
+            age_max = candidatesFilter.age_max,
+            courses = candidatesFilter.getSelectedCourses(),
         )
 
     }
