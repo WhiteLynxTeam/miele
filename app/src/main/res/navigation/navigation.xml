@@ -104,7 +104,7 @@
         android:label="InfoBottomSheet" />
     <dialog
         android:id="@+id/filterFragment"
-        android:name="ru.miel.view.showcase.FilterFragment"
+        android:name="ru.miel.view.filter.FilterFragment"
         android:label="fragment_filter"
         tools:layout="@layout/fragment_filter" />
 </navigation>

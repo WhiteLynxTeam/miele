@@ -1,0 +1,57 @@
+package ru.miel.domain.usecase.candidates
+
+import ru.miel.domain.irepository.ICandidatesRepository
+import ru.miel.domain.models.CandidatesFilter
+import ru.miel.domain.models.CandidatesFromApi
+import ru.miel.domain.usecase.user.GetTokenPrefUseCase
+
+class GetCandidatesFilterApiUseCase(
+    private val repository: ICandidatesRepository,
+    private val getTokenPrefUseCase: GetTokenPrefUseCase,
+) {
+    suspend operator fun invoke(candidatesFilter: CandidatesFilter): List<CandidatesFromApi> {
+
+        var flagIsEmptyCourses = IsEmptyCourses(candidatesFilter)
+        var flagIsNullAge = IsNullAge(candidatesFilter)
+
+        val token = getTokenPrefUseCase()
+        if (token.token.isEmpty()) return emptyList()
+
+        val result = repository.getCandidatesFilterApi(token, candidatesFilter)
+
+        if (flagIsEmptyCourses) {
+            if (candidatesFilter.age == null) {
+                //функция по возрасту
+            } else {
+                //функция по диапазону возраст
+            }
+        } else {
+            if (flagIsNullAge) {
+                //функция по курсам
+            } else {
+                if (candidatesFilter.age == null) {
+                    //функция по возрасту c курсами
+                } else {
+                    //функция по диапазону возраст с курсами
+                }
+            }
+        }
+
+        if (result.isSuccess) {
+            val candidates = result.getOrNull()
+            if (candidates != null) {
+
+                return candidates
+            }
+        }
+        return emptyList()
+    }
+
+    private fun IsEmptyCourses(candidatesFilter: CandidatesFilter): Boolean {
+        return candidatesFilter.course_rieltor_join || candidatesFilter.basic_legal_course || candidatesFilter.course_mortgage || candidatesFilter.course_taxation
+    }
+
+    private fun IsNullAge(candidatesFilter: CandidatesFilter): Boolean {
+        return candidatesFilter.age == null && candidatesFilter.age_min == null && candidatesFilter.age_max == null
+    }
+}

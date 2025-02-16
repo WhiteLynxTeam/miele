@@ -3,6 +3,7 @@ package ru.miel.domain.irepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.CandidatesFilter
 import ru.miel.domain.models.IdCandidateFromApi
 import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.models.InvitationsCandidatesFromApi
@@ -24,4 +25,5 @@ interface ICandidatesRepository {
     suspend fun setFavoriteApi(token: Token, id: Int) : Boolean
     suspend fun setInvitationApi(token: Token, id: Int): Result<InvitationsCandidatesFromApi>
     suspend fun delFavoriteApi(token: Token, id: Int): Boolean
+    suspend fun getCandidatesFilterApi(token: Token , candidatesFilter: CandidatesFilter) : Result<List<CandidatesFromApi>>
 }
