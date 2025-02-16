@@ -44,4 +44,11 @@ interface CandidatesApi {
         @Header("Authorization") token: String,
         @Body setFlagByIdRequest: SetFlagByIdRequest,
         ): Result<InvitationsCandidatesResponse>
+
+    @GET("/api/supervisor/candidates/")
+    suspend fun getCandidatesFilterWithAge(
+        @Header("Authorization") token: String
+    ): Result<List<CandidatesResponse>>
+
+
 }

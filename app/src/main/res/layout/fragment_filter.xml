@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/stripe1" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_from"
+        android:id="@+id/et_age_from"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -70,12 +70,12 @@
         android:paddingBottom="10dp"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/et_to"
+        app:layout_constraintEnd_toStartOf="@+id/et_age_to"
         app:layout_constraintStart_toStartOf="@+id/tv_age"
         app:layout_constraintTop_toBottomOf="@+id/tv_age" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/et_to"
+        android:id="@+id/et_age_to"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -89,7 +89,7 @@
         android:paddingBottom="10dp"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/tv_cancel"
-        app:layout_constraintStart_toEndOf="@+id/et_from"
+        app:layout_constraintStart_toEndOf="@+id/et_age_from"
         app:layout_constraintTop_toBottomOf="@+id/tv_age" />
 
     <View
@@ -98,7 +98,7 @@
         android:layout_height="2dp"
         android:layout_marginTop="25dp"
         android:background="@color/inp_border"
-        app:layout_constraintTop_toBottomOf="@+id/et_from" />
+        app:layout_constraintTop_toBottomOf="@+id/et_age_from" />
 
     <TextView
         android:id="@+id/tv_courses_completed"
@@ -146,7 +146,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_courses_legal" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_sign_in"
+        android:id="@+id/btn_apply"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

@@ -11,6 +11,7 @@ import ru.miel.data.network.dto.candidates.response.FavoritesCandidatesResponse
 import ru.miel.data.network.dto.candidates.response.InvitationsCandidatesResponse
 import ru.miel.domain.irepository.ICandidatesRepository
 import ru.miel.domain.models.Candidates
+import ru.miel.domain.models.CandidatesFilter
 import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.models.enummodel.CourseStatus
 import ru.miel.domain.models.IdCandidateFromApi
@@ -98,6 +99,11 @@ class CandidatesRepository(
     override suspend fun delFavoriteApi(token: Token, id: Int): Boolean {
         val result = candidatesApi.delFavorite("Token ${token.token}", id)
         return result.isSuccess
+    }
+
+    override suspend fun getCandidatesFilterApi(token: Token , candidatesFilter: CandidatesFilter): Result<List<CandidatesFromApi>> {
+        val result = candidatesApi.getCandidatesFilter("Token ${token.token}")
+        return result.map { mapperCandidatesDtoToCandidates(it) }
     }
 
     override suspend fun setInvitationApi(

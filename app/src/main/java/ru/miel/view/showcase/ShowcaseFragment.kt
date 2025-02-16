@@ -3,6 +3,7 @@ package ru.miel.view.showcase
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
@@ -22,9 +24,11 @@ import ru.miel.utils.replaceAfterLastSpace
 import ru.miel.utils.showRadioDialog
 import ru.miel.view.activity.ActivityMainViewModel
 import ru.miel.view.activity.MainActivity
+import ru.miel.view.filter.FilterFragment
+import ru.miel.view.filter.FilterListener
 import javax.inject.Inject
 
-class ShowcaseFragment : Fragment() {
+class ShowcaseFragment : Fragment(),FilterListener {
 
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
@@ -116,9 +120,17 @@ class ShowcaseFragment : Fragment() {
         activityViewModel.getPhotoUser()
         viewModel.getCandidates()
 
+        //открываем филтьтр
         binding.borderFilter.setOnClickListener {
+            val filterFragment = FilterFragment()
+            filterFragment.setFilterListener(this)
             findNavController().navigate(R.id.action_showcaseFragment_to_filterFragment)
         }
     }
 
+    override fun onFilterApplied(etAgeFrom: TextInputEditText, etAgeTo: TextInputEditText, selectedCourses: List<String>) {
+        // Применение фильтрации по возрасту и курсам
+        // Например, обновление списка пользователей или данных
+        Log.d("Filter", "Min Age: $etAgeFrom, Max Age: $etAgeTo, Selected Courses: $selectedCourses")
+    }
 }
