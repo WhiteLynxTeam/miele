@@ -6,6 +6,8 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
+import ru.miel.data.network.dto.candidates.CandidatesFilterApi
 import ru.miel.data.network.dto.candidates.request.SetFlagByIdRequest
 import ru.miel.data.network.dto.candidates.response.FavoritesCandidatesResponse
 import ru.miel.data.network.dto.candidates.response.CandidatesResponse
@@ -46,8 +48,12 @@ interface CandidatesApi {
         ): Result<InvitationsCandidatesResponse>
 
     @GET("/api/supervisor/candidates/")
-    suspend fun getCandidatesFilterWithAge(
-        @Header("Authorization") token: String
+    suspend fun getCandidatesFilter(
+        @Header("Authorization") token: String,
+        @Query("age") age: Int?,
+        @Query("age_min") age_min: Int?,
+        @Query("age_max") age_max: Int?,
+        @Query("courses", encoded = true) courses: String?,
     ): Result<List<CandidatesResponse>>
 
 

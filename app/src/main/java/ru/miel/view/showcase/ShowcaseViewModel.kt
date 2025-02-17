@@ -7,10 +7,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import ru.miel.domain.models.CandidatesFilter
 import ru.miel.domain.models.CandidatesFromApi
 import ru.miel.domain.models.Quotes
 import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.candidates.GetCandidatesFilterApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
@@ -29,6 +31,7 @@ class ShowcaseViewModel(
     private val minusQuoteDbUseCase: MinusQuoteDbUseCase,
     private val getQuotesApiUseCase: GetQuotesApiUseCase,
     private val setInvitationsApiUseCase: SetInvitationsApiUseCase,
+    private val getCandidatesFilterApiUseCase: GetCandidatesFilterApiUseCase,
 ) :
     ViewModel() {
     /***Кандидаты с сервера*/
@@ -81,10 +84,15 @@ class ShowcaseViewModel(
         }
     }
 
-    fun getCandidates() {
+    fun getCandidates(filter: CandidatesFilter?) {
         viewModelScope.launch {
-            val result = getCandidatesApiUseCase()
+            val result = if (filter == null) {
+                 getCandidatesApiUseCase()
 //            val result = getCandidatesDbUseCase()
+            } else {
+                getCandidatesFilterApiUseCase(filter)
+//            val result = getCandidatesDbUseCase()
+            }
             _candidates.emit(result)
         }
     }
@@ -128,6 +136,7 @@ class ShowcaseViewModel(
         private val minusQuoteDbUseCase: MinusQuoteDbUseCase,
         private val getQuotesApiUseCase: GetQuotesApiUseCase,
         private val setInvitationsApiUseCase: SetInvitationsApiUseCase,
+        private val getCandidatesFilterApiUseCase: GetCandidatesFilterApiUseCase,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -142,6 +151,7 @@ class ShowcaseViewModel(
                     minusQuoteDbUseCase = minusQuoteDbUseCase,
                     getQuotesApiUseCase = getQuotesApiUseCase,
                     setInvitationsApiUseCase = setInvitationsApiUseCase,
+                    getCandidatesFilterApiUseCase = getCandidatesFilterApiUseCase,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

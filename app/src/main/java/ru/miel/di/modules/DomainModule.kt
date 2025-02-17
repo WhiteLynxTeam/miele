@@ -12,6 +12,7 @@ import ru.miel.domain.usecase.user.CheckRoleApiUseCase
 import ru.miel.domain.usecase.FilDbWithSampleDataUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesApiUseCase
 import ru.miel.domain.usecase.candidates.GetCandidatesDbUseCase
+import ru.miel.domain.usecase.candidates.GetCandidatesFilterApiUseCase
 import ru.miel.domain.usecase.candidates.GetCountInvitationsApiUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesApiUseCase
 import ru.miel.domain.usecase.candidates.GetFavoritesDbUseCase
@@ -133,6 +134,18 @@ class DomainModule {
             repository = repository,
             getTokenPrefUseCase = getTokenPrefUseCase,
             getFavoritesApiUseCase = getFavoritesApiUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetCandidatesFilterApiUseCase(
+        repository: ICandidatesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): GetCandidatesFilterApiUseCase {
+        return GetCandidatesFilterApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
         )
     }
 

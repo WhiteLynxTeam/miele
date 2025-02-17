@@ -3,32 +3,25 @@ package ru.miel.view.showcase
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.textfield.TextInputEditText
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
-import ru.miel.domain.models.enummodel.SortOption
 import ru.miel.utils.replaceAfterLastSpace
 import ru.miel.utils.showRadioDialog
 import ru.miel.view.activity.ActivityMainViewModel
 import ru.miel.view.activity.MainActivity
-import ru.miel.view.filter.FilterFragment
-import ru.miel.view.filter.FilterListener
 import javax.inject.Inject
 
-class ShowcaseFragment : Fragment(),FilterListener {
+class ShowcaseFragment : Fragment() {
 
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
@@ -104,6 +97,12 @@ class ShowcaseFragment : Fragment(),FilterListener {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            activityViewModel.filter.collect {
+                viewModel.getCandidates(it)
+            }
+        }
+
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(
             showHeader = true,
@@ -118,19 +117,11 @@ class ShowcaseFragment : Fragment(),FilterListener {
 
         activityViewModel.getFullNameUser()
         activityViewModel.getPhotoUser()
-        viewModel.getCandidates()
+        viewModel.getCandidates(null)
 
         //открываем филтьтр
         binding.borderFilter.setOnClickListener {
-            val filterFragment = FilterFragment()
-            filterFragment.setFilterListener(this)
             findNavController().navigate(R.id.action_showcaseFragment_to_filterFragment)
         }
-    }
-
-    override fun onFilterApplied(etAgeFrom: TextInputEditText, etAgeTo: TextInputEditText, selectedCourses: List<String>) {
-        // Применение фильтрации по возрасту и курсам
-        // Например, обновление списка пользователей или данных
-        Log.d("Filter", "Min Age: $etAgeFrom, Max Age: $etAgeTo, Selected Courses: $selectedCourses")
     }
 }

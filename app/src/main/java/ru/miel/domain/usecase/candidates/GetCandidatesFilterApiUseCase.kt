@@ -14,28 +14,14 @@ class GetCandidatesFilterApiUseCase(
         var flagIsEmptyCourses = IsEmptyCourses(candidatesFilter)
         var flagIsNullAge = IsNullAge(candidatesFilter)
 
+        /***Red flag Написать исключение, если неправильные поля по возрасту
+         * и все курсы не выбраны
+         * */
+
         val token = getTokenPrefUseCase()
         if (token.token.isEmpty()) return emptyList()
 
         val result = repository.getCandidatesFilterApi(token, candidatesFilter)
-
-        if (flagIsEmptyCourses) {
-            if (candidatesFilter.age == null) {
-                //функция по возрасту
-            } else {
-                //функция по диапазону возраст
-            }
-        } else {
-            if (flagIsNullAge) {
-                //функция по курсам
-            } else {
-                if (candidatesFilter.age == null) {
-                    //функция по возрасту c курсами
-                } else {
-                    //функция по диапазону возраст с курсами
-                }
-            }
-        }
 
         if (result.isSuccess) {
             val candidates = result.getOrNull()
@@ -52,6 +38,6 @@ class GetCandidatesFilterApiUseCase(
     }
 
     private fun IsNullAge(candidatesFilter: CandidatesFilter): Boolean {
-        return candidatesFilter.age == null && candidatesFilter.age_min == null && candidatesFilter.age_max == null
+        return candidatesFilter.age_min == null && candidatesFilter.age_max == null
     }
 }
