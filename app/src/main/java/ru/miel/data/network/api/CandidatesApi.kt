@@ -53,7 +53,7 @@ interface CandidatesApi {
         @Query("age") age: Int?,
         @Query("age_min") age_min: Int?,
         @Query("age_max") age_max: Int?,
-        @Query("courses") courses: String,
+        @Query("courses", encoded = true) courses: String?,
     ): Result<List<CandidatesResponse>>
 
 

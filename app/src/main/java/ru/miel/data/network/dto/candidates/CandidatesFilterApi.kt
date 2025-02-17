@@ -4,5 +4,5 @@ data class CandidatesFilterApi(
     val age: Int? = null,
     val age_min: Int? = null,
     val age_max: Int? = null,
-    val courses: String,
+    val courses: String? = null,
 )

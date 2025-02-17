@@ -247,7 +247,7 @@ class CandidatesRepository(
             age = if (candidatesFilter.age_max == null) candidatesFilter.age_min else null,
             age_min = if (candidatesFilter.age_max != null) candidatesFilter.age_min else null,
             age_max = candidatesFilter.age_max,
-            courses = candidatesFilter.getSelectedCourses(),
+            courses = candidatesFilter.getSelectedCourses().ifEmpty { null },
         )
 
     }

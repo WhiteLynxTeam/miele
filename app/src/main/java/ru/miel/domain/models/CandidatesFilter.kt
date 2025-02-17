@@ -16,6 +16,6 @@ data class CandidatesFilter(
         if (course_mortgage) courses.add("course_mortgage")
         if (course_taxation) courses.add("course_taxation")
 
-        return courses.joinToString(", ")
+        return courses.joinToString(",")
     }
 }

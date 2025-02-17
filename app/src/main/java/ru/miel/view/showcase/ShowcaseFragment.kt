@@ -3,7 +3,6 @@ package ru.miel.view.showcase
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,16 +15,13 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
-import ru.miel.domain.models.CandidatesFilter
 import ru.miel.utils.replaceAfterLastSpace
 import ru.miel.utils.showRadioDialog
 import ru.miel.view.activity.ActivityMainViewModel
 import ru.miel.view.activity.MainActivity
-import ru.miel.view.filter.FilterFragment
-import ru.miel.view.filter.FilterListener
 import javax.inject.Inject
 
-class ShowcaseFragment : Fragment(), FilterListener {
+class ShowcaseFragment : Fragment() {
 
     private var _binding: FragmentShowcaseBinding? = null
     private val binding get() = _binding!!
@@ -101,6 +97,12 @@ class ShowcaseFragment : Fragment(), FilterListener {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            activityViewModel.filter.collect {
+                viewModel.getCandidates(it)
+            }
+        }
+
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(
             showHeader = true,
@@ -119,19 +121,7 @@ class ShowcaseFragment : Fragment(), FilterListener {
 
         //открываем филтьтр
         binding.borderFilter.setOnClickListener {
-            val filterFragment = FilterFragment()
-            filterFragment.setFilterListener(this)
             findNavController().navigate(R.id.action_showcaseFragment_to_filterFragment)
         }
-    }
-
-    override fun onFilterApplied(filter: CandidatesFilter) {
-        // Применение фильтрации по возрасту и курсам
-        // Например, обновление списка пользователей или данных
-        Log.d(
-            "Filter",
-            "Min Age: ${filter.age_min}, Max Age: ${filter.age_max}, Selected Courses: ${filter.getSelectedCourses()}"
-        )
-        viewModel.getCandidates(filter)
     }
 }

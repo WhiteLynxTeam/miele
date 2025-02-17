@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import ru.miel.R
 import ru.miel.databinding.FragmentFilterBinding
 import ru.miel.domain.models.CandidatesFilter
+import ru.miel.view.activity.ActivityMainViewModel
 
 class FilterFragment : DialogFragment() {
 
     private lateinit var binding: FragmentFilterBinding
 
-    private var listener: FilterListener? = null
+    private val activityViewModel: ActivityMainViewModel by activityViewModels()
 
     private val onTimeClickListener = View.OnClickListener { view ->
         val currentBackground = view.background
@@ -26,9 +28,11 @@ class FilterFragment : DialogFragment() {
         if (currentBackground.constantState == selectedDrawable?.constantState) {
             // Если текущий drawable равен выбранному, возвращаем исходный
             view.setBackgroundResource(R.drawable.background_input)
+            view.isSelected = false
         } else {
             // Иначе устанавливаем выбранный drawable
             view.setBackgroundResource(R.drawable.background_filters_selected)
+            view.isSelected = true
         }
     }
 
@@ -43,6 +47,8 @@ class FilterFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initFields(activityViewModel.getFilter())
 
         //устанавливаем размеры для диалогового окна
         dialog?.window?.setLayout(
@@ -64,36 +70,75 @@ class FilterFragment : DialogFragment() {
 
         //по нжатию применить, подтверждаем выбранные фильтры
         binding.btnApply.setOnClickListener {
-            //Получение возраста "от" и "до"
-            binding.etAgeFrom.text.toString().toIntOrNull()
-                ?: 0  //если ни чего не выбрано от будет ставиться "0"
-            binding.etAgeTo.text.toString()
-                .toIntOrNull() //?: Int.MAX_VALUE //если ни чего не выбрано то будет макс значене Int
 
-            //Получение выбранные курсов
-            val selectedCourses = mutableListOf<String>()
-            if (binding.tvCoursesRealtor.isSelected) selectedCourses.add("Введение в профессию риелтор")
-            if (binding.tvCoursesMortgage.isSelected) selectedCourses.add("Ипотека")
-            if (binding.tvCoursesLegal.isSelected) selectedCourses.add("Базовый юридический курс")
-            if (binding.tvCoursesTaxation.isSelected) selectedCourses.add("Налогообложение")
+            if (isEmptyField()) {
+                activityViewModel.setFilter(null)
+            }
 
-            listener?.onFilterApplied(
-                CandidatesFilter(
-                    age_min = 16,
-                    age_max = 99,
-                    course_rieltor_join = binding.tvCoursesRealtor.isSelected,
-                    basic_legal_course = binding.tvCoursesMortgage.isSelected,
-                    course_mortgage = binding.tvCoursesLegal.isSelected,
-                    course_taxation = binding.tvCoursesTaxation.isSelected,
+            val minAge = binding.etAgeFrom.text.toString().toIntOrNull()
+            val maxAge = binding.etAgeTo.text.toString().toIntOrNull()
+            if (minAge == null && maxAge != null) {
+                binding.etAgeFrom.error = "Введите мин. возраст."
+                binding.etAgeFrom.requestFocus()
+                return@setOnClickListener
+            } else {
+                activityViewModel.setFilter(
+                    CandidatesFilter(
+                        age_min = minAge,
+                        age_max = maxAge,
+                        course_rieltor_join = binding.tvCoursesRealtor.isSelected,
+                        basic_legal_course = binding.tvCoursesLegal.isSelected,
+                        course_mortgage = binding.tvCoursesMortgage.isSelected,
+                        course_taxation = binding.tvCoursesTaxation.isSelected,
+                    )
                 )
-            )
+            }
+
             dismiss()
         }
-        return
-
     }
 
-    fun setFilterListener(listener: FilterListener) {
-        this.listener = listener
+    private fun initFields(filter: CandidatesFilter?) {
+        if (filter != null) {
+            if (filter.age_min != null) binding.etAgeFrom.setText(filter.age_min.toString())
+            if (filter.age_max != null) binding.etAgeTo.setText(filter.age_max.toString())
+            if (filter.course_rieltor_join) {
+                binding.tvCoursesRealtor.isSelected = true
+                binding.tvCoursesRealtor.setBackgroundResource(R.drawable.background_filters_selected)
+            } else {
+                binding.tvCoursesRealtor.isSelected = false
+                binding.tvCoursesRealtor.setBackgroundResource(R.drawable.background_input)
+            }
+            if (filter.basic_legal_course) {
+                binding.tvCoursesLegal.isSelected = true
+                binding.tvCoursesLegal.setBackgroundResource(R.drawable.background_filters_selected)
+            } else {
+                binding.tvCoursesLegal.isSelected = false
+                binding.tvCoursesLegal.setBackgroundResource(R.drawable.background_input)
+            }
+            if (filter.course_mortgage) {
+                binding.tvCoursesMortgage.isSelected = true
+                binding.tvCoursesMortgage.setBackgroundResource(R.drawable.background_filters_selected)
+            } else {
+                binding.tvCoursesMortgage.isSelected = false
+                binding.tvCoursesMortgage.setBackgroundResource(R.drawable.background_input)
+            }
+            if (filter.course_taxation) {
+                binding.tvCoursesTaxation.isSelected = true
+                binding.tvCoursesTaxation.setBackgroundResource(R.drawable.background_filters_selected)
+            } else {
+                binding.tvCoursesTaxation.isSelected = false
+                binding.tvCoursesTaxation.setBackgroundResource(R.drawable.background_input)
+            }
+        }
+    }
+
+    private fun isEmptyField(): Boolean {
+        return binding.etAgeFrom.text.toString().trim().isEmpty()
+                && binding.etAgeTo.text.toString().trim().isEmpty()
+                && !binding.tvCoursesRealtor.isSelected
+                && !binding.tvCoursesMortgage.isSelected
+                && !binding.tvCoursesLegal.isSelected
+                && !binding.tvCoursesTaxation.isSelected
     }
 }
