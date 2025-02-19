@@ -45,6 +45,7 @@ class StatisticsViewModel(
         viewModelScope.launch {
             val result = getStatisticQuotesApiUseCase()
             if (result != null) {
+                _countInvitation.emit(0)
                 _quotes.emit(result)
             }
         }

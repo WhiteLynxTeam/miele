@@ -11,6 +11,7 @@ import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.models.Quotes
 import ru.miel.domain.models.StatisticQuotes
 import ru.miel.domain.models.Token
+import java.time.LocalDate
 import java.time.ZoneOffset
 
 class QuotesRepository(
@@ -46,7 +47,12 @@ class QuotesRepository(
     }
 
     override suspend fun getStatisticQuotesApi(token: Token): Result<List<StatisticQuotes>> {
-        val result = quotesApi.statisticQuotes("Token ${token.token}")
+        val result = quotesApi.statisticQuotes("Token ${token.token}", null)
+        return result.map { mapperStatisticQuotesDtoToStatisticQuotes(it) }
+    }
+
+    override suspend fun getStatisticQuotesNowYearApi(token: Token): Result<List<StatisticQuotes>> {
+        val result = quotesApi.statisticQuotes("Token ${token.token}", LocalDate.now().year)
         return result.map { mapperStatisticQuotesDtoToStatisticQuotes(it) }
     }
 

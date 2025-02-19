@@ -13,4 +13,5 @@ interface IQuotesRepository {
     suspend fun getQuotesApi(token: Token): Result<Quotes>
 
     suspend fun getStatisticQuotesApi(token: Token): Result<List<StatisticQuotes>>
+    suspend fun getStatisticQuotesNowYearApi(token: Token): Result<List<StatisticQuotes>>
 }

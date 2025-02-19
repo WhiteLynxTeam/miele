@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import ru.miel.R
 import ru.miel.databinding.FragmentShowcaseBinding
 import ru.miel.utils.replaceAfterLastSpace
+import ru.miel.utils.showQuotesDialog
 import ru.miel.utils.showRadioDialog
 import ru.miel.view.activity.ActivityMainViewModel
 import ru.miel.view.activity.MainActivity
@@ -115,13 +116,19 @@ class ShowcaseFragment : Fragment() {
             }
         }
 
-        activityViewModel.getFullNameUser()
-        activityViewModel.getPhotoUser()
-        viewModel.getCandidates(null)
-
         //открываем филтьтр
         binding.borderFilter.setOnClickListener {
             findNavController().navigate(R.id.action_showcaseFragment_to_filterFragment)
         }
+
+        binding.btnRequestQuotas.setOnClickListener {
+            showQuotesDialog(requireContext()) { num ->
+                println("Квоты = $num")
+            }
+        }
+
+        activityViewModel.getFullNameUser()
+        activityViewModel.getPhotoUser()
+        viewModel.getCandidates(null)
     }
 }
