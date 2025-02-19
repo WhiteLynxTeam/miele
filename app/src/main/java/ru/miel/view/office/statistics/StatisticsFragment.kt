@@ -1,17 +1,13 @@
 package ru.miel.view.office.statistics
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.appcompat.widget.AppCompatButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
@@ -63,7 +59,8 @@ class StatisticsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.countInvitation.collect {
-                binding.etInvited.setText(it.toString())
+                if (it == 0) binding.etInvited.setText("")
+                else binding.etInvited.setText(it.toString())
             }
         }
 
@@ -88,10 +85,19 @@ class StatisticsFragment : Fragment() {
                 // position - позиция выбранного элемента
                 // id - идентификатор строки (обычно совпадает с position)
 
-                val selectedItem = periods[position] // Получить выбранный элемент из списка
-               if (position == 1){
-                   viewModel.getStatisticQuotes()
-               }
+                when (position) {
+                    0 -> {
+                        viewModel.getQuotes()
+                        viewModel.getCountInvitation()
+                    }
+
+                    1 -> viewModel.getStatisticQuotes()
+
+                }
+
+//               if (position == 1){
+//                   viewModel.getStatisticQuotes()
+//               }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

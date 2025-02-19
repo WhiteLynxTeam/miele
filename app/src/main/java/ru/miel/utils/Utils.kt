@@ -1,6 +1,9 @@
 package ru.miel.utils
 
 import android.content.Context
+import android.text.InputFilter
+import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
@@ -54,3 +57,42 @@ fun showRadioDialog(context: Context, callback: () -> Unit) {
         }
         .show()
 }
+
+fun showQuotesDialog(context: Context, callback: (Int) -> Unit) {
+    val input = EditText(context).apply {
+        inputType = android.text.InputType.TYPE_CLASS_NUMBER // Ограничиваем ввод только цифрами
+        setPadding(50, 20, 50, 20)
+        filters = arrayOf(InputFilter.LengthFilter(2))
+    }
+
+    // 🔥 Оборачиваем EditText в FrameLayout и задаем отступы
+    val container = FrameLayout(context).apply {
+        setPadding(50, 20, 50, 20) // Добавляем отступы внутри контейнера
+        addView(input)
+    }
+
+    AlertDialog.Builder(context)
+        .setTitle("Запрос квот")
+        .setMessage("Квоты:")
+        .setView(container)  // Устанавливаем EditText в качестве view
+        .setPositiveButton("Ок") { dialog, which ->
+            val enteredValue = input.text.toString().trim()
+
+            // Проверяем, что введенная строка - это двухзначное число
+            if (enteredValue.toIntOrNull() != null) {
+                val number = enteredValue.toInt()
+                // Действие, если число введено корректно
+                callback(number)
+            } else {
+                // Обработка ошибки ввода, например, покажем сообщение
+                input.error = "Пожалуйста, введите двухзначное число"
+            }
+
+            dialog.dismiss()
+        }
+        .setNegativeButton("Отмена") { dialog, which ->
+            dialog.dismiss()  // Просто закрываем диалог
+        }
+        .show()
+}
+
