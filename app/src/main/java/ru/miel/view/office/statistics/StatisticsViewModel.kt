@@ -10,10 +10,12 @@ import kotlinx.coroutines.launch
 import ru.miel.domain.models.Quotes
 import ru.miel.domain.usecase.candidates.GetCountInvitationsApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesApiUseCase
+import ru.miel.domain.usecase.quotes.GetStatisticQuotesApiUseCase
 
 class StatisticsViewModel(
     private val getQuotesApiUseCase: GetQuotesApiUseCase,
     private val getCountInvitationsApiUseCase: GetCountInvitationsApiUseCase,
+    private val getStatisticQuotesApiUseCase: GetStatisticQuotesApiUseCase,
 ) : ViewModel() {
 
     private var _quotes = MutableSharedFlow<Quotes>()
@@ -39,9 +41,19 @@ class StatisticsViewModel(
         }
     }
 
+    fun getStatisticQuotes() {
+        viewModelScope.launch {
+            val result = getStatisticQuotesApiUseCase()
+            if (result != null) {
+                _quotes.emit(result)
+            }
+        }
+    }
+
     class Factory(
         private val getQuotesApiUseCase: GetQuotesApiUseCase,
         private val getCountInvitationsApiUseCase: GetCountInvitationsApiUseCase,
+        private val getStatisticQuotesApiUseCase: GetStatisticQuotesApiUseCase,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -49,6 +61,7 @@ class StatisticsViewModel(
                 return StatisticsViewModel(
                     getQuotesApiUseCase = getQuotesApiUseCase,
                     getCountInvitationsApiUseCase = getCountInvitationsApiUseCase,
+                    getStatisticQuotesApiUseCase = getStatisticQuotesApiUseCase,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")

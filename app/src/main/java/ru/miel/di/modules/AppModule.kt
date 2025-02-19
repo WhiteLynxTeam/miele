@@ -15,6 +15,7 @@ import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationsApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesByNowDbUseCase
+import ru.miel.domain.usecase.quotes.GetStatisticQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.MinusQuoteDbUseCase
 import ru.miel.domain.usecase.user.AuthApiUseCase
 import ru.miel.domain.usecase.user.GetFullNamePrefUseCase
@@ -88,9 +89,11 @@ class AppModule() {
     fun provideStatisticsViewModelFactory(
         getQuotesApiUseCase: GetQuotesApiUseCase,
         getCountInvitationsApiUseCase: GetCountInvitationsApiUseCase,
+        getStatisticQuotesApiUseCase: GetStatisticQuotesApiUseCase,
     ) = StatisticsViewModel.Factory(
         getQuotesApiUseCase = getQuotesApiUseCase,
         getCountInvitationsApiUseCase = getCountInvitationsApiUseCase,
+        getStatisticQuotesApiUseCase = getStatisticQuotesApiUseCase,
     )
 
     @Provides

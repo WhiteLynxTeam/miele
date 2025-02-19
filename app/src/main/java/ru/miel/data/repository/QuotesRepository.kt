@@ -6,8 +6,10 @@ import ru.miel.data.dbo.dao.QuotesDao
 import ru.miel.data.dbo.entity.QuotesEntity
 import ru.miel.data.network.api.QuotesApi
 import ru.miel.data.network.dto.quotes.QuotesResponse
+import ru.miel.data.network.dto.quotes.StatisticQuotesResponse
 import ru.miel.domain.irepository.IQuotesRepository
 import ru.miel.domain.models.Quotes
+import ru.miel.domain.models.StatisticQuotes
 import ru.miel.domain.models.Token
 import java.time.ZoneOffset
 
@@ -41,6 +43,23 @@ class QuotesRepository(
     override suspend fun getQuotesApi(token: Token): Result<Quotes> {
         val result = quotesApi.quotes("Token ${token.token}")
         return result.map { mapperQuotesDtoToQuotes(it[0]) }
+    }
+
+    override suspend fun getStatisticQuotesApi(token: Token): Result<List<StatisticQuotes>> {
+        val result = quotesApi.statisticQuotes("Token ${token.token}")
+        return result.map { mapperStatisticQuotesDtoToStatisticQuotes(it) }
+    }
+
+    private fun mapperStatisticQuotesDtoToStatisticQuotes(
+        quotes: List<StatisticQuotesResponse>
+    ): List<StatisticQuotes> {
+        return quotes.map {
+            StatisticQuotes(
+                month = it.month,
+                issued = it.issued,
+                invited = it.invited,
+            )
+        }
     }
 
     private fun mapperQuotesToQuotesEntity(

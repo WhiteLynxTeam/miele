@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
@@ -73,6 +75,30 @@ class StatisticsFragment : Fragment() {
 
         // Применяем адаптер к Spinner
         binding.spinnerPeriod.adapter = spinnerAdapter
+
+        binding.spinnerPeriod.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                // parent - это сам Spinner
+                // view - View, отображающее выбранный элемент
+                // position - позиция выбранного элемента
+                // id - идентификатор строки (обычно совпадает с position)
+
+                val selectedItem = periods[position] // Получить выбранный элемент из списка
+               if (position == 1){
+                   viewModel.getStatisticQuotes()
+               }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Callback вызывается, если ничего не выбрано
+                // Можно оставить пустым
+            }
+        }
 
         // Показываем или скрываем элементы в зависимости от текущего фрагмента
         (activity as MainActivity).setUIVisibility(
