@@ -13,6 +13,7 @@ import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationsApiUseCase
+import ru.miel.domain.usecase.quotes.AddQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesByNowDbUseCase
 import ru.miel.domain.usecase.quotes.GetStatisticQuotesApiUseCase
@@ -52,6 +53,7 @@ class AppModule() {
         getQuotesApiUseCase: GetQuotesApiUseCase,
         setInvitationsApiUseCase: SetInvitationsApiUseCase,
         getCandidatesFilterApiUseCase: GetCandidatesFilterApiUseCase,
+        addQuotesApiUseCase: AddQuotesApiUseCase,
     ) = ShowcaseViewModel.Factory(
         getCandidatesDbUseCase = getCandidatesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
@@ -63,6 +65,7 @@ class AppModule() {
         getQuotesApiUseCase = getQuotesApiUseCase,
         setInvitationsApiUseCase = setInvitationsApiUseCase,
         getCandidatesFilterApiUseCase = getCandidatesFilterApiUseCase,
+        addQuotesApiUseCase = addQuotesApiUseCase,
     )
 
     @Provides
