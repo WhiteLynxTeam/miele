@@ -25,6 +25,7 @@ import ru.miel.domain.usecase.user.SaveTokenPrefUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationsApiUseCase
+import ru.miel.domain.usecase.quotes.AddQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.GetStatisticQuotesApiUseCase
 import ru.miel.domain.usecase.user.GetFullNamePrefUseCase
@@ -157,6 +158,18 @@ class DomainModule {
         getTokenPrefUseCase: GetTokenPrefUseCase,
     ): GetQuotesApiUseCase {
         return GetQuotesApiUseCase(
+            repository = repository,
+            getTokenPrefUseCase = getTokenPrefUseCase,
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideAddQuotesApiUseCase(
+        repository: IQuotesRepository,
+        getTokenPrefUseCase: GetTokenPrefUseCase,
+    ): AddQuotesApiUseCase {
+        return AddQuotesApiUseCase(
             repository = repository,
             getTokenPrefUseCase = getTokenPrefUseCase,
         )

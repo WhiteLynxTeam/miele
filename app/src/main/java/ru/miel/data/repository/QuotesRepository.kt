@@ -5,9 +5,12 @@ import kotlinx.coroutines.withContext
 import ru.miel.data.dbo.dao.QuotesDao
 import ru.miel.data.dbo.entity.QuotesEntity
 import ru.miel.data.network.api.QuotesApi
+import ru.miel.data.network.dto.quotes.AddQuotesResponse
 import ru.miel.data.network.dto.quotes.QuotesResponse
 import ru.miel.data.network.dto.quotes.StatisticQuotesResponse
+import ru.miel.data.network.dto.quotes.request.AmountRequest
 import ru.miel.domain.irepository.IQuotesRepository
+import ru.miel.domain.models.AddQuotes
 import ru.miel.domain.models.Quotes
 import ru.miel.domain.models.StatisticQuotes
 import ru.miel.domain.models.Token
@@ -44,6 +47,11 @@ class QuotesRepository(
     override suspend fun getQuotesApi(token: Token): Result<Quotes> {
         val result = quotesApi.quotes("Token ${token.token}")
         return result.map { mapperQuotesDtoToQuotes(it[0]) }
+    }
+
+    override suspend fun addQuotesApi(token: Token, numQuotes: Int): Result<AddQuotes> {
+        val result = quotesApi.addQuotes("Token ${token.token}", AmountRequest(amount = numQuotes))
+        return result.map { mapperAddQuotesDtoToAddQuotes(it) }
     }
 
     override suspend fun getStatisticQuotesApi(token: Token): Result<List<StatisticQuotes>> {
@@ -87,13 +95,21 @@ class QuotesRepository(
         }
     }
 
-
     private fun mapperQuotesDtoToQuotes(
         quotesResponse: QuotesResponse
     ): Quotes {
         return Quotes(
             quotesUsed = quotesResponse.office_used_quota.toInt(),
             quotes = quotesResponse.office_quota.toInt(),
+        )
+    }
+
+    private fun mapperAddQuotesDtoToAddQuotes(
+        quotes: AddQuotesResponse
+    ): AddQuotes {
+        return AddQuotes(
+            id = quotes.id,
+            amount = quotes.amount,
         )
     }
 }

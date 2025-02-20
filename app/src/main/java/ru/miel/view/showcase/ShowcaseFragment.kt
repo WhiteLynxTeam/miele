@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -82,6 +83,14 @@ class ShowcaseFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isAddQuotes.collect {
+                if (it.first) {
+                    Toast.makeText(requireContext(), "Запрос на добавление ${it.second} квот отправлен", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.candidates.collect {
                 binding.tvCandidates.text =
                     binding.tvCandidates.text.toString().trim().replaceAfterLastSpace(it.size)
@@ -123,7 +132,7 @@ class ShowcaseFragment : Fragment() {
 
         binding.btnRequestQuotas.setOnClickListener {
             showQuotesDialog(requireContext()) { num ->
-                println("Квоты = $num")
+                viewModel.addQuotes(num)
             }
         }
 

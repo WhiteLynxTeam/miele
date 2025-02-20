@@ -17,6 +17,7 @@ import ru.miel.domain.usecase.candidates.SetFavoriteApiUseCase
 import ru.miel.domain.usecase.candidates.SetFavoriteDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationDbUseCase
 import ru.miel.domain.usecase.candidates.SetInvitationsApiUseCase
+import ru.miel.domain.usecase.quotes.AddQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesApiUseCase
 import ru.miel.domain.usecase.quotes.GetQuotesByNowDbUseCase
 import ru.miel.domain.usecase.quotes.MinusQuoteDbUseCase
@@ -32,6 +33,7 @@ class ShowcaseViewModel(
     private val getQuotesApiUseCase: GetQuotesApiUseCase,
     private val setInvitationsApiUseCase: SetInvitationsApiUseCase,
     private val getCandidatesFilterApiUseCase: GetCandidatesFilterApiUseCase,
+    private val addQuotesApiUseCase: AddQuotesApiUseCase,
 ) :
     ViewModel() {
     /***Кандидаты с сервера*/
@@ -63,6 +65,18 @@ class ShowcaseViewModel(
     private var _isInvite = MutableSharedFlow<Pair<Boolean, Int>>()
     val isInvite: SharedFlow<Pair<Boolean, Int>>
         get() = _isInvite.asSharedFlow()
+
+
+    private var _isAddQuotes = MutableSharedFlow<Pair<Boolean, Int>>()
+    val isAddQuotes: SharedFlow<Pair<Boolean, Int>>
+        get() = _isAddQuotes.asSharedFlow()
+
+    fun addQuotes(numQuotes: Int) {
+        viewModelScope.launch {
+            val result = addQuotesApiUseCase(numQuotes)
+            _isAddQuotes.emit(result)
+        }
+    }
 
     fun getQuotes() {
         viewModelScope.launch {
@@ -137,6 +151,7 @@ class ShowcaseViewModel(
         private val getQuotesApiUseCase: GetQuotesApiUseCase,
         private val setInvitationsApiUseCase: SetInvitationsApiUseCase,
         private val getCandidatesFilterApiUseCase: GetCandidatesFilterApiUseCase,
+        private val addQuotesApiUseCase: AddQuotesApiUseCase,
     ) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -152,6 +167,7 @@ class ShowcaseViewModel(
                     getQuotesApiUseCase = getQuotesApiUseCase,
                     setInvitationsApiUseCase = setInvitationsApiUseCase,
                     getCandidatesFilterApiUseCase = getCandidatesFilterApiUseCase,
+                    addQuotesApiUseCase = addQuotesApiUseCase,
                 ) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
