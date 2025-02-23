@@ -82,10 +82,12 @@ class AppModule() {
         getFavoritesDbUseCase: GetFavoritesDbUseCase,
         getCandidatesApiUseCase: GetCandidatesApiUseCase,
         setInvitationsApiUseCase: SetInvitationsApiUseCase,
+        getCandidatesFilterApiUseCase: GetCandidatesFilterApiUseCase
     ) = FavoritesViewModel.Factory(
         getFavoritesDbUseCase = getFavoritesDbUseCase,
         getCandidatesApiUseCase = getCandidatesApiUseCase,
         setInvitationsApiUseCase = setInvitationsApiUseCase,
+        getCandidatesFilterApiUseCase = getCandidatesFilterApiUseCase
     )
 
     @Provides

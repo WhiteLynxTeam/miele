@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import ru.miel.R
 import ru.miel.databinding.FragmentFavoritesBinding
 import ru.miel.domain.models.enummodel.SortOption
 import ru.miel.utils.showRadioDialog
+import ru.miel.view.activity.ActivityMainViewModel
 import ru.miel.view.activity.MainActivity
 import ru.miel.view.showcase.CandidatesAdapter
 import javax.inject.Inject
@@ -27,6 +29,7 @@ class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
+    private val activityViewModel: ActivityMainViewModel by activityViewModels()
     private lateinit var viewModel: FavoritesViewModel
 
     @Inject
@@ -76,6 +79,12 @@ class FavoritesFragment : Fragment() {
                 if (it.first) {
                     candidatesAdapter.updateInvite(it.second)
                 }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            activityViewModel.filter.collect{
+                viewModel.getCandidates(it)
             }
         }
 
